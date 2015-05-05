@@ -1,0 +1,19 @@
+footer li {
+  float: left;
+  margin-right: 1.5em;
+  margin-bottom: 1.5em;
+}
+
+.step-no {
+  margin-bottom: 5px;
+  margin-right: 8px;
+}
+
+.usage:before {
+  content: 'Example Usage: ';
+  font-style: normal;
+}
+.usage {
+  margin-top:4px;
+  font-style: italic;
+}
