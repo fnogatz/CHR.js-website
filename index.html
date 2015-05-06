@@ -97,6 +97,20 @@ example &lt;=&gt;
             </a>
 
             <a href="#" class="list-group-item">
+              <h4 class="list-group-item-heading">Hamming Sequence</h4>
+              <p class="list-group-item-text">Solves the Hamming Problem which is to build the infinite ascending sequence of positive numbers containing no prime factors other than 2, 3 and 5.</p>
+              <p class="list-group-item-text usage">Add <code>succ('Start',1)</code> and <code>hamming('Start')</code> to produce the beginning of the Hamming sequence.</p>
+              <pre style="display:none" data-example-id="hamming">succ(A,A) &lt;=&gt; true;
+succ(A,B) \ succ(A,C) &lt;=&gt; A &lt; B, B &lt;= C | succ(B,C);
+
+succ(S,X) \ hamming(S) &lt;=&gt; X &lt; 300 |  
+  succ(X,2*X),
+  succ(X,3*X),
+  succ(X,5*X),
+  hamming(X);</pre>
+            </a>
+
+            <a href="#" class="list-group-item">
               <h4 class="list-group-item-heading">Family Relations</h4>
               <p class="list-group-item-text">This is an example how CHR could be used as a deductive database, i.e., the information is deduced from facts and rules.</p>
               <p class="list-group-item-text usage">Add <code>facts/0</code> to create example constraints</p>
@@ -176,7 +190,7 @@ facts &lt;=&gt;
             <ul class="list-unstyled">
               <li class="pull-right">Made by <a href="http://falco.io">Falco Nogatz</a>, <a href="http://www.uni-ulm.de/in/pm">University of Ulm</a>.</li>
 
-              <li><a href="http://github.com/fnogatz/CHR.js">Source Code</a></li>
+              <li>Source Code: <a href="http://github.com/fnogatz/CHR.js">CHR.js</a> (Compiler) | <a href="http://github.com/fnogatz/CHR.js-website">chrjs.net</a> (Website)</li>
             </ul>
           </div>
         </div>

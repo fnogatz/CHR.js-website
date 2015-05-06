@@ -157,8 +157,13 @@ function reactivateConstraint() {
 
 }
 
-function removeConstraint(constraintId) {
-  constraintId = constraintId || $(this).data('constraintId')
+function removeConstraint(id) {
+  var constraintId
+  if (typeof id === 'string') {
+    constraintId = id
+  } else {
+    constraintId = $(this).data('constraintId')
+  }
   CHR.Store.kill(constraintId)
 
   $('#store tbody tr[data-constraint-id="'+constraintId+'"]').remove()
