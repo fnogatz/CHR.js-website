@@ -51,6 +51,10 @@ $(document).ready(function() {
     editor.setValue(pre.text())
     build()
   })
+
+  $('#clearStore').click(function (e) {
+    clearStore()
+  })
 })
 
 function scheduleBuild() {
@@ -130,6 +134,7 @@ function printStore() {
 
   if (CHR.Store.length === 0) {
     store.append('<tr><td></td><td>(empty)</td></tr>')
+    $('#clearStore').hide()
     return
   }
 
@@ -144,20 +149,22 @@ function printStore() {
     store.find('button.remove-constraint').on('click', removeConstraint)
     store.find('button.reactivate-constraint').on('click', reactivateConstraint)
   })
+
+  $('#clearStore').show()
 }
 
 function reactivateConstraint() {
 
 }
 
-function removeConstraint() {
-  var button = $(this)
-  var constraintId = button.data('constraintId')
+function removeConstraint(constraintId) {
+  constraintId = constraintId || $(this).data('constraintId')
   CHR.Store.kill(constraintId)
 
   $('#store tbody tr[data-constraint-id="'+constraintId+'"]').remove()
   if (CHR.Store.length === 0) {
     $('#store tbody').append('<tr><td></td><td>(empty)</td></tr>')
+    $('#clearStore').hide()
   }
 }
 
@@ -176,4 +183,10 @@ function addConstraintFromForm() {
 
   $('#constraintAddAlert').hide()
   $('#addConstraint input').val('')
+}
+
+function clearStore() {
+  persistent.Store.forEach(function(c, id) {
+    removeConstraint(id)
+  })
 }
