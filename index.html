@@ -72,6 +72,44 @@ gcd(N) \ gcd(M) &lt;=&gt; 0 &lt; N, N &lt;= M | gcd(M % N);</pre>
               <p class="list-group-item-text usage">Add <code>fib(1,1)</code>, <code>fib(2,1)</code> and <code>upto(10)</code></p>
               <pre style="display:none" data-example-id="fib">upto(N), fib(A,AV), fib(B,BV) ==&gt; B === A+1, B &lt; N | fib(B+1,AV+BV);</pre>
             </a>
+
+            <a href="#" class="list-group-item">
+              <h4 class="list-group-item-heading">Family Relations</h4>
+              <p class="list-group-item-text">This is an example how CHR could be used as a deductive database, i.e., the information is deduced from facts and rules.</p>
+              <p class="list-group-item-text usage">Add <code>facts/0</code> to create example constraints</p>
+              <pre style="display:none" data-example-id="db_family">sibling(X,Y) \ sibling(X,Y) &lt;=&gt; true;
+cousin(X,Y) \ cousin(X,Y) &lt;=&gt; true;
+
+mother(M1,C) \ mother(M2,C) &lt;=&gt; M1 === M2;
+father(F1,C) \ father(F2,C) &lt;=&gt; F1 === F2;
+
+parent(X,Y), gender(X,'f') ==&gt; mother(X,Y);
+parent(X,Y), gender(X,'m') ==&gt; father(X,Y);
+
+parent(G,P), parent(P,C) ==&gt; grandparent(G,C);
+
+parent(X,Y) ==&gt; ancestor(X,Y);
+parent(X,Y), ancestor(Y,Z) ==&gt; ancestor(X,Z);
+
+parent(P,X), parent(P,Y) ==&gt; X !== Y | sibling(X,Y);
+
+grandparent(G,X), grandparent(G,Y) ==&gt; X !== Y | cousin(X,Y);
+
+gender(A,'f'), sibling(A,P), parent(P,C) ==&gt; aunt(A,C);
+gender(U,'m'), sibling(U,P), parent(P,C) ==&gt; uncle(U,C);
+
+aunt(A,B) ==&gt; true;
+uncle(A,B) ==&gt; true;
+
+facts &lt;=&gt;
+    gender('lucille','f'), gender('michael','m'), gender('lindsay','f'),
+    gender('george_michael','m'), gender('maeby','f'), gender('buster','m'),
+    parent('lucille', 'michael'),
+    parent('lucille', 'lindsay'),
+    parent('lucille', 'buster'),
+    parent('michael', 'george_michael'), 
+    parent('lindsay', 'maeby');</pre>
+            </a>
           </div>
         </div>
 
