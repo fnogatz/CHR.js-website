@@ -177,11 +177,19 @@ function addConstraintFromForm() {
   var input = $('#addConstraint input').val()
   var constraint = /\)$/.test(input) ? input : input+'()'
 
+  var functor = getFunctor(constraint)
+
+  if (CHR.constraints.indexOf(functor) < 0) {
+    $('#constraintAddAlert').text(functor+' is no valid constraint.')
+    $('#constraintAddAlert').show()
+    return
+  }
+
   try {
     eval('CHR.'+constraint)
   } catch (e) {
     console.log('Error while adding constraint:', e)
-    $('#constraintAddAlert').text(input+' is no valid constraint.')
+    $('#constraintAddAlert').text('Error while adding the constraint: '+e)
     $('#constraintAddAlert').show()
     return
   }
@@ -194,4 +202,19 @@ function clearStore() {
   persistent.Store.forEach(function(c, id) {
     removeConstraint(id)
   })
+}
+
+function getFunctor(str) {
+  if (/^[a-z][A-Za-z0-9]*$/.test(str)) {
+    return str+'/0'
+  }
+
+  var name = str.replace(/^([a-z][A-Za-z0-9]*)\(.*$/, '$1')
+  var args = str.replace(/^[a-z][A-Za-z0-9]*\((.*)\)$/, '$1')
+  if (args === '') {
+    return name+'/0'
+  }
+
+  var arity = args.split(',').length
+  return name+'/'+arity
 }
