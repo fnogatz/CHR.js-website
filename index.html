@@ -20,6 +20,8 @@
     <script src="js/vendor/codemirror.js"></script>
     <link href="css/vendor/codemirror.css" rel="stylesheet">
 
+    <script src="js/vendor/download.js"></script>
+
     <link href="css/online.css" rel="stylesheet">
     <script src="js/chr.js"></script>
   </head>
@@ -181,7 +183,31 @@ facts &lt;=&gt;
             </tbody>
           </table>
 
+          <div class="page-header">
+            <h2><span class="btn btn-primary step-no">4</span> Download Solver</h2>
           </div>
+
+          <div class="list-group" id="download-links">
+            <a href="#" class="list-group-item" data-download-format="node">
+              <h5 class="list-group-item-heading">As Node.js Module</h5>
+              <!--<p class="list-group-item-text">Usage:</p>
+              <ol>
+                <li><code>npm install chr</code></li>
+                <li><code>var CHR = require('./chr.js')</code></li>
+                <li>Call your constraint by using the <code>CHR.</code>-prefix, e.g. <code>CHR.gcd(12)</code></li>
+              </ol>-->
+            </a>
+            <a href="#" class="list-group-item" data-download-format="browser">
+              <h5 class="list-group-item-heading">As Browser Script</h5>
+              <!--<p class="list-group-item-text">Usage:</p>
+              <ol>
+                <li>Include the <code>chr.runtime.js</code></li>
+                <li>Include the downloaded <code>chr.js</code></li>
+                <li>Call your constraint by using the <code>CHR.</code>-prefix, e.g. <code>CHR.gcd(12)</code></li>
+              </ol>-->
+            </a>
+          </div>
+        </div>
       </div>
 
       <footer>

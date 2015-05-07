@@ -55,6 +55,10 @@ $(document).ready(function() {
   $('#clearStore').click(function (e) {
     clearStore()
   })
+
+  $('#download-links a').click(function (e) {
+    downloadSource.apply(this, e)
+  })
 })
 
 function scheduleBuild() {
@@ -217,4 +221,26 @@ function getFunctor(str) {
 
   var arity = args.split(',').length
   return name+'/'+arity
+}
+
+function downloadSource(e) {
+  var format = $(this).data('downloadFormat')
+  var src
+
+  if (format === 'node') {
+    src = [
+      'var chrjs = { Runtime: require("chr/runtime") }',
+      '',
+      compiled,
+      'module.exports = new CHR()'
+    ].join('\n')
+  }
+  else if (format === 'browser') {
+    src = [
+      compiled,
+      'window.CHR = new CHR()'
+    ].join('\n')
+  }
+
+  download(src, 'chr.js', 'text/plain')
 }
