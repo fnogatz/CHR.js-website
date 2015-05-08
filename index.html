@@ -103,11 +103,11 @@ example &lt;=&gt;
             <a href="#" class="list-group-item">
               <h4 class="list-group-item-heading">Hamming Sequence</h4>
               <p class="list-group-item-text">Solves the Hamming Problem which is to build the infinite ascending sequence of positive numbers containing no prime factors other than 2, 3 and 5.</p>
-              <p class="list-group-item-text usage">Add <code>succ('Start',1)</code> and <code>hamming('Start')</code> to produce the beginning of the Hamming sequence.</p>
+              <p class="list-group-item-text usage">Add <code>succ(0,1)</code>, <code>hamming(0)</code> and <code>upto(100)</code> to produce the beginning of the Hamming sequence.</p>
               <pre style="display:none" data-example-id="hamming">succ(A,A) &lt;=&gt; true;
 succ(A,B) \ succ(A,C) &lt;=&gt; A &lt; B, B &lt;= C | succ(B,C);
 
-succ(S,X) \ hamming(S) &lt;=&gt; X &lt; 300 |  
+upto(N), succ(S,X) \ hamming(S) &lt;=&gt; X &lt; N |  
   succ(X,2*X),
   succ(X,3*X),
   succ(X,5*X),
