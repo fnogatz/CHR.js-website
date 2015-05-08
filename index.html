@@ -90,14 +90,15 @@ sift  @ prime(X) \ prime(Y) &lt;=&gt; Y % X === 0 | true;</pre>
               <p class="list-group-item-text">Computes for a directed graph the shortest length for each path.</p>
               <p class="list-group-item-text usage">Add some <code>edge/2</code>  constraints or simply call the <code>example/0</code></p>
               <pre style="display:none" data-example-id="shortest-paths">rem_long @ path(X,Y,L1) \ path(X,Y,L2) &lt;=&gt; L1 &lt;= L2 | true;
-path_1   @ edge(X,Y) ==> path(X,Y,1);
-path_add @ edge(X,Y), path(Y,Z,L) ==> path(X,Z,L+1);
+path_add @ path(X,Y,L1), path(Y,Z,L2) ==> X !== Z | path(X,Z,L1+L2);
 
 example &lt;=&gt;
-  edge('Augsburg','Berlin'),
-  edge('Berlin','Chemnitz'),
-  edge('Chemnitz','Augsburg'),
-  edge('Augsburg','Chemnitz');</pre>
+  path('London','Berlin',1100),
+  path('Berlin','Vienna',650),
+  path('Vienna','London',1500),
+  path('Vienna','Paris',1200),
+  path('Ulm','Vienna',600),
+  path('Paris','Ulm',700);</pre>
             </a>
 
             <a href="#" class="list-group-item">
