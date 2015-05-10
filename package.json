@@ -1,0 +1,25 @@
+{
+  "name": "chrjs-website",
+  "private": true,
+  "version": "0.1.0",
+  "description": " The code that runs http://chrjs.net",
+  "scripts": {
+    "update": "download https://raw.githubusercontent.com/fnogatz/CHR.js/master/dist/chr.js > js/chr.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fnogatz/CHR.js-website.git"
+  },
+  "keywords": [
+    "CHR.js"
+  ],
+  "author": "Falco Nogatz <fnogatz@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/fnogatz/CHR.js-website/issues"
+  },
+  "homepage": "https://github.com/fnogatz/CHR.js-website",
+  "devDependencies": {
+    "download": "^4.1.2"
+  }
+}
