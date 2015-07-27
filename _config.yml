@@ -1,0 +1,9 @@
+links:
+  - title: Playground
+    url: /playground.html
+  - title: Old Index
+    url: /old_index.html
+
+right_links:
+  - title: Project Report
+    url: https://fnogatz.github.io/paper-now-chrjs/
