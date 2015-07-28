@@ -7,21 +7,17 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="/">CHR.js</a>
+      <a class="navbar-brand" href="{{ site.url }}">{{ site.title }}</a>
     </div>
     <div id="navbar" class="collapse navbar-collapse">
       <ul class="nav navbar-nav">
         {% for link in site.links %}
-          <li class="{% if page.url == link.url %} active{% endif %}">
-            <a href="{{ link.url }}">{{ link.title }}</a>
-          </li>
+        {% include navitem.html %}
         {% endfor %}
       </ul>
       <ul class="nav navbar-nav navbar-right">
         {% for link in site.right_links %}
-          <li class="{% if page.url == link.url %} active{% endif %}">
-            <a href="{{ link.url }}">{{ link.title }}</a>
-          </li>
+        {% include navitem.html %}
         {% endfor %}
       </ul>
     </div><!--/.nav-collapse -->

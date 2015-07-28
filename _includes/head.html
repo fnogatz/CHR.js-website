@@ -3,8 +3,14 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>CHR.js - Compile and run Constraint Handling Rules in JavaScript</title>
-  <link rel="shortcut icon" type="image/png" href="img/favicon.ico"/>
+  <title>
+    {% if page.title == "Home" %}
+      {{ site.title }}
+    {% else %}
+      {{ page.title }} &middot; {{ site.title }}
+    {% endif %}
+  </title>
+  <link rel="shortcut icon" type="image/png" href="public/img/favicon.ico"/>
 
   <meta name="description" content="CHR.js lets you compile and run Constraint Handling Rules in JavaScript, so it can be used in node.js and the browser.">
 
@@ -19,9 +25,14 @@
 
   <script src="public/js/vendor/codemirror.js"></script>
   <link href="public/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="public/css/vendor/codemirror/theme/monokai.css" rel="stylesheet">
 
   <script src="public/js/vendor/download.js"></script>
 
   <link href="public/css/online.css" rel="stylesheet">
   <script src="public/js/chr.js"></script>
+
+  {% for css in page.css %}
+  <link href="{{ css }}" rel="stylesheet">
+  {% endfor %}
 </head>

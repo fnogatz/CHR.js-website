@@ -23,7 +23,8 @@ $(document).ready(function() {
 
   // initialize CodeMirrot editor
   editor = CodeMirror.fromTextArea($("#source").get(0), {
-    lineNumbers: true
+    lineNumbers: true,
+    theme: 'monokai'
   })
 
   // trigger cursor or selection moves or any change is made

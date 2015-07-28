@@ -3,7 +3,7 @@ layout: default
 title: Old Index
 ---
 
-<div class="row page-header">
+<div class="row">
   <div class="col-lg-7">
     <div class="page-header">
       <h2><span class="btn btn-primary step-no">1</span> Write your Constraint Handling Rules</h2>

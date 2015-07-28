@@ -1,6 +1,25 @@
+title: CHR.js
+url: /
+
 links:
   - title: Playground
     url: /playground.html
+    css:
+      - /public/css/playground.css
+    linksOnlyIfActive: true
+    links:
+      - title: Instructions
+        url: '#'
+      - title: 'Divider'
+      - title: Save Gist
+        url: '#'
+      - title: Save Private Gist
+        url: '#'
+      - title: 'Divider'
+      - title: Download as node.js Module
+        url: '#'
+      - title: Download as Browser Script
+        url: '#'
   - title: Old Index
     url: /old_index.html
 

@@ -1,0 +1,53 @@
+@media (min-width: 768px) {
+  html, body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  .page {
+    position:absolute;
+    width:100%;
+    top:50px;
+    bottom:0;
+    overflow: auto;
+  }
+
+  #playground {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+    min-height:100%;
+  }
+
+  #actions-col, .CodeMirror {
+    width: 50%;
+    display: table-cell;
+    vertical-align: top;
+  }
+
+  .CodeMirror {
+    height: auto;
+  }
+
+  .CodeMirror-scroll {
+    margin-bottom: 0;
+    overflow-x: hidden !important;
+  }
+
+  .CodeMirror-vscrollbar {
+    display: none! important;
+  }
+}
+
+@media (max-width: 767px) {
+  .CodeMirror {
+    min-height: 240px;
+    height: calc(40vh - 50px);
+  }
+}
+
+#actions-col {
+  padding: 5px 30px;
+}
