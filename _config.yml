@@ -1,5 +1,4 @@
 title: CHR.js
-url: /
 
 links:
   - title: Playground
@@ -15,14 +14,19 @@ links:
         url: '#'
       - title: Save Private Gist
         url: '#'
-      - title: 'Divider'
-      - title: Download as node.js Module
-        url: '#'
-      - title: Download as Browser Script
-        url: '#'
-  - title: Old Index
-    url: /old_index.html
 
-right_links:
-  - title: Project Report
-    url: https://fnogatz.github.io/paper-now-chrjs/
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - src
+  - LICENSE
+  - node_modules
+
+include:
+  - _JailedSite.js
+  - _frame.html
+  - _frame.js
+  - _pluginCore.js
+  - _pluginNode.js
+  - _pluginWeb.js

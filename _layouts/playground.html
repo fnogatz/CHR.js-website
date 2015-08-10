@@ -4,11 +4,22 @@
   <body>
     {% include navbar.html %}
 
+    <div id="notifications">
+      <div id="notification-parsing-error" class="alert alert-danger inactive">
+        <button type="button" class="close">×</button>
+        <p>Could not parse the given <span class="type">source code</span>: <span class="mesg"></span></p>
+      </div>
+      
+      <div id="notification-query-error" class="alert alert-danger inactive">
+        <button type="button" class="close">×</button>
+        <p>Could not apply the given query: <span class="mesg"></span></p>
+      </div>
+    </div>
+
     {{ content }}
 
-    <script src="public/js/vendor/jquery.min.js"></script>
-    <script src="public/js/vendor/bootstrap.min.js"></script>
-
-    <script src="public/js/online.js"></script>
+    {% for js in page.jsEnd %}
+    <script src="{{ js }}"></script>
+    {% endfor %}
   </body>
 </html>

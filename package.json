@@ -3,14 +3,21 @@
   "version": "1.0.0",
   "description": "The code that runs http://chrjs.net",
   "scripts": {
-    "update": "download https://raw.githubusercontent.com/fnogatz/CHR.js/master/dist/chr.js > js/chr.js"
+    "browserify": "browserify -t uglifyify src/playground/index.js | uglifyjs --compress > ./public/js/playground/index.js",
+    "copy-files": "cp node_modules/chr/dist/chr-wop.js public/js/playground/chr-wop.js && cp node_modules/chr/dist/chrparser.js public/js/playground/parser.js",
+    "build": "npm run browserify && npm run copy-files",
+    "standard": "standard",
+    "test": "npm run standard"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/fnogatz/CHR.js-website.git"
   },
   "keywords": [
-    "CHR.js"
+    "CHR.js",
+    "chr.js",
+    "chr",
+    "constraint"
   ],
   "author": "Falco Nogatz <fnogatz@gmail.com>",
   "license": "MIT",
@@ -19,6 +26,24 @@
   },
   "homepage": "https://github.com/fnogatz/CHR.js-website",
   "devDependencies": {
-    "download": "^4.1.2"
+    "browserify": "^11.0.1",
+    "chr": "^1.0.0",
+    "download": "^4.1.2",
+    "standard": "^5.0.2",
+    "uglify-js": "^2.4.24",
+    "uglifyify": "^3.0.1"
+  },
+  "standard": {
+    "ignore": [
+      "public/js/vendor/*.js",
+      "public/js/vendor/**/*.js",
+      "public/js/playground/index.js",
+      "public/js/playground/parser.js",
+      "public/js/playground/chr-wop.js",
+
+      "public/js/chr.js",
+      "public/js/online.js",
+      "public/js/playground__old.js"
+    ]
   }
 }

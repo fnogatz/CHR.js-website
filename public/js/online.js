@@ -14,6 +14,8 @@ var persistent = {
 }
 
 $(document).ready(function() {
+  $('#spinner').hide()
+
   persistent.Store = new chrjs.Runtime.Store()
   persistent.History = new chrjs.Runtime.History()
   persistent.Store.on('add', scheduleStoreUpdate)
@@ -23,8 +25,7 @@ $(document).ready(function() {
 
   // initialize CodeMirrot editor
   editor = CodeMirror.fromTextArea($("#source").get(0), {
-    lineNumbers: true,
-    theme: 'monokai'
+    lineNumbers: true
   })
 
   // trigger cursor or selection moves or any change is made
