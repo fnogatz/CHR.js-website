@@ -12,8 +12,7 @@ links:
       - title: 'Divider'
       - title: Save Gist
         url: '#'
-      - title: Save Private Gist
-        url: '#'
+        id: gist-save
 
 exclude:
   - README.md

@@ -48,6 +48,10 @@
   }
 }
 
+.CodeMirror {
+  margin-top: 5px;
+}
+
 #actions-col {
   padding: 5px 30px;
 }
@@ -55,6 +59,21 @@
 #source-col {
   background: #272822;
   cursor: text;
+}
+
+#source-control {
+  color: #d0d0d0;
+  border-bottom: 1px solid #444;
+  padding: 10px;
+  cursor: initial;
+}
+
+#buttons {
+  float: left;
+}
+
+#switches {
+  float: right;
 }
 
 #notifications > * {
@@ -102,3 +121,17 @@
     to { -webkit-transform: rotate(360deg);}
 }
 
+.bootstrap-switch .bootstrap-switch-handle-on.bootstrap-switch-primary {
+  background-color: #dd4814 !important;
+}
+.bootstrap-switch {
+  border: 1px solid #444 !important;
+  margin-left: 10px !important;
+}
+.bootstrap-switch .bootstrap-switch-label {
+  color: #d0d0d0 !important;
+  background: #333 !important;
+}
+.bootstrap-switch .bootstrap-switch-handle-off.bootstrap-switch-default {
+  background: #d0d0d0 !important;
+}

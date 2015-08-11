@@ -10,13 +10,15 @@ function Parser (cbOnStart, cbOnEnd) {
   this.onEnd = function () {}
   this.onError = function () {}
 
-  this._worker = new Worker(PARSERWORKER_URI)
+  this.worker = new Worker(PARSERWORKER_URI)
 
   this._setEventListener()
 }
 
 Parser.prototype.parse = function (type, source) {
-  this._worker.postMessage({
+  this.onStart()
+
+  this.worker.postMessage({
     type: type,
     source: source
   })
@@ -24,7 +26,7 @@ Parser.prototype.parse = function (type, source) {
 
 Parser.prototype._setEventListener = function () {
   var self = this
-  var worker = this._worker
+  var worker = this.worker
 
   worker.addEventListener('message', function (obj) {
     var data = obj.data

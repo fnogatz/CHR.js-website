@@ -13,6 +13,10 @@ function Solver (opts) {
   this.onError = function () {}
   this.onEnd = function () {}
 
+  this.getOptions = function () {
+    return {}
+  }
+
   opts = opts || {}
   opts.queryInput = opts.queryInput || null
 
@@ -47,7 +51,9 @@ function Solver (opts) {
 }
 
 Solver.prototype.setSource = function (parsed) {
-  this.plugin.remote.setSource(parsed)
+  var opts = this.getOptions() || {}
+
+  this.plugin.remote.setSource(parsed, opts)
 }
 
 Solver.prototype.callQuery = function (parsed) {

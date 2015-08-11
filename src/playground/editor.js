@@ -48,12 +48,17 @@ Editor.prototype.scheduleBuild = function () {
   }, self.delay)
 }
 
-Editor.prototype.build = function () {
+Editor.prototype.build = function (opts) {
   var self = this
   var editor = self.editor
 
   var source = editor.getValue()
   self._oldSource = source
 
-  self.onChange(source)
+  self.onChange(source, opts)
+}
+
+Editor.prototype.setValue = function (value) {
+  this.editor.setValue(value)
+  this.scheduleBuild()
 }

@@ -4,8 +4,8 @@
   "description": "The code that runs http://chrjs.net",
   "scripts": {
     "browserify": "browserify -t uglifyify src/playground/index.js | uglifyjs --compress > ./public/js/playground/index.js",
-    "copy-files": "cp node_modules/chr/dist/chr-wop.js public/js/playground/chr-wop.js && cp node_modules/chr/dist/chrparser.js public/js/playground/parser.js",
-    "build": "npm run browserify && npm run copy-files",
+    "update-chr": "cp node_modules/chr/dist/chr-wop.js public/js/playground/chr-wop.js && cp node_modules/chr/dist/chrparser.js public/js/playground/parser.js",
+    "build": "npm run browserify && npm run update-chr",
     "standard": "standard",
     "test": "npm run standard"
   },
@@ -40,7 +40,6 @@
       "public/js/playground/index.js",
       "public/js/playground/parser.js",
       "public/js/playground/chr-wop.js",
-
       "public/js/chr.js",
       "public/js/online.js",
       "public/js/playground__old.js"

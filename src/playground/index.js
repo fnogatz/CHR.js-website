@@ -1,4 +1,4 @@
-/* global CodeMirror, $ */
+/* global CodeMirror, $, Gister */
 
 var Editor = require('./editor')
 var Parser = require('./parser')
@@ -14,11 +14,18 @@ $(document).ready(function () {
     spinner: $('#spinner'),
     parsingErrorNotification: $('#notification-parsing-error'),
     queryErrorNotification: $('#notification-query-error'),
+    gistErrorNotification: $('#notification-gist-error'),
     queryButton: $('#query button'),
     queryInput: $('#query input'),
+    compileButton: $('#compile-button'),
     store: $('#store tbody'),
-    clearStore: $('#clearStore')
+    clearStore: $('#clearStore'),
+    switchAutocompilation: $('input[name="cb-live-compilation"]'),
+    switchPersistentStore: $('input[name="cb-persistent-store"]'),
+    gistSave: $('#gist-save')
   }
+
+  setupFrontend()
 
   parser = new Parser()
   parser.onStart = function () {
@@ -75,9 +82,14 @@ $(document).ready(function () {
       updateStoreView(data.store)
     }
   }
+  solver.getOptions = function () {
+    return {
+      persistentStore: jq.switchPersistentStore.bootstrapSwitch('state')
+    }
+  }
 
   // initialize CodeMirror editor
-  var editor = CodeMirror.fromTextArea($('#source').get(0), {
+  var codeMirror = CodeMirror.fromTextArea($('#source').get(0), {
     lineNumbers: true,
     theme: 'monokai',
     styleActiveLine: true,
@@ -85,25 +97,35 @@ $(document).ready(function () {
   // , mode: 'chr'
   })
 
-  $('.CodeMirror').click(function () {
+  $('.CodeMirror, #source-control').click(function () {
     // prevent calling the $('#source-col').click() event handler
     return false
   })
 
   // focus editor if source column clicked
   $('#source-col').click(function () {
-    editor.setCursor(editor.lineCount(), 0)
-    editor.focus()
+    codeMirror.setCursor(codeMirror.lineCount(), 0)
+    codeMirror.focus()
   })
 
-  var e = new Editor(editor)
-  e.onChange = function (source) {
+  var editor = new Editor(codeMirror)
+  editor.onChange = function (source, opts) {
+    opts = opts || {}
+    opts.forced = opts.forced || false
+
+    if (!jq.switchAutocompilation.bootstrapSwitch('state') && !opts.forced) {
+      // no autocompilation
+
+      return
+    }
+
     // give new source to parser
     parser.parse('source', source)
   }
 
-  // focus editor once page is loaded
-  editor.focus()
+  jq.compileButton.click(function () {
+    editor.build({ forced: true })
+  })
 
   jq.queryButton.click(function () {
     var query = jq.queryInput.val()
@@ -122,6 +144,11 @@ $(document).ready(function () {
   $('#clearStore').click(function (e) {
     clearStore()
   })
+
+  // focus editor once everything is loaded
+  codeMirror.focus()
+
+  loadGist()
 
   function updateStoreView (store) {
     // clear table
@@ -175,4 +202,114 @@ $(document).ready(function () {
       }
     })
   }
+
+  function loadGist () {
+    var gistId = getParameterByName('gist')
+    if (gistId) {
+      jq.spinner.show()
+      var gist = new Gister({
+        isAnonymous: true
+      })
+      gist.on('error', function (err) {
+        jq.spinner.hide()
+        jq.gistErrorNotification.find('.mesg').text(err.toString())
+      })
+      gist.on('gist', function (data) {
+        jq.spinner.hide()
+        if (!data.files || !data.files['chrjs.chr']) {
+          jq.gistErrorNotification.find('.mesg').text('Given Gist has no CHR code.')
+          return
+        }
+
+        editor.setValue(data.files['chrjs.chr'].content)
+      })
+      gist.get(gistId)
+    }
+  }
+
+  function setupFrontend () {
+    jq.compileButton.hide()
+
+    $('[data-type="switch"]').bootstrapSwitch()
+    jq.switchAutocompilation.on('switchChange.bootstrapSwitch', function (event, state) {
+      if (state) {
+        jq.compileButton.fadeOut()
+
+        editor.build({ forced: true })
+      } else {
+        jq.compileButton.fadeIn()
+
+        jq.parsingErrorNotification.fadeOut()
+      }
+    })
+
+    jq.gistSave.click(function () {
+      saveGist({
+        public: true
+      })
+    })
+  }
+
+  function saveGist (opts) {
+    opts = opts || {}
+
+    var gist = new Gister({
+      isAnonymous: true
+    })
+
+    gist.on('created', function (data) {
+      jq.spinner.hide()
+      var url = updateQueryString('gist', data.id)
+
+      window.history.replaceState({}, 'Gist: ' + data.id, url)
+    })
+    gist.on('error', function (err) {
+      jq.spinner.hide()
+      jq.gistErrorNotification.find('.mesg').text(err.toString())
+    })
+    gist.create({
+      'chrjs.chr': codeMirror.getValue()
+    })
+  }
 })
+
+// acc. to http://stackoverflow.com/a/11654596
+function updateQueryString (key, value, url) {
+  if (!url) {
+    url = window.location.href
+  }
+  var re = new RegExp('([?&])' + key + '=.*?(&|#|$)(.*)', 'gi')
+  var hash
+
+  if (re.test(url)) {
+    if (typeof value !== 'undefined' && value !== null) {
+      return url.replace(re, '$1' + key + '=' + value + '$2$3')
+    } else {
+      hash = url.split('#')
+      url = hash[0].replace(re, '$1$3').replace(/(&|\?)$/, '')
+      if (typeof hash[1] !== 'undefined' && hash[1] !== null) {
+        url += '#' + hash[1]
+      }
+      return url
+    }
+  } else {
+    if (typeof value !== 'undefined' && value !== null) {
+      var separator = url.indexOf('?') !== -1 ? '&' : '?'
+      hash = url.split('#')
+      url = hash[0] + separator + key + '=' + value
+      if (typeof hash[1] !== 'undefined' && hash[1] !== null) {
+        url += '#' + hash[1]
+      }
+      return url
+    } else {
+      return url
+    }
+  }
+}
+
+function getParameterByName (name) {
+  name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]')
+  var regex = new RegExp('[\\?&]' + name + '=([^&#]*)')
+  var results = regex.exec(window.location.search)
+  return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '))
+}

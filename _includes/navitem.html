@@ -6,7 +6,7 @@
     {% if sublink.title == 'Divider' %}
     <li class="divider"></li>
     {% else %}
-    <li><a href="{{ sublink.url }}">{{ sublink.title }}</a></li>
+    <li><a href="{{ sublink.url }}"{% if sublink.id %} id="{{ sublink.id }}"{% endif %}>{{ sublink.title }}</a></li>
     {% endif %}
   {% endfor %}
   </ul>
