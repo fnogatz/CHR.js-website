@@ -15,12 +15,14 @@ function Parser (cbOnStart, cbOnEnd) {
   this._setEventListener()
 }
 
-Parser.prototype.parse = function (type, source) {
+Parser.prototype.parse = function (type, source, data) {
+  data = data || {}
   this.onStart()
 
   this.worker.postMessage({
     type: type,
-    source: source
+    source: source,
+    data: data
   })
 }
 
@@ -37,6 +39,6 @@ Parser.prototype._setEventListener = function () {
     }
 
     // Successfully parsed
-    self.onEnd(data.type, data.parsed)
+    self.onEnd(data.type, data.parsed, data.data)
   })
 }

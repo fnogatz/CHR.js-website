@@ -72,7 +72,7 @@
   float: left;
 }
 
-#switches {
+.switches {
   float: right;
 }
 
@@ -106,6 +106,16 @@
   left: 0;
 }
 
+#add-constraints-header > span {
+  float: right;
+  line-height: 33px;
+}
+
+#trace-log {
+  margin-top: 30px;
+}
+
+
 .glyphicon.spinning {
     animation: spin 1.2s infinite linear;
     -webkit-animation: spin2 1.2s infinite linear;
@@ -124,14 +134,72 @@
 .bootstrap-switch .bootstrap-switch-handle-on.bootstrap-switch-primary {
   background-color: #dd4814 !important;
 }
-.bootstrap-switch {
+#source-col .bootstrap-switch {
   border: 1px solid #444 !important;
   margin-left: 10px !important;
 }
-.bootstrap-switch .bootstrap-switch-label {
+#source-col .bootstrap-switch .bootstrap-switch-label {
   color: #d0d0d0 !important;
   background: #333 !important;
 }
 .bootstrap-switch .bootstrap-switch-handle-off.bootstrap-switch-default {
   background: #d0d0d0 !important;
+}
+
+.bootstrap-switch.bootstrap-switch-focused {
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(174,57,16,0.6) !important;
+  box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(174,57,16,0.6) !important;
+  border-color: #ae3910 !important;
+}
+
+/* Slider */
+
+.slider.slider-horizontal .slider-track,
+.slider-selection {
+  background: #d0d0d0 !important;
+}
+
+.slider.slider-horizontal .slider-track {
+  margin-top: -3px !important;
+}
+
+.slider.slider-horizontal .slider-handle {
+  width: 16px !important;
+  height: 16px !important;
+  border-radius: 3px !important;
+  background: #dd4814 !important;
+}
+
+.slider.slider-horizontal .slider-track {
+  height: 4px !important;
+}
+
+#trace-log .slider {
+  width: 140px;
+  margin: 0 10px;
+}
+
+#trace-log .panel-body {
+  height: 200px;
+  overflow-y: scroll;
+}
+
+#trace-log .bootstrap-switch {
+  margin-right: 20px;
+}
+
+/* CodeMirror marker styles */
+.marker {
+  border-radius: 2px;
+  padding: 2px 0;
+  background: #ccc;
+  color: #333;
+}
+.mark-rule-try {
+  background: #FCF8E3;
+  color: #DD4814;
+}
+.mark-rule-try-occurence {
+  background: #ADFF2F;
+  color: #000;
 }

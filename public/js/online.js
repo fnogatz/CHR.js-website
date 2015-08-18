@@ -37,9 +37,6 @@ $(document).ready(function() {
   editor.on('mousedown', scheduleBuild)
   editor.on('mouseup', scheduleBuild)
 
-  // trigger first build
-  editor.focus()
-
   $('#addConstraint button').click(addConstraintFromForm)
   $('#addConstraint input').keypress(function (e) {
     if (e.which == 13) {

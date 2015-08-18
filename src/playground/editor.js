@@ -62,3 +62,32 @@ Editor.prototype.setValue = function (value) {
   this.editor.setValue(value)
   this.scheduleBuild()
 }
+
+Editor.prototype.deactivate = function deactivate () {
+  var editor = this.editor
+
+  editor.setOption('readOnly', 'nocursor')
+}
+
+Editor.prototype.reactivate = function reactivate () {
+  var editor = this.editor
+
+  editor.setOption('readOnly', false)
+}
+
+Editor.prototype.highlight = function highlight (data) {
+  var editor = this.editor
+
+  var location = data.location
+  var className = 'marker mark-' + data.event.replace(':', '-')
+
+  return editor.markText({
+    line: location.start.line - 1,
+    ch: location.start.column - 1
+  }, {
+    line: location.end.line - 1,
+    ch: location.end.column - 1
+  }, {
+    className: className
+  }) || { clear: function () {} }
+}

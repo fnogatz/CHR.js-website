@@ -35,36 +35,34 @@ function CHRWorker (parsed, oldChr, opts) {
   })
 
   function callQuery (queries) {
+    var promise = Promise.resolve()
     queries.forEach(function (query) {
-      var queryCall = 'chr.' + query.original
+      var queryCall = query.original
+
+      // fix fore some browsers
+      queryCall = queryCall.replace(/console\.log/g, 'console.log.bind(console)')
+
+      queryCall = '(chr.' + queryCall + ')'
       if (query.arity === 0) {
         queryCall += '()'
       }
 
-      try {
-        eval(queryCall) // eslint-disable-line no-eval
-      } catch (err) {
-        if (err.name === 'TypeError' && /^chr\..* is not a function$/.test(err.message)) {
+      promise = promise.then(function () {
+        try {
+          return eval('(' + queryCall + ')') // eslint-disable-line no-eval
+        } catch (e) {
           application.remote.queryFinished({
-            error: 'The constraint ' + query.name + '/' + query.arity + ' is undefined'
+            error: e.toString()
           })
-          return
+
+          return null
         }
-
-        application.remote.queryFinished({
-          error: err.toString()
-        })
-
-        return
-      }
+      })
     })
 
-    application.remote.queryFinished({
-      store: chr.Store.map(function (constraint) {
-        return {
-          id: constraint.id,
-          string: constraint.toString()
-        }
+    promise.then(function () {
+      application.remote.queryFinished({
+        store: getStore()
       })
     })
   }
@@ -73,12 +71,57 @@ function CHRWorker (parsed, oldChr, opts) {
     chr.Store.kill(id)
   }
 
+  var breakpointCallback = function () {}
+
+  function setBreakpoints () {
+    chr.Rules.SetBreakpoints(function (data, callback) {
+      breakpointCallback = callback
+
+      data.store = getStore()
+
+      if (data.constraint) {
+        data.constraint = data.constraint.toString()
+      }
+
+      application.remote.breakpoint(data)
+    })
+  }
+
+  function removeBreakpoints () {
+    chr.Rules.RemoveBreakpoints()
+
+    breakpointCallback = function () {}
+  }
+
+  function continueBreakpoint () {
+    breakpointCallback()
+  }
+
+  function getStore () {
+    var store = []
+    chr.Store.forEach(function (constraint) {
+      if (!constraint.alive) {
+        return
+      }
+
+      store.push({
+        id: constraint.id,
+        string: constraint.toString()
+      })
+    })
+
+    return store
+  }
+
   // return access methods
   return {
     chr: chr,
     functors: chr.Functors,
     callQuery: callQuery,
     killConstraint: killConstraint,
+    continueBreakpoint: continueBreakpoint,
+    setBreakpoints: setBreakpoints,
+    removeBreakpoints: removeBreakpoints,
     test: function () {
       console.log('Test called', arguments)
     }
@@ -101,6 +144,15 @@ var api = {
   },
   killConstraint: function (id) {
     worker.killConstraint(id)
+  },
+  continueBreakpoint: function () {
+    worker.continueBreakpoint()
+  },
+  activateTrace: function () {
+    worker.setBreakpoints()
+  },
+  deactivateTrace: function () {
+    worker.removeBreakpoints()
   }
 }
 

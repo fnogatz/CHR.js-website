@@ -22,8 +22,18 @@ $(document).ready(function () {
     clearStore: $('#clearStore'),
     switchAutocompilation: $('input[name="cb-live-compilation"]'),
     switchPersistentStore: $('input[name="cb-persistent-store"]'),
-    gistSave: $('#gist-save')
+    switchTracing: $('input[name="cb-tracing"]'),
+    switchTraceAutoplay: $('input[name="cb-trace-autoplay"]'),
+    sliderTraceSpeed: null,
+    gistSave: $('#gist-save'),
+    traceLog: $('#trace-log'),
+    traceLogPanel: $('#trace-log .panel-body'),
+    tracerContinue: $('#tracer-continue'),
+    tracerContinueButton: $('#tracer-continue-button')
   }
+
+  var sliderTraceSpeed
+  var marker
 
   setupFrontend()
 
@@ -48,16 +58,28 @@ $(document).ready(function () {
       util.show(jq.parsingErrorNotification)
     }
   }
-  parser.onEnd = function (type, parsed) {
+  parser.onEnd = function (type, parsed, data) {
     jq.spinner.hide()
     util.hide(jq.notifications)
 
     if (type === 'source') {
       solver.setSource(parsed)
+
+      if (jq.switchTracing.bootstrapSwitch('state')) {
+        solver.activateTrace
+      }
+
       return
     }
 
     if (type === 'query') {
+      if (data && data.trace) {
+        solver.callQuery(parsed, {
+          trace: true
+        })
+        return
+      }
+
       solver.callQuery(parsed)
       return
     }
@@ -69,6 +91,9 @@ $(document).ready(function () {
   solver.onStart = function () {
     jq.spinner.show()
     util.hide(jq.notifications)
+
+    jq.queryButton.prop('disabled', 'disabled')
+    deactivateSource()
   }
   solver.onError = function (error) {
     $('#notification-query-error .mesg').text(error)
@@ -78,9 +103,15 @@ $(document).ready(function () {
     jq.queryInput.val('')
     jq.spinner.hide()
 
+    jq.queryButton.prop('disabled', false)
+    reactivateSource()
+
     if (data && data.store) {
       updateStoreView(data.store)
     }
+  }
+  solver.onBreakpoint = function (data) {
+    traceEvent(data)
   }
   solver.getOptions = function () {
     return {
@@ -129,7 +160,16 @@ $(document).ready(function () {
 
   jq.queryButton.click(function () {
     var query = jq.queryInput.val()
-    parser.parse('query', query)
+
+    if (jq.switchTracing.bootstrapSwitch('state')) {
+      // tracing activated
+      jq.traceLogPanel.empty()
+      parser.parse('query', query, {
+        trace: true
+      })
+    } else {
+      parser.parse('query', query)
+    }
   })
   jq.queryInput.keypress(function (e) {
     if (e.which === 13) {
@@ -230,6 +270,13 @@ $(document).ready(function () {
   function setupFrontend () {
     jq.compileButton.hide()
 
+    sliderTraceSpeed = $('#tracer-speed').slider({
+      formatter: function (value) {
+        return 'Pause per step: ' + value + 's'
+      }
+    })
+    jq.sliderTraceSpeed = $('#tracer-adjust-speed')
+
     $('[data-type="switch"]').bootstrapSwitch()
     jq.switchAutocompilation.on('switchChange.bootstrapSwitch', function (event, state) {
       if (state) {
@@ -242,11 +289,39 @@ $(document).ready(function () {
         jq.parsingErrorNotification.fadeOut()
       }
     })
+    jq.switchTracing.on('switchChange.bootstrapSwitch', function (event, state) {
+      if (state) {
+        solver.activateTrace()
+        jq.traceLog.slideDown()
+      } else {
+        jq.traceLog.slideUp()
+        solver.deactivateTrace()
+      }
+    })
+    jq.switchTraceAutoplay.on('switchChange.bootstrapSwitch', function (event, state) {
+      if (state) {
+        jq.tracerContinue.hide()
+        jq.sliderTraceSpeed.show()
+      } else {
+        jq.sliderTraceSpeed.hide()
+        jq.tracerContinue.show()
+      }
+    })
 
     jq.gistSave.click(function () {
       saveGist({
         public: true
       })
+    })
+
+    jq.tracerContinueButton.click(function () {
+      jq.tracerContinueButton.hide()
+      jq.spinner.show()
+      if (marker && marker.clear) {
+        marker.clear()
+      }
+
+      solver.continueBreakpoint()
     })
   }
 
@@ -270,6 +345,61 @@ $(document).ready(function () {
     gist.create({
       'chrjs.chr': codeMirror.getValue()
     })
+  }
+
+  function traceEvent (data) {
+    marker = editor.highlight(data)
+    jq.spinner.hide()
+
+    if (data && data.store) {
+      updateStoreView(data.store)
+    }
+
+    logEvent(data)
+
+    if (jq.switchTraceAutoplay.bootstrapSwitch('state')) {
+      // autoplay
+      var duration = sliderTraceSpeed.slider('getValue') * 1000
+
+      setTimeout(function () {
+        marker.clear()
+        jq.spinner.show()
+        solver.continueBreakpoint()
+      }, duration)
+    } else {
+      jq.tracerContinueButton.show()
+    }
+  }
+
+  function logEvent (data) {
+    var msg = ''
+    if (data.event === 'rule:try') {
+      msg = 'Try rule "' + data.rule + '" for ' + data.constraint
+    } else if (data.event === 'rule:try-occurence') {
+      msg = 'Try occurence ' + data.occurence + ' for ' + data.constraint
+    }
+
+    var el = '<p><code>[' + getTime() + '] ' + msg + '</code></p>'
+    jq.traceLogPanel.append(el)
+
+    // scroll to end
+    jq.traceLogPanel.animate({
+      scrollTop: jq.traceLogPanel.prop('scrollHeight') 
+    }, 600)
+  }
+
+  function deactivateSource () {
+    editor.deactivate()
+    jq.compileButton.prop('disabled', 'disabled')
+    jq.switchAutocompilation.bootstrapSwitch('disabled', true)
+    jq.switchPersistentStore.bootstrapSwitch('disabled', true)
+  }
+
+  function reactivateSource () {
+    editor.reactivate()
+    jq.compileButton.prop('disabled', false)
+    jq.switchAutocompilation.bootstrapSwitch('disabled', false)
+    jq.switchPersistentStore.bootstrapSwitch('disabled', false)
   }
 })
 
@@ -312,4 +442,9 @@ function getParameterByName (name) {
   var regex = new RegExp('[\\?&]' + name + '=([^&#]*)')
   var results = regex.exec(window.location.search)
   return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '))
+}
+
+function getTime () {
+  var time = new Date()
+  return ('0' + time.getHours()).slice(-2) + ':' + ('0' + time.getMinutes()).slice(-2) + ':' + ('0' + time.getSeconds()).slice(-2)
 }

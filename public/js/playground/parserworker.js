@@ -7,6 +7,7 @@ var parse = chrparser.parse
 self.addEventListener('message', function (obj) {
   var type = obj.data.type
   var source = obj.data.source
+  var data = obj.data.data
 
   var startRule = ''
   if (type === 'source') {
@@ -23,14 +24,16 @@ self.addEventListener('message', function (obj) {
   } catch (err) {
     self.postMessage({
       type: type,
-      error: err.message
+      error: err.message,
+      data: data
     })
     return
   }
 
   self.postMessage({
     type: type,
-    parsed: parsed
+    parsed: parsed,
+    data: data
   })
 
   return

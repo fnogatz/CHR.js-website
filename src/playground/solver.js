@@ -12,6 +12,7 @@ function Solver (opts) {
   this.onStart = function () {}
   this.onError = function () {}
   this.onEnd = function () {}
+  this.onBreakpoint = function () {}
 
   this.getOptions = function () {
     return {}
@@ -22,7 +23,8 @@ function Solver (opts) {
 
   var plugin = new jailed.Plugin(CHRWORKER_URI, {
     setInfo: setInfo,
-    queryFinished: queryFinished
+    queryFinished: queryFinished,
+    breakpoint: breakpoint
   })
 
   plugin.whenConnected(function () {
@@ -48,6 +50,10 @@ function Solver (opts) {
     self.onEnd(data)
     return
   }
+
+  function breakpoint (data) {
+    self.onBreakpoint(data)
+  }
 }
 
 Solver.prototype.setSource = function (parsed) {
@@ -56,7 +62,7 @@ Solver.prototype.setSource = function (parsed) {
   this.plugin.remote.setSource(parsed, opts)
 }
 
-Solver.prototype.callQuery = function (parsed) {
+Solver.prototype.callQuery = function (parsed, opts) {
   this.onStart()
 
   this.plugin.remote.callQuery(parsed)
@@ -64,6 +70,18 @@ Solver.prototype.callQuery = function (parsed) {
 
 Solver.prototype.killConstraint = function (constraintId) {
   this.plugin.remote.killConstraint(constraintId)
+}
+
+Solver.prototype.activateTrace = function () {
+  this.plugin.remote.activateTrace()
+}
+
+Solver.prototype.deactivateTrace = function () {
+  this.plugin.remote.deactivateTrace()
+}
+
+Solver.prototype.continueBreakpoint = function () {
+  this.plugin.remote.continueBreakpoint()
 }
 
 Solver.prototype.setupQueryInput = function () {
