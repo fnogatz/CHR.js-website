@@ -19,25 +19,31 @@ $(document).ready(function () {
     queryInput: $('#query input'),
     compileButton: $('#compile-button'),
     store: $('#store tbody'),
-    clearStore: $('#clearStore'),
+    clearStore: $('#clear-store'),
     switchAutocompilation: $('input[name="cb-live-compilation"]'),
     switchPersistentStore: $('input[name="cb-persistent-store"]'),
     switchTracing: $('input[name="cb-tracing"]'),
     switchTraceAutoplay: $('input[name="cb-trace-autoplay"]'),
-    sliderTraceSpeed: null,
     gistSave: $('#gist-save'),
     traceLog: $('#trace-log'),
     traceLogPanel: $('#trace-log .panel-body'),
-    tracerContinue: $('#tracer-continue'),
-    tracerContinueButton: $('#tracer-continue-button')
+    tracerSettings: $('#tracer-settings .dropdown-menu'),
+    tracerSettingsOptions: $('#tracer-settings .dropdown-menu a:has(input[type="checkbox"])'),
+    tracerSpeed: $('#tracer-speed')
   }
 
-  var sliderTraceSpeed
   var marker
+  var tracerOptions = []
+  var nextStepTimer
+  var duration = null
 
   setupFrontend()
 
   parser = new Parser()
+  solver = new Solver({
+    queryInput: jq.queryInput
+  })
+  
   parser.onStart = function () {
     jq.spinner.show()
     util.hide(jq.notifications)
@@ -64,11 +70,6 @@ $(document).ready(function () {
 
     if (type === 'source') {
       solver.setSource(parsed)
-
-      if (jq.switchTracing.bootstrapSwitch('state')) {
-        solver.activateTrace
-      }
-
       return
     }
 
@@ -85,14 +86,14 @@ $(document).ready(function () {
     }
   }
 
-  solver = new Solver({
-    queryInput: jq.queryInput
-  })
   solver.onStart = function () {
     jq.spinner.show()
     util.hide(jq.notifications)
 
+    logEvent('Execution started')
+
     jq.queryButton.prop('disabled', 'disabled')
+    jq.clearStore.prop('disabled', 'disabled')
     deactivateSource()
   }
   solver.onError = function (error) {
@@ -100,17 +101,21 @@ $(document).ready(function () {
     jq.queryErrorNotification.show()
   }
   solver.onEnd = function (data) {
-    jq.queryInput.val('')
-    jq.spinner.hide()
+    logEvent('Execution finished')
 
-    jq.queryButton.prop('disabled', false)
-    reactivateSource()
-
-    if (data && data.store) {
-      updateStoreView(data.store)
-    }
+    executionEnd(data)
   }
   solver.onBreakpoint = function (data) {
+    if (!jq.switchTracing.bootstrapSwitch('state')) {
+      solver.continueBreakpoint()
+      return
+    }
+
+    if (duration === 0) {
+      solver.continueBreakpoint()
+      return
+    }
+
     traceEvent(data)
   }
   solver.getOptions = function () {
@@ -164,6 +169,13 @@ $(document).ready(function () {
     if (jq.switchTracing.bootstrapSwitch('state')) {
       // tracing activated
       jq.traceLogPanel.empty()
+
+      $('#tracer-play').show().prop('disabled', false)
+      $('#tracer-pause').hide().prop('disabled', 'disabled')
+      $('#tracer-continue').prop('disabled', false)
+      $('#tracer-end').prop('disabled', false)
+      $('#tracer-abort').prop('disabled', false)
+
       parser.parse('query', query, {
         trace: true
       })
@@ -181,7 +193,7 @@ $(document).ready(function () {
     $(this).parent().fadeOut()
   })
 
-  $('#clearStore').click(function (e) {
+  jq.clearStore.click(function (e) {
     clearStore()
   })
 
@@ -190,13 +202,32 @@ $(document).ready(function () {
 
   loadGist()
 
+  function executionEnd (data) {
+    jq.queryInput.val('')
+    jq.spinner.hide()
+
+    jq.queryButton.prop('disabled', false)
+    jq.clearStore.prop('disabled', false)
+    reactivateSource()
+
+    disableTracerControl()
+
+    if (data && data.store) {
+      updateStoreView(data.store)
+    }
+
+    if (duration === 0) {
+      duration = null
+    }
+  }
+
   function updateStoreView (store) {
     // clear table
     jq.store.empty()
 
     if (store.length === 0) {
       jq.store.append('<tr><td></td><td>(empty)</td></tr>')
-      $('#clearStore').hide()
+      jq.clearStore.hide()
       return
     }
 
@@ -217,6 +248,14 @@ $(document).ready(function () {
 
   function reactivateConstraint () {
     // TODO
+  }
+
+  function disableTracerControl () {
+    $('#tracer-play').show().prop('disabled', 'disabled')
+    $('#tracer-pause').hide().prop('disabled', 'disabled')
+    $('#tracer-continue').prop('disabled', 'disabled')
+    $('#tracer-end').prop('disabled', 'disabled')
+    $('#tracer-abort').prop('disabled', 'disabled')
   }
 
   function removeConstraint (id) {
@@ -270,13 +309,6 @@ $(document).ready(function () {
   function setupFrontend () {
     jq.compileButton.hide()
 
-    sliderTraceSpeed = $('#tracer-speed').slider({
-      formatter: function (value) {
-        return 'Pause per step: ' + value + 's'
-      }
-    })
-    jq.sliderTraceSpeed = $('#tracer-adjust-speed')
-
     $('[data-type="switch"]').bootstrapSwitch()
     jq.switchAutocompilation.on('switchChange.bootstrapSwitch', function (event, state) {
       if (state) {
@@ -289,22 +321,12 @@ $(document).ready(function () {
         jq.parsingErrorNotification.fadeOut()
       }
     })
+
     jq.switchTracing.on('switchChange.bootstrapSwitch', function (event, state) {
       if (state) {
-        solver.activateTrace()
         jq.traceLog.slideDown()
       } else {
         jq.traceLog.slideUp()
-        solver.deactivateTrace()
-      }
-    })
-    jq.switchTraceAutoplay.on('switchChange.bootstrapSwitch', function (event, state) {
-      if (state) {
-        jq.tracerContinue.hide()
-        jq.sliderTraceSpeed.show()
-      } else {
-        jq.sliderTraceSpeed.hide()
-        jq.tracerContinue.show()
       }
     })
 
@@ -314,14 +336,87 @@ $(document).ready(function () {
       })
     })
 
-    jq.tracerContinueButton.click(function () {
-      jq.tracerContinueButton.hide()
-      jq.spinner.show()
-      if (marker && marker.clear) {
-        marker.clear()
+    jq.tracerSettingsOptions.on('click', function (event) {
+      var $target = $(event.currentTarget)
+      var val = $target.attr('data-value')
+      var $inp = $target.find('input')
+      var idx
+
+      if ((idx = tracerOptions.indexOf(val)) > -1) {
+        tracerOptions.splice(idx, 1)
+        setTimeout(function() {
+          $inp.prop('checked', false)
+        }, 0)
+      } else {
+        tracerOptions.push(val)
+        setTimeout(function() {
+          $inp.prop('checked', true)
+        }, 0)
       }
 
+      $(event.target).blur()
+      return false
+    })
+
+    jq.tracerSettings.find('a:has(input[type="text"])').on('click', function (event) {
+      var $target = $(event.currentTarget)
+      var $inp = $target.find('input')
+      $inp.focus()
+      $(event.target).blur()
+      return false
+    })
+
+    jq.tracerSettings.on('click', function (event) {
+      return false
+    })
+
+    $('#tracer-play').click(function () {
+      marker.clear()
+      $('#tracer-play').hide().prop('disabled', 'disabled')
+      $('#tracer-pause').show().prop('disabled', false)
       solver.continueBreakpoint()
+    })
+
+    $('#tracer-pause').click(function () {
+      $('#tracer-play').show().prop('disabled', false)
+      $('#tracer-pause').hide().prop('disabled', 'disabled')
+      $('#tracer-continue').prop('disabled', false)
+      $('#tracer-end').prop('disabled', false)
+      $('#tracer-abort').prop('disabled', false)
+
+      if (duration === 0) {
+        duration = null
+
+        solver.getStore(function (store) {
+          updateStoreView(store)
+        })
+      }
+
+      if (nextStepTimer) {
+        clearTimeout(nextStepTimer)
+      }
+    })
+
+    $('#tracer-continue').click(function () {
+      marker.clear()
+      solver.continueBreakpoint()
+    })
+
+    $('#tracer-end').click(function () {
+      marker.clear()
+
+      disableTracerControl()
+      $('#tracer-play').hide()
+      $('#tracer-pause').show().prop('disabled', false)
+
+      duration = 0
+      solver.continueBreakpoint()
+    })
+
+    $('#tracer-abort').click(function () {
+      marker.clear()
+      logEvent('Execution aborted.')
+      executionEnd()
     })
   }
 
@@ -357,23 +452,24 @@ $(document).ready(function () {
 
     logEvent(data)
 
-    if (jq.switchTraceAutoplay.bootstrapSwitch('state')) {
+    if ($('#tracer-pause').is(':visible')) {
       // autoplay
-      var duration = sliderTraceSpeed.slider('getValue') * 1000
+      var sleep = parseInt(jq.tracerSpeed.val()) * 1000
+      sleep = Math.max(0, sleep)
 
-      setTimeout(function () {
+      nextStepTimer = setTimeout(function () {
         marker.clear()
         jq.spinner.show()
         solver.continueBreakpoint()
-      }, duration)
-    } else {
-      jq.tracerContinueButton.show()
+      }, sleep)
     }
   }
 
   function logEvent (data) {
     var msg = ''
-    if (data.event === 'rule:try') {
+    if (typeof data === 'string') {
+      msg = data
+    } else if (data.event === 'rule:try') {
       msg = 'Try rule "' + data.rule + '" for ' + data.constraint
     } else if (data.event === 'rule:try-occurence') {
       msg = 'Try occurence ' + data.occurence + ' for ' + data.constraint
@@ -393,6 +489,7 @@ $(document).ready(function () {
     jq.compileButton.prop('disabled', 'disabled')
     jq.switchAutocompilation.bootstrapSwitch('disabled', true)
     jq.switchPersistentStore.bootstrapSwitch('disabled', true)
+    jq.switchTracing.bootstrapSwitch('disabled', true)
   }
 
   function reactivateSource () {
@@ -400,6 +497,7 @@ $(document).ready(function () {
     jq.compileButton.prop('disabled', false)
     jq.switchAutocompilation.bootstrapSwitch('disabled', false)
     jq.switchPersistentStore.bootstrapSwitch('disabled', false)
+    jq.switchTracing.bootstrapSwitch('disabled', false)
   }
 })
 

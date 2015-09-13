@@ -173,21 +173,21 @@
 .slider.slider-horizontal .slider-track {
   height: 4px !important;
 }
-
+/*
 #trace-log .slider {
   width: 140px;
   margin: 0 10px;
 }
-
+*/
 #trace-log .panel-body {
   height: 200px;
   overflow-y: scroll;
 }
-
+/*
 #trace-log .bootstrap-switch {
   margin-right: 20px;
 }
-
+*/
 /* CodeMirror marker styles */
 .marker {
   border-radius: 2px;
@@ -203,3 +203,36 @@
   background: #ADFF2F;
   color: #000;
 }
+
+.right {
+  float: right;
+}
+
+#tracer-settings .dropdown-menu > li > p {
+  display: block;
+  padding: 3px 20px;
+  clear: both;
+  font-weight: normal;
+  line-height: 1.42857143;
+  color: #333333;
+  white-space: nowrap;
+  margin: 0;
+}
+#tracer-settings .dropdown-menu input[type="checkbox"] {
+  margin: 0 5px;
+  vertical-align: middle;
+}
+#tracer-speed {
+  border: none;
+  background: none;
+  width: 30px;
+  margin: 0 5px;
+  text-align: center;
+}
+#tracer-settings .dropdown-menu li:hover #tracer-speed,
+#tracer-settings .dropdown-menu li #tracer-speed:focus {
+  color: #333333;
+  background-color: #f5f5f5;
+  border-color: #dddddd;
+}
+

@@ -30,6 +30,7 @@ jsEnd:
         <span class="switches">
           <input type="checkbox" data-type="switch" name="cb-live-compilation" data-size="mini" data-label-text="Autocompilation" checked="checked">
           <input type="checkbox" data-type="switch" name="cb-persistent-store" data-size="mini" data-label-text="Persistence" checked="checked">
+          <input type="checkbox" data-type="switch" name="cb-tracing" data-size="mini" data-label-text="Tracing">
         </span>
 
         <span id="buttons">
@@ -43,9 +44,7 @@ jsEnd:
     </div>
 
     <div id="actions-col" class="col">
-      <div class="page-header" id="add-constraints-header">
-        <span><input type="checkbox" data-type="switch" name="cb-tracing" data-size="small" data-label-text="Tracing"></span>
-        
+      <div class="page-header" id="add-constraints-header">        
         <h2>Add Constraints</h2>
       </div>
 
@@ -56,33 +55,47 @@ jsEnd:
         </span>
       </div>
 
-      <div id="trace-log" class="panel panel-default" style="display:none;">
-        <div class="panel-heading">
-          Trace Log
+      <div class="alert alert-dismissible alert-danger" id="constraintAddAlert" style="margin-top:10px; display:none;"></div>
+
+      <div id="trace-log" style="display:none;">
+        <div class="page-header">
+          <h2>Trace Log</h2>
         </div>
 
-        <div class="panel-body">
-        
-        </div>
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <div class="btn-group">
+              <button type="button" class="btn btn-primary btn-sm" id="tracer-play" title="Start Autoplay" disabled="disabled"><span class="glyphicon glyphicon-play" aria-hidden="true"></span></button>
+              <button type="button" class="btn btn-primary btn-sm" id="tracer-pause" title="Pause Autoplay" style="display:none;" disabled="disabled"><span class="glyphicon glyphicon-pause" aria-hidden="true"></span></button>
+              <button type="button" class="btn btn-primary btn-sm" id="tracer-continue" title="Continue Execution" disabled="disabled"><span class="glyphicon glyphicon-step-forward" aria-hidden="true"></span></button>
+              <button type="button" class="btn btn-primary btn-sm" id="tracer-end" title="Finish Execution" disabled="disabled"><span class="glyphicon glyphicon-fast-forward" aria-hidden="true"></span></button>
+              <button type="button" class="btn btn-primary btn-sm" id="tracer-abort" title="Abort Execution" disabled="disabled"><span class="glyphicon glyphicon-stop" aria-hidden="true"></span></button>
+            </div>
 
-        <div class="panel-footer">
-          <input type="checkbox" data-type="switch" name="cb-trace-autoplay" data-size="mini" data-label-text="Autoplay" checked="checked">
+            <div id="tracer-settings" class="btn-group pull-right">
+              <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Tracing Settings">
+                <span class="glyphicon glyphicon-cog"></span> <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu">
+                <li><p>Autoplay Speed:</p></li>
+                <li><a href="#" class="small" data-value="option1" tabIndex="-1"><input type="text" value="2" id="tracer-speed" />seconds pause per step</a></li>
+                <li role="separator" class="divider"></li>
+                <li><p>Use Breakpoints:</p></li>
+                <li><a href="#" class="small" data-value="option1" tabIndex="-1"><input type="checkbox" />Option 1</a></li>
+                <li><a href="#" class="small" data-value="option2" tabIndex="-1"><input type="checkbox" />Option 2</a></li>
+                <li><a href="#" class="small" data-value="option3" tabIndex="-1"><input type="checkbox" />Option 3</a></li>
+              </ul>
+            </div>
+          </div>
 
-          <span id="tracer-adjust-speed">
-            <span>Pause per step:</span>
-            <input id="tracer-speed" data-type="slider" type="text" data-slider-min="0" data-slider-max="10" data-slider-step="1" data-slider-value="2"/>
-          </span>
-
-          <span id="tracer-continue" style="display:none;">
-            <a href="#" class="btn btn-primary btn-xs" id="tracer-continue-button" style="display:none;">Continue</a>
-          </span>
+          <div class="panel-body" style="position:relative;">
+            <!-- empty -->
+          </div>
         </div>
       </div>
 
-      <div class="alert alert-dismissible alert-danger" id="constraintAddAlert" style="margin-top:10px; display:none;"></div>
-
       <div class="page-header">
-        <a href="#" class="btn btn-info" id="clearStore" style="display:none;float:right">Clear</a>
+        <button type="button" class="btn btn-info" id="clear-store" title="Clear Constraint Store" style="display:none;float:right">Clear</button>
         <h2>Constraint Store</h2>
       </div>
       

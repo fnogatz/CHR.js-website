@@ -30,6 +30,9 @@ function CHRWorker (parsed, oldChr, opts) {
   var chr = new CHR(constructorOptions)
   chr(parsed, replacements)
 
+  // set breakpoints
+  setBreakpoints()
+
   application.remote.setInfo({
     functors: chr.Functors.sort(functorComparator)
   })
@@ -87,12 +90,6 @@ function CHRWorker (parsed, oldChr, opts) {
     })
   }
 
-  function removeBreakpoints () {
-    chr.Rules.RemoveBreakpoints()
-
-    breakpointCallback = function () {}
-  }
-
   function continueBreakpoint () {
     breakpointCallback()
   }
@@ -120,8 +117,7 @@ function CHRWorker (parsed, oldChr, opts) {
     callQuery: callQuery,
     killConstraint: killConstraint,
     continueBreakpoint: continueBreakpoint,
-    setBreakpoints: setBreakpoints,
-    removeBreakpoints: removeBreakpoints,
+    getStore: getStore,
     test: function () {
       console.log('Test called', arguments)
     }
@@ -148,11 +144,9 @@ var api = {
   continueBreakpoint: function () {
     worker.continueBreakpoint()
   },
-  activateTrace: function () {
-    worker.setBreakpoints()
-  },
-  deactivateTrace: function () {
-    worker.removeBreakpoints()
+  getStore: function (callback) {
+    var store = worker.getStore()
+    callback(store)
   }
 }
 

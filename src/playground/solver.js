@@ -72,16 +72,14 @@ Solver.prototype.killConstraint = function (constraintId) {
   this.plugin.remote.killConstraint(constraintId)
 }
 
-Solver.prototype.activateTrace = function () {
-  this.plugin.remote.activateTrace()
-}
-
-Solver.prototype.deactivateTrace = function () {
-  this.plugin.remote.deactivateTrace()
-}
-
 Solver.prototype.continueBreakpoint = function () {
   this.plugin.remote.continueBreakpoint()
+}
+
+Solver.prototype.getStore = function (callback) {
+  this.plugin.remote.getStore(function (store) {
+    callback(store)
+  })
 }
 
 Solver.prototype.setupQueryInput = function () {
