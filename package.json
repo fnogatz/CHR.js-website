@@ -1,10 +1,10 @@
 {
   "name": "chrjs-website",
-  "version": "1.0.0-alpha1",
+  "version": "1.0.0",
   "description": "The code that runs http://chrjs.net",
   "scripts": {
     "browserify": "browserify -t uglifyify src/playground/index.js | uglifyjs --compress > ./public/js/playground/index.js",
-    "update-chr": "cp node_modules/chr/dist/chr-wop.js public/js/playground/chr-wop.js && cp node_modules/chr/dist/chrparser.js public/js/playground/parser.js",
+    "update-chr": "cp node_modules/chr/dist/chr-wop.min.js public/js/playground/chr-wop.js && cp node_modules/chr/dist/chrparser.js public/js/playground/parser.js",
     "build": "npm run browserify && npm run update-chr",
     "standard": "standard",
     "test": "npm run standard"

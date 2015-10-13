@@ -139,7 +139,7 @@ $(document).ready(function () {
   solver = new Solver({
     queryInput: jq.queryInput
   })
-  
+
   parser.onStart = function () {
     jq.spinner.show()
     util.hide(jq.notifications)
@@ -209,6 +209,13 @@ $(document).ready(function () {
 
     if (duration === 0) {
       solver.continueBreakpoint()
+      return
+    }
+
+    traceEvent(data)
+  }
+  solver.onStoreEvent = function (data) {
+    if (!jq.switchTracing.bootstrapSwitch('state')) {
       return
     }
 
@@ -440,12 +447,12 @@ $(document).ready(function () {
 
       if ((idx = tracerOptions.indexOf(val)) > -1) {
         tracerOptions.splice(idx, 1)
-        setTimeout(function() {
+        setTimeout(function () {
           $inp.prop('checked', false)
         }, 0)
       } else {
         tracerOptions.push(val)
-        setTimeout(function() {
+        setTimeout(function () {
           $inp.prop('checked', true)
         }, 0)
       }
@@ -539,6 +546,13 @@ $(document).ready(function () {
   }
 
   function traceEvent (data) {
+    if (data.event && (data.event === 'store:add' || data.event === 'store:remove')) {
+      if ($('input[data-event="'+data.event+'"]').is(':checked')) {
+        logEvent(data)
+      }
+      return
+    }
+
     marker = editor.highlight(data)
     jq.spinner.hide()
 
@@ -546,11 +560,18 @@ $(document).ready(function () {
       updateStoreView(data.store)
     }
 
+    if (data && data.event && !$('input[data-event="'+data.event+'"]').is(':checked')) {
+      marker.clear()
+      jq.spinner.show()
+      solver.continueBreakpoint()
+      return
+    }
+
     logEvent(data)
 
     if ($('#tracer-pause').is(':visible')) {
       // autoplay
-      var sleep = parseInt(jq.tracerSpeed.val()) * 1000
+      var sleep = parseInt(jq.tracerSpeed.val(), 10) * 1000
       sleep = Math.max(0, sleep)
 
       nextStepTimer = setTimeout(function () {
@@ -567,8 +588,12 @@ $(document).ready(function () {
       msg = data
     } else if (data.event === 'rule:try') {
       msg = 'Try rule "' + data.rule + '" for ' + data.constraint
-    } else if (data.event === 'rule:try-occurence') {
-      msg = 'Try occurence ' + data.occurence + ' for ' + data.constraint
+    } else if (data.event === 'rule:try-occurrence') {
+      msg = 'Try occurrence ' + data.occurrence + ' for ' + data.constraint
+    } else if (data.event === 'store:add') {
+      msg = 'Added constraint '+data.constraintString + ' to the store'
+    } else if (data.event === 'store:remove') {
+      msg = 'Removed constraint '+data.constraintString+' from the store'
     }
 
     var el = '<p><code>[' + getTime() + '] ' + msg + '</code></p>'
@@ -576,7 +601,7 @@ $(document).ready(function () {
 
     // scroll to end
     jq.traceLogPanel.animate({
-      scrollTop: jq.traceLogPanel.prop('scrollHeight') 
+      scrollTop: jq.traceLogPanel.prop('scrollHeight')
     }, 600)
   }
 
@@ -705,6 +730,7 @@ function Solver (opts) {
   this.onError = function () {}
   this.onEnd = function () {}
   this.onBreakpoint = function () {}
+  this.onStoreEvent = function () {}
 
   this.getOptions = function () {
     return {}
@@ -716,7 +742,8 @@ function Solver (opts) {
   var plugin = new jailed.Plugin(CHRWORKER_URI, {
     setInfo: setInfo,
     queryFinished: queryFinished,
-    breakpoint: breakpoint
+    breakpoint: breakpoint,
+    storeEvent: storeEvent
   })
 
   plugin.whenConnected(function () {
@@ -745,6 +772,10 @@ function Solver (opts) {
 
   function breakpoint (data) {
     self.onBreakpoint(data)
+  }
+
+  function storeEvent (data) {
+    self.onStoreEvent(data)
   }
 }
 

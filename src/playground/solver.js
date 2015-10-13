@@ -13,6 +13,7 @@ function Solver (opts) {
   this.onError = function () {}
   this.onEnd = function () {}
   this.onBreakpoint = function () {}
+  this.onStoreEvent = function () {}
 
   this.getOptions = function () {
     return {}
@@ -24,7 +25,8 @@ function Solver (opts) {
   var plugin = new jailed.Plugin(CHRWORKER_URI, {
     setInfo: setInfo,
     queryFinished: queryFinished,
-    breakpoint: breakpoint
+    breakpoint: breakpoint,
+    storeEvent: storeEvent
   })
 
   plugin.whenConnected(function () {
@@ -53,6 +55,10 @@ function Solver (opts) {
 
   function breakpoint (data) {
     self.onBreakpoint(data)
+  }
+
+  function storeEvent (data) {
+    self.onStoreEvent(data)
   }
 }
 

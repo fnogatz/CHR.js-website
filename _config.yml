@@ -7,12 +7,22 @@ links:
       - /public/css/playground.css
     linksOnlyIfActive: true
     links:
-      - title: Instructions
-        url: '#'
-      - title: 'Divider'
       - title: Save Gist
         url: '#'
         id: gist-save
+      - title: Divider
+      - title: '<b>Examples</b>'
+        url: '#'
+      - title: 'Greatest Common Divisor'
+        url: '?gist=fafd892d773a2118d834'
+      - title: 'Fibonacci (Bottom-up)'
+        url: '?gist=8a1c9304a44cdb4e9d5d'
+      - title: 'Primes'
+        url: '?gist=95a86dddd396c957da69'
+      - title: 'Shortest Paths'
+        url: '?gist=cbe61612d96c50ff3fd9'
+      - title: 'Hamming Sequence'
+        url: '?gist=0e63dfb7d5f19272b319'
 
 exclude:
   - README.md

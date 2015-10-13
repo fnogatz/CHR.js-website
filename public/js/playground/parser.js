@@ -1,3 +1,1868 @@
-(function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.chrparser=f()}})(function(){var define,module,exports;return function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s}({1:[function(require,module,exports){module.exports=function(){"use strict";function u(u,A){function $(){this.constructor=u}$.prototype=A.prototype,u.prototype=new $}function A(u,$,E,C){this.message=u,this.expected=$,this.found=E,this.location=C,this.name="SyntaxError","function"==typeof Error.captureStackTrace&&Error.captureStackTrace(this,A)}function $(u){function $(){return u.substring(P,N)}function E(){return F(P,N)}function C(A){throw t(A,null,u.substring(P,N),F(P,N))}function e(A){var $,E,C=w[A];if(C)return C;for($=A-1;!w[$];)$--;for(C=w[$],C={line:C.line,column:C.column,seenCR:C.seenCR};A>$;)E=u.charAt($),"\n"===E?(C.seenCR||C.line++,C.column=1,C.seenCR=!1):"\r"===E||"\u2028"===E||"\u2029"===E?(C.line++,C.column=1,C.seenCR=!0):(C.column++,C.seenCR=!1),$++;return w[A]=C,C}function F(u,A){var $=e(u),E=e(A);return{start:{offset:u,line:$.line,column:$.column},end:{offset:A,line:E.line,column:E.column}}}function B(u){J>N||(N>J&&(J=N,R=[]),R.push(u))}function t(u,$,E,C){function e(u){var A=1;for(u.sort(function(u,A){return u.description<A.description?-1:u.description>A.description?1:0});A<u.length;)u[A-1]===u[A]?u.splice(A,1):A++}function F(u,A){function $(u){function A(u){return u.charCodeAt(0).toString(16).toUpperCase()}return u.replace(/\\/g,"\\\\").replace(/"/g,'\\"').replace(/\x08/g,"\\b").replace(/\t/g,"\\t").replace(/\n/g,"\\n").replace(/\f/g,"\\f").replace(/\r/g,"\\r").replace(/[\x00-\x07\x0B\x0E\x0F]/g,function(u){return"\\x0"+A(u)}).replace(/[\x10-\x1F\x80-\xFF]/g,function(u){return"\\x"+A(u)}).replace(/[\u0100-\u0FFF]/g,function(u){return"\\u0"+A(u)}).replace(/[\u1000-\uFFFF]/g,function(u){return"\\u"+A(u)})}var E,C,e,F=new Array(u.length);for(e=0;e<u.length;e++)F[e]=u[e].description;return E=u.length>1?F.slice(0,-1).join(", ")+" or "+F[u.length-1]:F[0],C=A?'"'+$(A)+'"':"end of input","Expected "+E+" but "+C+" found."}return null!==$&&e($),new A(null!==u?u:F($,E),$,E,C)}function D(u){var A,$=new Array(u.length);for(A=0;A<u.length;A++)$[A]=u.charCodeAt(A)-32;return $}function r(A){for(var $,E,C=k[A],e=0,F=[],t=C.length,D=[],n=[];;){for(;t>e;)switch(C[e]){case 0:n.push(x[C[e+1]]),e+=2;break;case 26:n.push(void 0),e++;break;case 27:n.push(null),e++;break;case 28:n.push(g),e++;break;case 29:n.push([]),e++;break;case 1:n.push(N),e++;break;case 2:n.pop(),e++;break;case 3:N=n.pop(),e++;break;case 4:n.length-=C[e+1],e+=2;break;case 5:n.splice(-2,1),e++;break;case 6:n[n.length-2].push(n.pop()),e++;break;case 7:n.push(n.splice(n.length-C[e+1],C[e+1])),e+=2;break;case 8:n.push(u.substring(n.pop(),N)),e++;break;case 9:D.push(t),F.push(e+3+C[e+1]+C[e+2]),n[n.length-1]?(t=e+3+C[e+1],e+=3):(t=e+3+C[e+1]+C[e+2],e+=3+C[e+1]);break;case 10:D.push(t),F.push(e+3+C[e+1]+C[e+2]),n[n.length-1]===g?(t=e+3+C[e+1],e+=3):(t=e+3+C[e+1]+C[e+2],e+=3+C[e+1]);break;case 11:D.push(t),F.push(e+3+C[e+1]+C[e+2]),n[n.length-1]!==g?(t=e+3+C[e+1],e+=3):(t=e+3+C[e+1]+C[e+2],e+=3+C[e+1]);break;case 12:n[n.length-1]!==g?(D.push(t),F.push(e),t=e+2+C[e+1],e+=2):e+=2+C[e+1];break;case 13:D.push(t),F.push(e+3+C[e+1]+C[e+2]),u.length>N?(t=e+3+C[e+1],e+=3):(t=e+3+C[e+1]+C[e+2],e+=3+C[e+1]);break;case 14:D.push(t),F.push(e+4+C[e+2]+C[e+3]),u.substr(N,x[C[e+1]].length)===x[C[e+1]]?(t=e+4+C[e+2],e+=4):(t=e+4+C[e+2]+C[e+3],e+=4+C[e+2]);break;case 15:D.push(t),F.push(e+4+C[e+2]+C[e+3]),u.substr(N,x[C[e+1]].length).toLowerCase()===x[C[e+1]]?(t=e+4+C[e+2],e+=4):(t=e+4+C[e+2]+C[e+3],e+=4+C[e+2]);break;case 16:D.push(t),F.push(e+4+C[e+2]+C[e+3]),x[C[e+1]].test(u.charAt(N))?(t=e+4+C[e+2],e+=4):(t=e+4+C[e+2]+C[e+3],e+=4+C[e+2]);break;case 17:n.push(u.substr(N,C[e+1])),N+=C[e+1],e+=2;break;case 18:n.push(x[C[e+1]]),N+=x[C[e+1]].length,e+=2;break;case 19:n.push(g),0===X&&B(x[C[e+1]]),e+=2;break;case 20:P=n[n.length-1-C[e+1]],e+=2;break;case 21:P=N,e++;break;case 22:for($=C.slice(e+4,e+4+C[e+3]),E=0;E<C[e+3];E++)$[E]=n[n.length-1-$[E]];n.splice(n.length-C[e+2],C[e+2],x[C[e+1]].apply(null,$)),e+=4+C[e+3];break;case 23:n.push(r(C[e+1])),e+=2;break;case 24:X++,e++;break;case 25:X--,e++;break;default:throw new Error("Invalid opcode: "+C[e]+".")}if(!(D.length>0))break;t=D.pop(),e=F.pop()}return n[0]}function n(u){return u.constraints=a(u),u=i(u),u=l(u),u=o(u)}function i(u){function A(A){"Constraint"===A.type&&A.parameters.forEach(function(A){if("Identifier"===A.type){var E=A.name;if(!$[E])return void($[E]=!0);if($[E]){for(var C=0,e=E+"_"+C;$[e];){C++;var e=E+"_"+C}A.name=e,$[e]=!0,u.guard.push({type:"BinaryExpression",operator:"===",left:{type:"Identifier",name:E},right:{type:"Identifier",name:e}})}}})}var $={};return u.kept.forEach(A),u.removed.forEach(A),u}function a(u){function A(u){"Constraint"===u.type&&($[u.name+"/"+u.parameters.length]=!0)}var $={};return u.kept.forEach(A),u.removed.forEach(A),u.body.forEach(A),Object.keys($)}function l(u){return u.r=u.kept.length,u.head=u.kept.concat(u.removed),u}function o(u){return u.replacements=[],["guard","body"].forEach(function(A){u[A].forEach(function($){if("Replacement"===$.type){var E={loc:A};$.hasOwnProperty("num")?E.num=$.num:$.hasOwnProperty("original")?E.original=$.original:$.hasOwnProperty("expr")&&(E.expr=$.expr),u.replacements.push(E)}})}),u}function p(u,A){var $,E=new Array(u);for($=0;u>$;$++)E[$]=A;return E}function c(u,A){return u?u[A]:null}function s(u,A){var $,E=new Array(u.length);for($=0;$<u.length;$++)E[$]=u[$][A];return E}function y(u,A,$){return[u].concat(s(A,$))}function f(u,A,$){var E,C=u;for(E=0;E<A.length;E++)C=$(C,A[E]);return C}function d(u,A){return f(u,A,function(u,A){return{type:"BinaryExpression",operator:A[1],left:u,right:A[3]}})}function v(u){return null!==u?u:[]}var h,m=arguments.length>1?arguments[1]:{},g={},b={Program:230,ProgramWithPreamble:0,Query:10},S=230,x=[function(u,A){return A.preamble=u,A.replacements=[],A.body.forEach(function(u){A.replacements=A.replacements.concat(u.replacements)}),A},function(u){return u},function(u){return $()},function(){return""},function(u,A){return u&&(A.name=u),A.original=$(),A.location=E(),A},"==>",{type:"literal",value:"==>",description:'"==>"'},function(u,A,$){var E={type:"PropagationRule",kept:u,removed:[],body:$,guard:A||[]};return E=n(E)},"<=>",{type:"literal",value:"<=>",description:'"<=>"'},function(u,A,$){var E={type:"SimplificationRule",kept:[],removed:u,body:$,guard:A||[]};return E=n(E)},"\\",{type:"literal",value:"\\",description:'"\\\\"'},"/",{type:"literal",value:"/",description:'"/"'},function(u,A,$,E){var C={type:"SimpagationRule",kept:u,removed:A,body:E,guard:$||[]};return C=n(C)},"@",{type:"literal",value:"@",description:'"@"'},function(u){return u},/^[a-z0-9_]/,{type:"class",value:"[a-z0-9_]",description:"[a-z0-9_]"},function(u){return u.join("").trim()},",",{type:"literal",value:",",description:'","'},function(u,A){return y(u,A,3)},"(",{type:"literal",value:"(",description:'"("'},")",{type:"literal",value:")",description:'")"'},function(u,A){var E={type:"Constraint",name:u,parameters:c(A,2,[]),original:$()};return null===E.parameters&&(E.parameters=[]),E.arity=E.parameters.length,E.functor=E.name+"/"+E.arity,E},function(u){return u.original=$(),u},function(u,A){var C={type:"Constraint",name:u,parameters:c(A,2,[]),original:$(),location:E()};return null===C.parameters&&(C.parameters=[]),C.arity=C.parameters.length,C.functor=C.name+"/"+C.arity,C},function(u,A){var E={type:"Constraint",name:u,parameters:c(A,2,[]),original:$()};return null===E.parameters&&(E.parameters=[]),E.arity=E.parameters.length,E.functor=E.name+"/"+E.arity,E},/^[a-z]/,{type:"class",value:"[a-z]",description:"[a-z]"},/^[A-z0-9_]/,{type:"class",value:"[A-z0-9_]",description:"[A-z0-9_]"},function(u,A){return u+A.join("")},"|",{type:"literal",value:"|",description:'"|"'},function(u){return u},function(u){return{type:"Replacement",num:parseInt(u)}},function(u){return{type:"Replacement",expr:u}},function(u){return{type:"Replacement",expr:{type:"SourceCode",original:u}}},"${",{type:"literal",value:"${",description:'"${"'},"{",{type:"literal",value:"{",description:'"{"'},"}",{type:"literal",value:"}",description:'"}"'},"=>",{type:"literal",value:"=>",description:'"=>"'},function(u,A){var E={type:"ArrowFunction",original:$(),params:[],body:A};return u&&(E.params=u),E},function(u){return"SequenceExpression"===u.type?u.expressions:u instanceof Array?u:[u]},"[",{type:"literal",value:"[",description:'"["'},"]",{type:"literal",value:"]",description:'"]"'},function(u){return{type:"ArrayExpression",elements:v(c(u,0))}},function(u){return{type:"ArrayExpression",elements:u}},function(u,A){return{type:"ArrayExpression",elements:u.concat(v(c(A,0)))}},function(u,A){return v(c(u,0)).concat(A)},function(u,A,$){return v(c(A,0)).concat($)},function(u,A){return Array.prototype.concat.apply(u,A)},function(){return{type:"ObjectExpression",properties:[]}},function(u){return{type:"ObjectExpression",properties:u}},":",{type:"literal",value:":",description:'":"'},function(u,A){return{key:u,value:A,kind:"init"}},function(u,A){return A.length>0?{type:"SequenceExpression",expressions:y(u,A,3)}:u},"=",{type:"literal",value:"=",description:'"="'},function(u,A){return{type:"AssignmentExpression",operator:"=",left:u,right:A}},function(u,A,$){return{type:"AssignmentExpression",operator:A,left:u,right:$}},"?",{type:"literal",value:"?",description:'"?"'},function(u,A,$){return{type:"ConditionalExpression",test:u,consequent:A,alternate:$}},"LogicalOROperator",{type:"literal",value:"LogicalOROperator",description:'"LogicalOROperator"'},function(u,A){return d(u,A)},{type:"any",description:"any character"},{type:"other",description:"whitespace"},"	",{type:"literal",value:"	",description:'"\\t"'},"",{type:"literal",value:"",description:'"\\x0B"'},"\f",{type:"literal",value:"\f",description:'"\\f"'}," ",{type:"literal",value:" ",description:'" "'}," ",{type:"literal",value:" ",description:'"\\xA0"'},"\ufeff",{type:"literal",value:"\ufeff",description:'"\\uFEFF"'},/^[\n\r\u2028\u2029]/,{type:"class",value:"[\\n\\r\\u2028\\u2029]",description:"[\\n\\r\\u2028\\u2029]"},{type:"other",description:"end of line"},"\n",{type:"literal",value:"\n",description:'"\\n"'},"\r\n",{type:"literal",value:"\r\n",description:'"\\r\\n"'},"\r",{type:"literal",value:"\r",description:'"\\r"'},"\u2028",{type:"literal",value:"\u2028",description:'"\\u2028"'},"\u2029",{type:"literal",value:"\u2029",description:'"\\u2029"'},{type:"other",description:"comment"},"/*",{type:"literal",value:"/*",description:'"/*"'},"*/",{type:"literal",value:"*/",description:'"*/"'},"//",{type:"literal",value:"//",description:'"//"'},function(u){return u},{type:"other",description:"identifier"},function(u,A){return{type:"Identifier",name:u+A.join("")}},"$",{type:"literal",value:"$",description:'"$"'},"_",{type:"literal",value:"_",description:'"_"'},function(u){return u},"‌",{type:"literal",value:"‌",description:'"\\u200C"'},"‍",{type:"literal",value:"‍",description:'"\\u200D"'},function(){return{type:"Literal",value:null}},function(){return{type:"Literal",value:!0}},function(){return{type:"Literal",value:!1}},{type:"other",description:"number"},function(u){return u},".",{type:"literal",value:".",description:'"."'},function(){return{type:"Literal",value:parseFloat($())}},"0",{type:"literal",value:"0",description:'"0"'},/^[0-9]/,{type:"class",value:"[0-9]",description:"[0-9]"},/^[1-9]/,{type:"class",value:"[1-9]",description:"[1-9]"},"e",{type:"literal",value:"e",description:'"e"'},/^[+\-]/,{type:"class",value:"[+-]",description:"[+-]"},"0x",{type:"literal",value:"0x",description:'"0x"'},function(u){return{type:"Literal",value:parseInt(u,16)}},/^[0-9a-f]/i,{type:"class",value:"[0-9a-f]i",description:"[0-9a-f]i"},{type:"other",description:"string"},'"',{type:"literal",value:'"',description:'"\\""'},function(u){return{type:"Literal",value:u.join("")}},"'",{type:"literal",value:"'",description:'"\'"'},function(){return $()},function(){return""},function(){return"\x00"},"b",{type:"literal",value:"b",description:'"b"'},function(){return"\b"},"f",{type:"literal",value:"f",description:'"f"'},function(){return"\f"},"n",{type:"literal",value:"n",description:'"n"'},function(){return"\n"},"r",{type:"literal",value:"r",description:'"r"'},function(){return"\r"},"t",{type:"literal",value:"t",description:'"t"'},function(){return"	"},"v",{type:"literal",value:"v",description:'"v"'},function(){return""},"x",{type:"literal",value:"x",description:'"x"'},"u",{type:"literal",value:"u",description:'"u"'},function(u){return String.fromCharCode(parseInt(u,16))},{type:"other",description:"regular expression"},function(u,A){var $;try{$=new RegExp(u,A)}catch(E){C(E.message)}return{type:"Literal",value:$}},/^[*\\\/[]/,{type:"class",value:"[*\\\\/[]",description:"[*\\\\/[]"},/^[\\\/[]/,{type:"class",value:"[\\\\/[]",description:"[\\\\/[]"},/^[\]\\]/,{type:"class",value:"[\\]\\\\]",description:"[\\]\\\\]"},/^[a-z\xB5\xDF-\xF6\xF8-\xFF\u0101\u0103\u0105\u0107\u0109\u010B\u010D\u010F\u0111\u0113\u0115\u0117\u0119\u011B\u011D\u011F\u0121\u0123\u0125\u0127\u0129\u012B\u012D\u012F\u0131\u0133\u0135\u0137-\u0138\u013A\u013C\u013E\u0140\u0142\u0144\u0146\u0148-\u0149\u014B\u014D\u014F\u0151\u0153\u0155\u0157\u0159\u015B\u015D\u015F\u0161\u0163\u0165\u0167\u0169\u016B\u016D\u016F\u0171\u0173\u0175\u0177\u017A\u017C\u017E-\u0180\u0183\u0185\u0188\u018C-\u018D\u0192\u0195\u0199-\u019B\u019E\u01A1\u01A3\u01A5\u01A8\u01AA-\u01AB\u01AD\u01B0\u01B4\u01B6\u01B9-\u01BA\u01BD-\u01BF\u01C6\u01C9\u01CC\u01CE\u01D0\u01D2\u01D4\u01D6\u01D8\u01DA\u01DC-\u01DD\u01DF\u01E1\u01E3\u01E5\u01E7\u01E9\u01EB\u01ED\u01EF-\u01F0\u01F3\u01F5\u01F9\u01FB\u01FD\u01FF\u0201\u0203\u0205\u0207\u0209\u020B\u020D\u020F\u0211\u0213\u0215\u0217\u0219\u021B\u021D\u021F\u0221\u0223\u0225\u0227\u0229\u022B\u022D\u022F\u0231\u0233-\u0239\u023C\u023F-\u0240\u0242\u0247\u0249\u024B\u024D\u024F-\u0293\u0295-\u02AF\u0371\u0373\u0377\u037B-\u037D\u0390\u03AC-\u03CE\u03D0-\u03D1\u03D5-\u03D7\u03D9\u03DB\u03DD\u03DF\u03E1\u03E3\u03E5\u03E7\u03E9\u03EB\u03ED\u03EF-\u03F3\u03F5\u03F8\u03FB-\u03FC\u0430-\u045F\u0461\u0463\u0465\u0467\u0469\u046B\u046D\u046F\u0471\u0473\u0475\u0477\u0479\u047B\u047D\u047F\u0481\u048B\u048D\u048F\u0491\u0493\u0495\u0497\u0499\u049B\u049D\u049F\u04A1\u04A3\u04A5\u04A7\u04A9\u04AB\u04AD\u04AF\u04B1\u04B3\u04B5\u04B7\u04B9\u04BB\u04BD\u04BF\u04C2\u04C4\u04C6\u04C8\u04CA\u04CC\u04CE-\u04CF\u04D1\u04D3\u04D5\u04D7\u04D9\u04DB\u04DD\u04DF\u04E1\u04E3\u04E5\u04E7\u04E9\u04EB\u04ED\u04EF\u04F1\u04F3\u04F5\u04F7\u04F9\u04FB\u04FD\u04FF\u0501\u0503\u0505\u0507\u0509\u050B\u050D\u050F\u0511\u0513\u0515\u0517\u0519\u051B\u051D\u051F\u0521\u0523\u0525\u0527\u0561-\u0587\u1D00-\u1D2B\u1D6B-\u1D77\u1D79-\u1D9A\u1E01\u1E03\u1E05\u1E07\u1E09\u1E0B\u1E0D\u1E0F\u1E11\u1E13\u1E15\u1E17\u1E19\u1E1B\u1E1D\u1E1F\u1E21\u1E23\u1E25\u1E27\u1E29\u1E2B\u1E2D\u1E2F\u1E31\u1E33\u1E35\u1E37\u1E39\u1E3B\u1E3D\u1E3F\u1E41\u1E43\u1E45\u1E47\u1E49\u1E4B\u1E4D\u1E4F\u1E51\u1E53\u1E55\u1E57\u1E59\u1E5B\u1E5D\u1E5F\u1E61\u1E63\u1E65\u1E67\u1E69\u1E6B\u1E6D\u1E6F\u1E71\u1E73\u1E75\u1E77\u1E79\u1E7B\u1E7D\u1E7F\u1E81\u1E83\u1E85\u1E87\u1E89\u1E8B\u1E8D\u1E8F\u1E91\u1E93\u1E95-\u1E9D\u1E9F\u1EA1\u1EA3\u1EA5\u1EA7\u1EA9\u1EAB\u1EAD\u1EAF\u1EB1\u1EB3\u1EB5\u1EB7\u1EB9\u1EBB\u1EBD\u1EBF\u1EC1\u1EC3\u1EC5\u1EC7\u1EC9\u1ECB\u1ECD\u1ECF\u1ED1\u1ED3\u1ED5\u1ED7\u1ED9\u1EDB\u1EDD\u1EDF\u1EE1\u1EE3\u1EE5\u1EE7\u1EE9\u1EEB\u1EED\u1EEF\u1EF1\u1EF3\u1EF5\u1EF7\u1EF9\u1EFB\u1EFD\u1EFF-\u1F07\u1F10-\u1F15\u1F20-\u1F27\u1F30-\u1F37\u1F40-\u1F45\u1F50-\u1F57\u1F60-\u1F67\u1F70-\u1F7D\u1F80-\u1F87\u1F90-\u1F97\u1FA0-\u1FA7\u1FB0-\u1FB4\u1FB6-\u1FB7\u1FBE\u1FC2-\u1FC4\u1FC6-\u1FC7\u1FD0-\u1FD3\u1FD6-\u1FD7\u1FE0-\u1FE7\u1FF2-\u1FF4\u1FF6-\u1FF7\u210A\u210E-\u210F\u2113\u212F\u2134\u2139\u213C-\u213D\u2146-\u2149\u214E\u2184\u2C30-\u2C5E\u2C61\u2C65-\u2C66\u2C68\u2C6A\u2C6C\u2C71\u2C73-\u2C74\u2C76-\u2C7B\u2C81\u2C83\u2C85\u2C87\u2C89\u2C8B\u2C8D\u2C8F\u2C91\u2C93\u2C95\u2C97\u2C99\u2C9B\u2C9D\u2C9F\u2CA1\u2CA3\u2CA5\u2CA7\u2CA9\u2CAB\u2CAD\u2CAF\u2CB1\u2CB3\u2CB5\u2CB7\u2CB9\u2CBB\u2CBD\u2CBF\u2CC1\u2CC3\u2CC5\u2CC7\u2CC9\u2CCB\u2CCD\u2CCF\u2CD1\u2CD3\u2CD5\u2CD7\u2CD9\u2CDB\u2CDD\u2CDF\u2CE1\u2CE3-\u2CE4\u2CEC\u2CEE\u2CF3\u2D00-\u2D25\u2D27\u2D2D\uA641\uA643\uA645\uA647\uA649\uA64B\uA64D\uA64F\uA651\uA653\uA655\uA657\uA659\uA65B\uA65D\uA65F\uA661\uA663\uA665\uA667\uA669\uA66B\uA66D\uA681\uA683\uA685\uA687\uA689\uA68B\uA68D\uA68F\uA691\uA693\uA695\uA697\uA723\uA725\uA727\uA729\uA72B\uA72D\uA72F-\uA731\uA733\uA735\uA737\uA739\uA73B\uA73D\uA73F\uA741\uA743\uA745\uA747\uA749\uA74B\uA74D\uA74F\uA751\uA753\uA755\uA757\uA759\uA75B\uA75D\uA75F\uA761\uA763\uA765\uA767\uA769\uA76B\uA76D\uA76F\uA771-\uA778\uA77A\uA77C\uA77F\uA781\uA783\uA785\uA787\uA78C\uA78E\uA791\uA793\uA7A1\uA7A3\uA7A5\uA7A7\uA7A9\uA7FA\uFB00-\uFB06\uFB13-\uFB17\uFF41-\uFF5A]/,{type:"class",value:"[\\u0061-\\u007A\\u00B5\\u00DF-\\u00F6\\u00F8-\\u00FF\\u0101\\u0103\\u0105\\u0107\\u0109\\u010B\\u010D\\u010F\\u0111\\u0113\\u0115\\u0117\\u0119\\u011B\\u011D\\u011F\\u0121\\u0123\\u0125\\u0127\\u0129\\u012B\\u012D\\u012F\\u0131\\u0133\\u0135\\u0137-\\u0138\\u013A\\u013C\\u013E\\u0140\\u0142\\u0144\\u0146\\u0148-\\u0149\\u014B\\u014D\\u014F\\u0151\\u0153\\u0155\\u0157\\u0159\\u015B\\u015D\\u015F\\u0161\\u0163\\u0165\\u0167\\u0169\\u016B\\u016D\\u016F\\u0171\\u0173\\u0175\\u0177\\u017A\\u017C\\u017E-\\u0180\\u0183\\u0185\\u0188\\u018C-\\u018D\\u0192\\u0195\\u0199-\\u019B\\u019E\\u01A1\\u01A3\\u01A5\\u01A8\\u01AA-\\u01AB\\u01AD\\u01B0\\u01B4\\u01B6\\u01B9-\\u01BA\\u01BD-\\u01BF\\u01C6\\u01C9\\u01CC\\u01CE\\u01D0\\u01D2\\u01D4\\u01D6\\u01D8\\u01DA\\u01DC-\\u01DD\\u01DF\\u01E1\\u01E3\\u01E5\\u01E7\\u01E9\\u01EB\\u01ED\\u01EF-\\u01F0\\u01F3\\u01F5\\u01F9\\u01FB\\u01FD\\u01FF\\u0201\\u0203\\u0205\\u0207\\u0209\\u020B\\u020D\\u020F\\u0211\\u0213\\u0215\\u0217\\u0219\\u021B\\u021D\\u021F\\u0221\\u0223\\u0225\\u0227\\u0229\\u022B\\u022D\\u022F\\u0231\\u0233-\\u0239\\u023C\\u023F-\\u0240\\u0242\\u0247\\u0249\\u024B\\u024D\\u024F-\\u0293\\u0295-\\u02AF\\u0371\\u0373\\u0377\\u037B-\\u037D\\u0390\\u03AC-\\u03CE\\u03D0-\\u03D1\\u03D5-\\u03D7\\u03D9\\u03DB\\u03DD\\u03DF\\u03E1\\u03E3\\u03E5\\u03E7\\u03E9\\u03EB\\u03ED\\u03EF-\\u03F3\\u03F5\\u03F8\\u03FB-\\u03FC\\u0430-\\u045F\\u0461\\u0463\\u0465\\u0467\\u0469\\u046B\\u046D\\u046F\\u0471\\u0473\\u0475\\u0477\\u0479\\u047B\\u047D\\u047F\\u0481\\u048B\\u048D\\u048F\\u0491\\u0493\\u0495\\u0497\\u0499\\u049B\\u049D\\u049F\\u04A1\\u04A3\\u04A5\\u04A7\\u04A9\\u04AB\\u04AD\\u04AF\\u04B1\\u04B3\\u04B5\\u04B7\\u04B9\\u04BB\\u04BD\\u04BF\\u04C2\\u04C4\\u04C6\\u04C8\\u04CA\\u04CC\\u04CE-\\u04CF\\u04D1\\u04D3\\u04D5\\u04D7\\u04D9\\u04DB\\u04DD\\u04DF\\u04E1\\u04E3\\u04E5\\u04E7\\u04E9\\u04EB\\u04ED\\u04EF\\u04F1\\u04F3\\u04F5\\u04F7\\u04F9\\u04FB\\u04FD\\u04FF\\u0501\\u0503\\u0505\\u0507\\u0509\\u050B\\u050D\\u050F\\u0511\\u0513\\u0515\\u0517\\u0519\\u051B\\u051D\\u051F\\u0521\\u0523\\u0525\\u0527\\u0561-\\u0587\\u1D00-\\u1D2B\\u1D6B-\\u1D77\\u1D79-\\u1D9A\\u1E01\\u1E03\\u1E05\\u1E07\\u1E09\\u1E0B\\u1E0D\\u1E0F\\u1E11\\u1E13\\u1E15\\u1E17\\u1E19\\u1E1B\\u1E1D\\u1E1F\\u1E21\\u1E23\\u1E25\\u1E27\\u1E29\\u1E2B\\u1E2D\\u1E2F\\u1E31\\u1E33\\u1E35\\u1E37\\u1E39\\u1E3B\\u1E3D\\u1E3F\\u1E41\\u1E43\\u1E45\\u1E47\\u1E49\\u1E4B\\u1E4D\\u1E4F\\u1E51\\u1E53\\u1E55\\u1E57\\u1E59\\u1E5B\\u1E5D\\u1E5F\\u1E61\\u1E63\\u1E65\\u1E67\\u1E69\\u1E6B\\u1E6D\\u1E6F\\u1E71\\u1E73\\u1E75\\u1E77\\u1E79\\u1E7B\\u1E7D\\u1E7F\\u1E81\\u1E83\\u1E85\\u1E87\\u1E89\\u1E8B\\u1E8D\\u1E8F\\u1E91\\u1E93\\u1E95-\\u1E9D\\u1E9F\\u1EA1\\u1EA3\\u1EA5\\u1EA7\\u1EA9\\u1EAB\\u1EAD\\u1EAF\\u1EB1\\u1EB3\\u1EB5\\u1EB7\\u1EB9\\u1EBB\\u1EBD\\u1EBF\\u1EC1\\u1EC3\\u1EC5\\u1EC7\\u1EC9\\u1ECB\\u1ECD\\u1ECF\\u1ED1\\u1ED3\\u1ED5\\u1ED7\\u1ED9\\u1EDB\\u1EDD\\u1EDF\\u1EE1\\u1EE3\\u1EE5\\u1EE7\\u1EE9\\u1EEB\\u1EED\\u1EEF\\u1EF1\\u1EF3\\u1EF5\\u1EF7\\u1EF9\\u1EFB\\u1EFD\\u1EFF-\\u1F07\\u1F10-\\u1F15\\u1F20-\\u1F27\\u1F30-\\u1F37\\u1F40-\\u1F45\\u1F50-\\u1F57\\u1F60-\\u1F67\\u1F70-\\u1F7D\\u1F80-\\u1F87\\u1F90-\\u1F97\\u1FA0-\\u1FA7\\u1FB0-\\u1FB4\\u1FB6-\\u1FB7\\u1FBE\\u1FC2-\\u1FC4\\u1FC6-\\u1FC7\\u1FD0-\\u1FD3\\u1FD6-\\u1FD7\\u1FE0-\\u1FE7\\u1FF2-\\u1FF4\\u1FF6-\\u1FF7\\u210A\\u210E-\\u210F\\u2113\\u212F\\u2134\\u2139\\u213C-\\u213D\\u2146-\\u2149\\u214E\\u2184\\u2C30-\\u2C5E\\u2C61\\u2C65-\\u2C66\\u2C68\\u2C6A\\u2C6C\\u2C71\\u2C73-\\u2C74\\u2C76-\\u2C7B\\u2C81\\u2C83\\u2C85\\u2C87\\u2C89\\u2C8B\\u2C8D\\u2C8F\\u2C91\\u2C93\\u2C95\\u2C97\\u2C99\\u2C9B\\u2C9D\\u2C9F\\u2CA1\\u2CA3\\u2CA5\\u2CA7\\u2CA9\\u2CAB\\u2CAD\\u2CAF\\u2CB1\\u2CB3\\u2CB5\\u2CB7\\u2CB9\\u2CBB\\u2CBD\\u2CBF\\u2CC1\\u2CC3\\u2CC5\\u2CC7\\u2CC9\\u2CCB\\u2CCD\\u2CCF\\u2CD1\\u2CD3\\u2CD5\\u2CD7\\u2CD9\\u2CDB\\u2CDD\\u2CDF\\u2CE1\\u2CE3-\\u2CE4\\u2CEC\\u2CEE\\u2CF3\\u2D00-\\u2D25\\u2D27\\u2D2D\\uA641\\uA643\\uA645\\uA647\\uA649\\uA64B\\uA64D\\uA64F\\uA651\\uA653\\uA655\\uA657\\uA659\\uA65B\\uA65D\\uA65F\\uA661\\uA663\\uA665\\uA667\\uA669\\uA66B\\uA66D\\uA681\\uA683\\uA685\\uA687\\uA689\\uA68B\\uA68D\\uA68F\\uA691\\uA693\\uA695\\uA697\\uA723\\uA725\\uA727\\uA729\\uA72B\\uA72D\\uA72F-\\uA731\\uA733\\uA735\\uA737\\uA739\\uA73B\\uA73D\\uA73F\\uA741\\uA743\\uA745\\uA747\\uA749\\uA74B\\uA74D\\uA74F\\uA751\\uA753\\uA755\\uA757\\uA759\\uA75B\\uA75D\\uA75F\\uA761\\uA763\\uA765\\uA767\\uA769\\uA76B\\uA76D\\uA76F\\uA771-\\uA778\\uA77A\\uA77C\\uA77F\\uA781\\uA783\\uA785\\uA787\\uA78C\\uA78E\\uA791\\uA793\\uA7A1\\uA7A3\\uA7A5\\uA7A7\\uA7A9\\uA7FA\\uFB00-\\uFB06\\uFB13-\\uFB17\\uFF41-\\uFF5A]",description:"[\\u0061-\\u007A\\u00B5\\u00DF-\\u00F6\\u00F8-\\u00FF\\u0101\\u0103\\u0105\\u0107\\u0109\\u010B\\u010D\\u010F\\u0111\\u0113\\u0115\\u0117\\u0119\\u011B\\u011D\\u011F\\u0121\\u0123\\u0125\\u0127\\u0129\\u012B\\u012D\\u012F\\u0131\\u0133\\u0135\\u0137-\\u0138\\u013A\\u013C\\u013E\\u0140\\u0142\\u0144\\u0146\\u0148-\\u0149\\u014B\\u014D\\u014F\\u0151\\u0153\\u0155\\u0157\\u0159\\u015B\\u015D\\u015F\\u0161\\u0163\\u0165\\u0167\\u0169\\u016B\\u016D\\u016F\\u0171\\u0173\\u0175\\u0177\\u017A\\u017C\\u017E-\\u0180\\u0183\\u0185\\u0188\\u018C-\\u018D\\u0192\\u0195\\u0199-\\u019B\\u019E\\u01A1\\u01A3\\u01A5\\u01A8\\u01AA-\\u01AB\\u01AD\\u01B0\\u01B4\\u01B6\\u01B9-\\u01BA\\u01BD-\\u01BF\\u01C6\\u01C9\\u01CC\\u01CE\\u01D0\\u01D2\\u01D4\\u01D6\\u01D8\\u01DA\\u01DC-\\u01DD\\u01DF\\u01E1\\u01E3\\u01E5\\u01E7\\u01E9\\u01EB\\u01ED\\u01EF-\\u01F0\\u01F3\\u01F5\\u01F9\\u01FB\\u01FD\\u01FF\\u0201\\u0203\\u0205\\u0207\\u0209\\u020B\\u020D\\u020F\\u0211\\u0213\\u0215\\u0217\\u0219\\u021B\\u021D\\u021F\\u0221\\u0223\\u0225\\u0227\\u0229\\u022B\\u022D\\u022F\\u0231\\u0233-\\u0239\\u023C\\u023F-\\u0240\\u0242\\u0247\\u0249\\u024B\\u024D\\u024F-\\u0293\\u0295-\\u02AF\\u0371\\u0373\\u0377\\u037B-\\u037D\\u0390\\u03AC-\\u03CE\\u03D0-\\u03D1\\u03D5-\\u03D7\\u03D9\\u03DB\\u03DD\\u03DF\\u03E1\\u03E3\\u03E5\\u03E7\\u03E9\\u03EB\\u03ED\\u03EF-\\u03F3\\u03F5\\u03F8\\u03FB-\\u03FC\\u0430-\\u045F\\u0461\\u0463\\u0465\\u0467\\u0469\\u046B\\u046D\\u046F\\u0471\\u0473\\u0475\\u0477\\u0479\\u047B\\u047D\\u047F\\u0481\\u048B\\u048D\\u048F\\u0491\\u0493\\u0495\\u0497\\u0499\\u049B\\u049D\\u049F\\u04A1\\u04A3\\u04A5\\u04A7\\u04A9\\u04AB\\u04AD\\u04AF\\u04B1\\u04B3\\u04B5\\u04B7\\u04B9\\u04BB\\u04BD\\u04BF\\u04C2\\u04C4\\u04C6\\u04C8\\u04CA\\u04CC\\u04CE-\\u04CF\\u04D1\\u04D3\\u04D5\\u04D7\\u04D9\\u04DB\\u04DD\\u04DF\\u04E1\\u04E3\\u04E5\\u04E7\\u04E9\\u04EB\\u04ED\\u04EF\\u04F1\\u04F3\\u04F5\\u04F7\\u04F9\\u04FB\\u04FD\\u04FF\\u0501\\u0503\\u0505\\u0507\\u0509\\u050B\\u050D\\u050F\\u0511\\u0513\\u0515\\u0517\\u0519\\u051B\\u051D\\u051F\\u0521\\u0523\\u0525\\u0527\\u0561-\\u0587\\u1D00-\\u1D2B\\u1D6B-\\u1D77\\u1D79-\\u1D9A\\u1E01\\u1E03\\u1E05\\u1E07\\u1E09\\u1E0B\\u1E0D\\u1E0F\\u1E11\\u1E13\\u1E15\\u1E17\\u1E19\\u1E1B\\u1E1D\\u1E1F\\u1E21\\u1E23\\u1E25\\u1E27\\u1E29\\u1E2B\\u1E2D\\u1E2F\\u1E31\\u1E33\\u1E35\\u1E37\\u1E39\\u1E3B\\u1E3D\\u1E3F\\u1E41\\u1E43\\u1E45\\u1E47\\u1E49\\u1E4B\\u1E4D\\u1E4F\\u1E51\\u1E53\\u1E55\\u1E57\\u1E59\\u1E5B\\u1E5D\\u1E5F\\u1E61\\u1E63\\u1E65\\u1E67\\u1E69\\u1E6B\\u1E6D\\u1E6F\\u1E71\\u1E73\\u1E75\\u1E77\\u1E79\\u1E7B\\u1E7D\\u1E7F\\u1E81\\u1E83\\u1E85\\u1E87\\u1E89\\u1E8B\\u1E8D\\u1E8F\\u1E91\\u1E93\\u1E95-\\u1E9D\\u1E9F\\u1EA1\\u1EA3\\u1EA5\\u1EA7\\u1EA9\\u1EAB\\u1EAD\\u1EAF\\u1EB1\\u1EB3\\u1EB5\\u1EB7\\u1EB9\\u1EBB\\u1EBD\\u1EBF\\u1EC1\\u1EC3\\u1EC5\\u1EC7\\u1EC9\\u1ECB\\u1ECD\\u1ECF\\u1ED1\\u1ED3\\u1ED5\\u1ED7\\u1ED9\\u1EDB\\u1EDD\\u1EDF\\u1EE1\\u1EE3\\u1EE5\\u1EE7\\u1EE9\\u1EEB\\u1EED\\u1EEF\\u1EF1\\u1EF3\\u1EF5\\u1EF7\\u1EF9\\u1EFB\\u1EFD\\u1EFF-\\u1F07\\u1F10-\\u1F15\\u1F20-\\u1F27\\u1F30-\\u1F37\\u1F40-\\u1F45\\u1F50-\\u1F57\\u1F60-\\u1F67\\u1F70-\\u1F7D\\u1F80-\\u1F87\\u1F90-\\u1F97\\u1FA0-\\u1FA7\\u1FB0-\\u1FB4\\u1FB6-\\u1FB7\\u1FBE\\u1FC2-\\u1FC4\\u1FC6-\\u1FC7\\u1FD0-\\u1FD3\\u1FD6-\\u1FD7\\u1FE0-\\u1FE7\\u1FF2-\\u1FF4\\u1FF6-\\u1FF7\\u210A\\u210E-\\u210F\\u2113\\u212F\\u2134\\u2139\\u213C-\\u213D\\u2146-\\u2149\\u214E\\u2184\\u2C30-\\u2C5E\\u2C61\\u2C65-\\u2C66\\u2C68\\u2C6A\\u2C6C\\u2C71\\u2C73-\\u2C74\\u2C76-\\u2C7B\\u2C81\\u2C83\\u2C85\\u2C87\\u2C89\\u2C8B\\u2C8D\\u2C8F\\u2C91\\u2C93\\u2C95\\u2C97\\u2C99\\u2C9B\\u2C9D\\u2C9F\\u2CA1\\u2CA3\\u2CA5\\u2CA7\\u2CA9\\u2CAB\\u2CAD\\u2CAF\\u2CB1\\u2CB3\\u2CB5\\u2CB7\\u2CB9\\u2CBB\\u2CBD\\u2CBF\\u2CC1\\u2CC3\\u2CC5\\u2CC7\\u2CC9\\u2CCB\\u2CCD\\u2CCF\\u2CD1\\u2CD3\\u2CD5\\u2CD7\\u2CD9\\u2CDB\\u2CDD\\u2CDF\\u2CE1\\u2CE3-\\u2CE4\\u2CEC\\u2CEE\\u2CF3\\u2D00-\\u2D25\\u2D27\\u2D2D\\uA641\\uA643\\uA645\\uA647\\uA649\\uA64B\\uA64D\\uA64F\\uA651\\uA653\\uA655\\uA657\\uA659\\uA65B\\uA65D\\uA65F\\uA661\\uA663\\uA665\\uA667\\uA669\\uA66B\\uA66D\\uA681\\uA683\\uA685\\uA687\\uA689\\uA68B\\uA68D\\uA68F\\uA691\\uA693\\uA695\\uA697\\uA723\\uA725\\uA727\\uA729\\uA72B\\uA72D\\uA72F-\\uA731\\uA733\\uA735\\uA737\\uA739\\uA73B\\uA73D\\uA73F\\uA741\\uA743\\uA745\\uA747\\uA749\\uA74B\\uA74D\\uA74F\\uA751\\uA753\\uA755\\uA757\\uA759\\uA75B\\uA75D\\uA75F\\uA761\\uA763\\uA765\\uA767\\uA769\\uA76B\\uA76D\\uA76F\\uA771-\\uA778\\uA77A\\uA77C\\uA77F\\uA781\\uA783\\uA785\\uA787\\uA78C\\uA78E\\uA791\\uA793\\uA7A1\\uA7A3\\uA7A5\\uA7A7\\uA7A9\\uA7FA\\uFB00-\\uFB06\\uFB13-\\uFB17\\uFF41-\\uFF5A]"},/^[\u02B0-\u02C1\u02C6-\u02D1\u02E0-\u02E4\u02EC\u02EE\u0374\u037A\u0559\u0640\u06E5-\u06E6\u07F4-\u07F5\u07FA\u081A\u0824\u0828\u0971\u0E46\u0EC6\u10FC\u17D7\u1843\u1AA7\u1C78-\u1C7D\u1D2C-\u1D6A\u1D78\u1D9B-\u1DBF\u2071\u207F\u2090-\u209C\u2C7C-\u2C7D\u2D6F\u2E2F\u3005\u3031-\u3035\u303B\u309D-\u309E\u30FC-\u30FE\uA015\uA4F8-\uA4FD\uA60C\uA67F\uA717-\uA71F\uA770\uA788\uA7F8-\uA7F9\uA9CF\uAA70\uAADD\uAAF3-\uAAF4\uFF70\uFF9E-\uFF9F]/,{type:"class",value:"[\\u02B0-\\u02C1\\u02C6-\\u02D1\\u02E0-\\u02E4\\u02EC\\u02EE\\u0374\\u037A\\u0559\\u0640\\u06E5-\\u06E6\\u07F4-\\u07F5\\u07FA\\u081A\\u0824\\u0828\\u0971\\u0E46\\u0EC6\\u10FC\\u17D7\\u1843\\u1AA7\\u1C78-\\u1C7D\\u1D2C-\\u1D6A\\u1D78\\u1D9B-\\u1DBF\\u2071\\u207F\\u2090-\\u209C\\u2C7C-\\u2C7D\\u2D6F\\u2E2F\\u3005\\u3031-\\u3035\\u303B\\u309D-\\u309E\\u30FC-\\u30FE\\uA015\\uA4F8-\\uA4FD\\uA60C\\uA67F\\uA717-\\uA71F\\uA770\\uA788\\uA7F8-\\uA7F9\\uA9CF\\uAA70\\uAADD\\uAAF3-\\uAAF4\\uFF70\\uFF9E-\\uFF9F]",description:"[\\u02B0-\\u02C1\\u02C6-\\u02D1\\u02E0-\\u02E4\\u02EC\\u02EE\\u0374\\u037A\\u0559\\u0640\\u06E5-\\u06E6\\u07F4-\\u07F5\\u07FA\\u081A\\u0824\\u0828\\u0971\\u0E46\\u0EC6\\u10FC\\u17D7\\u1843\\u1AA7\\u1C78-\\u1C7D\\u1D2C-\\u1D6A\\u1D78\\u1D9B-\\u1DBF\\u2071\\u207F\\u2090-\\u209C\\u2C7C-\\u2C7D\\u2D6F\\u2E2F\\u3005\\u3031-\\u3035\\u303B\\u309D-\\u309E\\u30FC-\\u30FE\\uA015\\uA4F8-\\uA4FD\\uA60C\\uA67F\\uA717-\\uA71F\\uA770\\uA788\\uA7F8-\\uA7F9\\uA9CF\\uAA70\\uAADD\\uAAF3-\\uAAF4\\uFF70\\uFF9E-\\uFF9F]"},/^[\xAA\xBA\u01BB\u01C0-\u01C3\u0294\u05D0-\u05EA\u05F0-\u05F2\u0620-\u063F\u0641-\u064A\u066E-\u066F\u0671-\u06D3\u06D5\u06EE-\u06EF\u06FA-\u06FC\u06FF\u0710\u0712-\u072F\u074D-\u07A5\u07B1\u07CA-\u07EA\u0800-\u0815\u0840-\u0858\u08A0\u08A2-\u08AC\u0904-\u0939\u093D\u0950\u0958-\u0961\u0972-\u0977\u0979-\u097F\u0985-\u098C\u098F-\u0990\u0993-\u09A8\u09AA-\u09B0\u09B2\u09B6-\u09B9\u09BD\u09CE\u09DC-\u09DD\u09DF-\u09E1\u09F0-\u09F1\u0A05-\u0A0A\u0A0F-\u0A10\u0A13-\u0A28\u0A2A-\u0A30\u0A32-\u0A33\u0A35-\u0A36\u0A38-\u0A39\u0A59-\u0A5C\u0A5E\u0A72-\u0A74\u0A85-\u0A8D\u0A8F-\u0A91\u0A93-\u0AA8\u0AAA-\u0AB0\u0AB2-\u0AB3\u0AB5-\u0AB9\u0ABD\u0AD0\u0AE0-\u0AE1\u0B05-\u0B0C\u0B0F-\u0B10\u0B13-\u0B28\u0B2A-\u0B30\u0B32-\u0B33\u0B35-\u0B39\u0B3D\u0B5C-\u0B5D\u0B5F-\u0B61\u0B71\u0B83\u0B85-\u0B8A\u0B8E-\u0B90\u0B92-\u0B95\u0B99-\u0B9A\u0B9C\u0B9E-\u0B9F\u0BA3-\u0BA4\u0BA8-\u0BAA\u0BAE-\u0BB9\u0BD0\u0C05-\u0C0C\u0C0E-\u0C10\u0C12-\u0C28\u0C2A-\u0C33\u0C35-\u0C39\u0C3D\u0C58-\u0C59\u0C60-\u0C61\u0C85-\u0C8C\u0C8E-\u0C90\u0C92-\u0CA8\u0CAA-\u0CB3\u0CB5-\u0CB9\u0CBD\u0CDE\u0CE0-\u0CE1\u0CF1-\u0CF2\u0D05-\u0D0C\u0D0E-\u0D10\u0D12-\u0D3A\u0D3D\u0D4E\u0D60-\u0D61\u0D7A-\u0D7F\u0D85-\u0D96\u0D9A-\u0DB1\u0DB3-\u0DBB\u0DBD\u0DC0-\u0DC6\u0E01-\u0E30\u0E32-\u0E33\u0E40-\u0E45\u0E81-\u0E82\u0E84\u0E87-\u0E88\u0E8A\u0E8D\u0E94-\u0E97\u0E99-\u0E9F\u0EA1-\u0EA3\u0EA5\u0EA7\u0EAA-\u0EAB\u0EAD-\u0EB0\u0EB2-\u0EB3\u0EBD\u0EC0-\u0EC4\u0EDC-\u0EDF\u0F00\u0F40-\u0F47\u0F49-\u0F6C\u0F88-\u0F8C\u1000-\u102A\u103F\u1050-\u1055\u105A-\u105D\u1061\u1065-\u1066\u106E-\u1070\u1075-\u1081\u108E\u10D0-\u10FA\u10FD-\u1248\u124A-\u124D\u1250-\u1256\u1258\u125A-\u125D\u1260-\u1288\u128A-\u128D\u1290-\u12B0\u12B2-\u12B5\u12B8-\u12BE\u12C0\u12C2-\u12C5\u12C8-\u12D6\u12D8-\u1310\u1312-\u1315\u1318-\u135A\u1380-\u138F\u13A0-\u13F4\u1401-\u166C\u166F-\u167F\u1681-\u169A\u16A0-\u16EA\u1700-\u170C\u170E-\u1711\u1720-\u1731\u1740-\u1751\u1760-\u176C\u176E-\u1770\u1780-\u17B3\u17DC\u1820-\u1842\u1844-\u1877\u1880-\u18A8\u18AA\u18B0-\u18F5\u1900-\u191C\u1950-\u196D\u1970-\u1974\u1980-\u19AB\u19C1-\u19C7\u1A00-\u1A16\u1A20-\u1A54\u1B05-\u1B33\u1B45-\u1B4B\u1B83-\u1BA0\u1BAE-\u1BAF\u1BBA-\u1BE5\u1C00-\u1C23\u1C4D-\u1C4F\u1C5A-\u1C77\u1CE9-\u1CEC\u1CEE-\u1CF1\u1CF5-\u1CF6\u2135-\u2138\u2D30-\u2D67\u2D80-\u2D96\u2DA0-\u2DA6\u2DA8-\u2DAE\u2DB0-\u2DB6\u2DB8-\u2DBE\u2DC0-\u2DC6\u2DC8-\u2DCE\u2DD0-\u2DD6\u2DD8-\u2DDE\u3006\u303C\u3041-\u3096\u309F\u30A1-\u30FA\u30FF\u3105-\u312D\u3131-\u318E\u31A0-\u31BA\u31F0-\u31FF\u3400-\u4DB5\u4E00-\u9FCC\uA000-\uA014\uA016-\uA48C\uA4D0-\uA4F7\uA500-\uA60B\uA610-\uA61F\uA62A-\uA62B\uA66E\uA6A0-\uA6E5\uA7FB-\uA801\uA803-\uA805\uA807-\uA80A\uA80C-\uA822\uA840-\uA873\uA882-\uA8B3\uA8F2-\uA8F7\uA8FB\uA90A-\uA925\uA930-\uA946\uA960-\uA97C\uA984-\uA9B2\uAA00-\uAA28\uAA40-\uAA42\uAA44-\uAA4B\uAA60-\uAA6F\uAA71-\uAA76\uAA7A\uAA80-\uAAAF\uAAB1\uAAB5-\uAAB6\uAAB9-\uAABD\uAAC0\uAAC2\uAADB-\uAADC\uAAE0-\uAAEA\uAAF2\uAB01-\uAB06\uAB09-\uAB0E\uAB11-\uAB16\uAB20-\uAB26\uAB28-\uAB2E\uABC0-\uABE2\uAC00-\uD7A3\uD7B0-\uD7C6\uD7CB-\uD7FB\uF900-\uFA6D\uFA70-\uFAD9\uFB1D\uFB1F-\uFB28\uFB2A-\uFB36\uFB38-\uFB3C\uFB3E\uFB40-\uFB41\uFB43-\uFB44\uFB46-\uFBB1\uFBD3-\uFD3D\uFD50-\uFD8F\uFD92-\uFDC7\uFDF0-\uFDFB\uFE70-\uFE74\uFE76-\uFEFC\uFF66-\uFF6F\uFF71-\uFF9D\uFFA0-\uFFBE\uFFC2-\uFFC7\uFFCA-\uFFCF\uFFD2-\uFFD7\uFFDA-\uFFDC]/,{type:"class",value:"[\\u00AA\\u00BA\\u01BB\\u01C0-\\u01C3\\u0294\\u05D0-\\u05EA\\u05F0-\\u05F2\\u0620-\\u063F\\u0641-\\u064A\\u066E-\\u066F\\u0671-\\u06D3\\u06D5\\u06EE-\\u06EF\\u06FA-\\u06FC\\u06FF\\u0710\\u0712-\\u072F\\u074D-\\u07A5\\u07B1\\u07CA-\\u07EA\\u0800-\\u0815\\u0840-\\u0858\\u08A0\\u08A2-\\u08AC\\u0904-\\u0939\\u093D\\u0950\\u0958-\\u0961\\u0972-\\u0977\\u0979-\\u097F\\u0985-\\u098C\\u098F-\\u0990\\u0993-\\u09A8\\u09AA-\\u09B0\\u09B2\\u09B6-\\u09B9\\u09BD\\u09CE\\u09DC-\\u09DD\\u09DF-\\u09E1\\u09F0-\\u09F1\\u0A05-\\u0A0A\\u0A0F-\\u0A10\\u0A13-\\u0A28\\u0A2A-\\u0A30\\u0A32-\\u0A33\\u0A35-\\u0A36\\u0A38-\\u0A39\\u0A59-\\u0A5C\\u0A5E\\u0A72-\\u0A74\\u0A85-\\u0A8D\\u0A8F-\\u0A91\\u0A93-\\u0AA8\\u0AAA-\\u0AB0\\u0AB2-\\u0AB3\\u0AB5-\\u0AB9\\u0ABD\\u0AD0\\u0AE0-\\u0AE1\\u0B05-\\u0B0C\\u0B0F-\\u0B10\\u0B13-\\u0B28\\u0B2A-\\u0B30\\u0B32-\\u0B33\\u0B35-\\u0B39\\u0B3D\\u0B5C-\\u0B5D\\u0B5F-\\u0B61\\u0B71\\u0B83\\u0B85-\\u0B8A\\u0B8E-\\u0B90\\u0B92-\\u0B95\\u0B99-\\u0B9A\\u0B9C\\u0B9E-\\u0B9F\\u0BA3-\\u0BA4\\u0BA8-\\u0BAA\\u0BAE-\\u0BB9\\u0BD0\\u0C05-\\u0C0C\\u0C0E-\\u0C10\\u0C12-\\u0C28\\u0C2A-\\u0C33\\u0C35-\\u0C39\\u0C3D\\u0C58-\\u0C59\\u0C60-\\u0C61\\u0C85-\\u0C8C\\u0C8E-\\u0C90\\u0C92-\\u0CA8\\u0CAA-\\u0CB3\\u0CB5-\\u0CB9\\u0CBD\\u0CDE\\u0CE0-\\u0CE1\\u0CF1-\\u0CF2\\u0D05-\\u0D0C\\u0D0E-\\u0D10\\u0D12-\\u0D3A\\u0D3D\\u0D4E\\u0D60-\\u0D61\\u0D7A-\\u0D7F\\u0D85-\\u0D96\\u0D9A-\\u0DB1\\u0DB3-\\u0DBB\\u0DBD\\u0DC0-\\u0DC6\\u0E01-\\u0E30\\u0E32-\\u0E33\\u0E40-\\u0E45\\u0E81-\\u0E82\\u0E84\\u0E87-\\u0E88\\u0E8A\\u0E8D\\u0E94-\\u0E97\\u0E99-\\u0E9F\\u0EA1-\\u0EA3\\u0EA5\\u0EA7\\u0EAA-\\u0EAB\\u0EAD-\\u0EB0\\u0EB2-\\u0EB3\\u0EBD\\u0EC0-\\u0EC4\\u0EDC-\\u0EDF\\u0F00\\u0F40-\\u0F47\\u0F49-\\u0F6C\\u0F88-\\u0F8C\\u1000-\\u102A\\u103F\\u1050-\\u1055\\u105A-\\u105D\\u1061\\u1065-\\u1066\\u106E-\\u1070\\u1075-\\u1081\\u108E\\u10D0-\\u10FA\\u10FD-\\u1248\\u124A-\\u124D\\u1250-\\u1256\\u1258\\u125A-\\u125D\\u1260-\\u1288\\u128A-\\u128D\\u1290-\\u12B0\\u12B2-\\u12B5\\u12B8-\\u12BE\\u12C0\\u12C2-\\u12C5\\u12C8-\\u12D6\\u12D8-\\u1310\\u1312-\\u1315\\u1318-\\u135A\\u1380-\\u138F\\u13A0-\\u13F4\\u1401-\\u166C\\u166F-\\u167F\\u1681-\\u169A\\u16A0-\\u16EA\\u1700-\\u170C\\u170E-\\u1711\\u1720-\\u1731\\u1740-\\u1751\\u1760-\\u176C\\u176E-\\u1770\\u1780-\\u17B3\\u17DC\\u1820-\\u1842\\u1844-\\u1877\\u1880-\\u18A8\\u18AA\\u18B0-\\u18F5\\u1900-\\u191C\\u1950-\\u196D\\u1970-\\u1974\\u1980-\\u19AB\\u19C1-\\u19C7\\u1A00-\\u1A16\\u1A20-\\u1A54\\u1B05-\\u1B33\\u1B45-\\u1B4B\\u1B83-\\u1BA0\\u1BAE-\\u1BAF\\u1BBA-\\u1BE5\\u1C00-\\u1C23\\u1C4D-\\u1C4F\\u1C5A-\\u1C77\\u1CE9-\\u1CEC\\u1CEE-\\u1CF1\\u1CF5-\\u1CF6\\u2135-\\u2138\\u2D30-\\u2D67\\u2D80-\\u2D96\\u2DA0-\\u2DA6\\u2DA8-\\u2DAE\\u2DB0-\\u2DB6\\u2DB8-\\u2DBE\\u2DC0-\\u2DC6\\u2DC8-\\u2DCE\\u2DD0-\\u2DD6\\u2DD8-\\u2DDE\\u3006\\u303C\\u3041-\\u3096\\u309F\\u30A1-\\u30FA\\u30FF\\u3105-\\u312D\\u3131-\\u318E\\u31A0-\\u31BA\\u31F0-\\u31FF\\u3400-\\u4DB5\\u4E00-\\u9FCC\\uA000-\\uA014\\uA016-\\uA48C\\uA4D0-\\uA4F7\\uA500-\\uA60B\\uA610-\\uA61F\\uA62A-\\uA62B\\uA66E\\uA6A0-\\uA6E5\\uA7FB-\\uA801\\uA803-\\uA805\\uA807-\\uA80A\\uA80C-\\uA822\\uA840-\\uA873\\uA882-\\uA8B3\\uA8F2-\\uA8F7\\uA8FB\\uA90A-\\uA925\\uA930-\\uA946\\uA960-\\uA97C\\uA984-\\uA9B2\\uAA00-\\uAA28\\uAA40-\\uAA42\\uAA44-\\uAA4B\\uAA60-\\uAA6F\\uAA71-\\uAA76\\uAA7A\\uAA80-\\uAAAF\\uAAB1\\uAAB5-\\uAAB6\\uAAB9-\\uAABD\\uAAC0\\uAAC2\\uAADB-\\uAADC\\uAAE0-\\uAAEA\\uAAF2\\uAB01-\\uAB06\\uAB09-\\uAB0E\\uAB11-\\uAB16\\uAB20-\\uAB26\\uAB28-\\uAB2E\\uABC0-\\uABE2\\uAC00-\\uD7A3\\uD7B0-\\uD7C6\\uD7CB-\\uD7FB\\uF900-\\uFA6D\\uFA70-\\uFAD9\\uFB1D\\uFB1F-\\uFB28\\uFB2A-\\uFB36\\uFB38-\\uFB3C\\uFB3E\\uFB40-\\uFB41\\uFB43-\\uFB44\\uFB46-\\uFBB1\\uFBD3-\\uFD3D\\uFD50-\\uFD8F\\uFD92-\\uFDC7\\uFDF0-\\uFDFB\\uFE70-\\uFE74\\uFE76-\\uFEFC\\uFF66-\\uFF6F\\uFF71-\\uFF9D\\uFFA0-\\uFFBE\\uFFC2-\\uFFC7\\uFFCA-\\uFFCF\\uFFD2-\\uFFD7\\uFFDA-\\uFFDC]",
-description:"[\\u00AA\\u00BA\\u01BB\\u01C0-\\u01C3\\u0294\\u05D0-\\u05EA\\u05F0-\\u05F2\\u0620-\\u063F\\u0641-\\u064A\\u066E-\\u066F\\u0671-\\u06D3\\u06D5\\u06EE-\\u06EF\\u06FA-\\u06FC\\u06FF\\u0710\\u0712-\\u072F\\u074D-\\u07A5\\u07B1\\u07CA-\\u07EA\\u0800-\\u0815\\u0840-\\u0858\\u08A0\\u08A2-\\u08AC\\u0904-\\u0939\\u093D\\u0950\\u0958-\\u0961\\u0972-\\u0977\\u0979-\\u097F\\u0985-\\u098C\\u098F-\\u0990\\u0993-\\u09A8\\u09AA-\\u09B0\\u09B2\\u09B6-\\u09B9\\u09BD\\u09CE\\u09DC-\\u09DD\\u09DF-\\u09E1\\u09F0-\\u09F1\\u0A05-\\u0A0A\\u0A0F-\\u0A10\\u0A13-\\u0A28\\u0A2A-\\u0A30\\u0A32-\\u0A33\\u0A35-\\u0A36\\u0A38-\\u0A39\\u0A59-\\u0A5C\\u0A5E\\u0A72-\\u0A74\\u0A85-\\u0A8D\\u0A8F-\\u0A91\\u0A93-\\u0AA8\\u0AAA-\\u0AB0\\u0AB2-\\u0AB3\\u0AB5-\\u0AB9\\u0ABD\\u0AD0\\u0AE0-\\u0AE1\\u0B05-\\u0B0C\\u0B0F-\\u0B10\\u0B13-\\u0B28\\u0B2A-\\u0B30\\u0B32-\\u0B33\\u0B35-\\u0B39\\u0B3D\\u0B5C-\\u0B5D\\u0B5F-\\u0B61\\u0B71\\u0B83\\u0B85-\\u0B8A\\u0B8E-\\u0B90\\u0B92-\\u0B95\\u0B99-\\u0B9A\\u0B9C\\u0B9E-\\u0B9F\\u0BA3-\\u0BA4\\u0BA8-\\u0BAA\\u0BAE-\\u0BB9\\u0BD0\\u0C05-\\u0C0C\\u0C0E-\\u0C10\\u0C12-\\u0C28\\u0C2A-\\u0C33\\u0C35-\\u0C39\\u0C3D\\u0C58-\\u0C59\\u0C60-\\u0C61\\u0C85-\\u0C8C\\u0C8E-\\u0C90\\u0C92-\\u0CA8\\u0CAA-\\u0CB3\\u0CB5-\\u0CB9\\u0CBD\\u0CDE\\u0CE0-\\u0CE1\\u0CF1-\\u0CF2\\u0D05-\\u0D0C\\u0D0E-\\u0D10\\u0D12-\\u0D3A\\u0D3D\\u0D4E\\u0D60-\\u0D61\\u0D7A-\\u0D7F\\u0D85-\\u0D96\\u0D9A-\\u0DB1\\u0DB3-\\u0DBB\\u0DBD\\u0DC0-\\u0DC6\\u0E01-\\u0E30\\u0E32-\\u0E33\\u0E40-\\u0E45\\u0E81-\\u0E82\\u0E84\\u0E87-\\u0E88\\u0E8A\\u0E8D\\u0E94-\\u0E97\\u0E99-\\u0E9F\\u0EA1-\\u0EA3\\u0EA5\\u0EA7\\u0EAA-\\u0EAB\\u0EAD-\\u0EB0\\u0EB2-\\u0EB3\\u0EBD\\u0EC0-\\u0EC4\\u0EDC-\\u0EDF\\u0F00\\u0F40-\\u0F47\\u0F49-\\u0F6C\\u0F88-\\u0F8C\\u1000-\\u102A\\u103F\\u1050-\\u1055\\u105A-\\u105D\\u1061\\u1065-\\u1066\\u106E-\\u1070\\u1075-\\u1081\\u108E\\u10D0-\\u10FA\\u10FD-\\u1248\\u124A-\\u124D\\u1250-\\u1256\\u1258\\u125A-\\u125D\\u1260-\\u1288\\u128A-\\u128D\\u1290-\\u12B0\\u12B2-\\u12B5\\u12B8-\\u12BE\\u12C0\\u12C2-\\u12C5\\u12C8-\\u12D6\\u12D8-\\u1310\\u1312-\\u1315\\u1318-\\u135A\\u1380-\\u138F\\u13A0-\\u13F4\\u1401-\\u166C\\u166F-\\u167F\\u1681-\\u169A\\u16A0-\\u16EA\\u1700-\\u170C\\u170E-\\u1711\\u1720-\\u1731\\u1740-\\u1751\\u1760-\\u176C\\u176E-\\u1770\\u1780-\\u17B3\\u17DC\\u1820-\\u1842\\u1844-\\u1877\\u1880-\\u18A8\\u18AA\\u18B0-\\u18F5\\u1900-\\u191C\\u1950-\\u196D\\u1970-\\u1974\\u1980-\\u19AB\\u19C1-\\u19C7\\u1A00-\\u1A16\\u1A20-\\u1A54\\u1B05-\\u1B33\\u1B45-\\u1B4B\\u1B83-\\u1BA0\\u1BAE-\\u1BAF\\u1BBA-\\u1BE5\\u1C00-\\u1C23\\u1C4D-\\u1C4F\\u1C5A-\\u1C77\\u1CE9-\\u1CEC\\u1CEE-\\u1CF1\\u1CF5-\\u1CF6\\u2135-\\u2138\\u2D30-\\u2D67\\u2D80-\\u2D96\\u2DA0-\\u2DA6\\u2DA8-\\u2DAE\\u2DB0-\\u2DB6\\u2DB8-\\u2DBE\\u2DC0-\\u2DC6\\u2DC8-\\u2DCE\\u2DD0-\\u2DD6\\u2DD8-\\u2DDE\\u3006\\u303C\\u3041-\\u3096\\u309F\\u30A1-\\u30FA\\u30FF\\u3105-\\u312D\\u3131-\\u318E\\u31A0-\\u31BA\\u31F0-\\u31FF\\u3400-\\u4DB5\\u4E00-\\u9FCC\\uA000-\\uA014\\uA016-\\uA48C\\uA4D0-\\uA4F7\\uA500-\\uA60B\\uA610-\\uA61F\\uA62A-\\uA62B\\uA66E\\uA6A0-\\uA6E5\\uA7FB-\\uA801\\uA803-\\uA805\\uA807-\\uA80A\\uA80C-\\uA822\\uA840-\\uA873\\uA882-\\uA8B3\\uA8F2-\\uA8F7\\uA8FB\\uA90A-\\uA925\\uA930-\\uA946\\uA960-\\uA97C\\uA984-\\uA9B2\\uAA00-\\uAA28\\uAA40-\\uAA42\\uAA44-\\uAA4B\\uAA60-\\uAA6F\\uAA71-\\uAA76\\uAA7A\\uAA80-\\uAAAF\\uAAB1\\uAAB5-\\uAAB6\\uAAB9-\\uAABD\\uAAC0\\uAAC2\\uAADB-\\uAADC\\uAAE0-\\uAAEA\\uAAF2\\uAB01-\\uAB06\\uAB09-\\uAB0E\\uAB11-\\uAB16\\uAB20-\\uAB26\\uAB28-\\uAB2E\\uABC0-\\uABE2\\uAC00-\\uD7A3\\uD7B0-\\uD7C6\\uD7CB-\\uD7FB\\uF900-\\uFA6D\\uFA70-\\uFAD9\\uFB1D\\uFB1F-\\uFB28\\uFB2A-\\uFB36\\uFB38-\\uFB3C\\uFB3E\\uFB40-\\uFB41\\uFB43-\\uFB44\\uFB46-\\uFBB1\\uFBD3-\\uFD3D\\uFD50-\\uFD8F\\uFD92-\\uFDC7\\uFDF0-\\uFDFB\\uFE70-\\uFE74\\uFE76-\\uFEFC\\uFF66-\\uFF6F\\uFF71-\\uFF9D\\uFFA0-\\uFFBE\\uFFC2-\\uFFC7\\uFFCA-\\uFFCF\\uFFD2-\\uFFD7\\uFFDA-\\uFFDC]"},/^[\u01C5\u01C8\u01CB\u01F2\u1F88-\u1F8F\u1F98-\u1F9F\u1FA8-\u1FAF\u1FBC\u1FCC\u1FFC]/,{type:"class",value:"[\\u01C5\\u01C8\\u01CB\\u01F2\\u1F88-\\u1F8F\\u1F98-\\u1F9F\\u1FA8-\\u1FAF\\u1FBC\\u1FCC\\u1FFC]",description:"[\\u01C5\\u01C8\\u01CB\\u01F2\\u1F88-\\u1F8F\\u1F98-\\u1F9F\\u1FA8-\\u1FAF\\u1FBC\\u1FCC\\u1FFC]"},/^[A-Z\xC0-\xD6\xD8-\xDE\u0100\u0102\u0104\u0106\u0108\u010A\u010C\u010E\u0110\u0112\u0114\u0116\u0118\u011A\u011C\u011E\u0120\u0122\u0124\u0126\u0128\u012A\u012C\u012E\u0130\u0132\u0134\u0136\u0139\u013B\u013D\u013F\u0141\u0143\u0145\u0147\u014A\u014C\u014E\u0150\u0152\u0154\u0156\u0158\u015A\u015C\u015E\u0160\u0162\u0164\u0166\u0168\u016A\u016C\u016E\u0170\u0172\u0174\u0176\u0178-\u0179\u017B\u017D\u0181-\u0182\u0184\u0186-\u0187\u0189-\u018B\u018E-\u0191\u0193-\u0194\u0196-\u0198\u019C-\u019D\u019F-\u01A0\u01A2\u01A4\u01A6-\u01A7\u01A9\u01AC\u01AE-\u01AF\u01B1-\u01B3\u01B5\u01B7-\u01B8\u01BC\u01C4\u01C7\u01CA\u01CD\u01CF\u01D1\u01D3\u01D5\u01D7\u01D9\u01DB\u01DE\u01E0\u01E2\u01E4\u01E6\u01E8\u01EA\u01EC\u01EE\u01F1\u01F4\u01F6-\u01F8\u01FA\u01FC\u01FE\u0200\u0202\u0204\u0206\u0208\u020A\u020C\u020E\u0210\u0212\u0214\u0216\u0218\u021A\u021C\u021E\u0220\u0222\u0224\u0226\u0228\u022A\u022C\u022E\u0230\u0232\u023A-\u023B\u023D-\u023E\u0241\u0243-\u0246\u0248\u024A\u024C\u024E\u0370\u0372\u0376\u0386\u0388-\u038A\u038C\u038E-\u038F\u0391-\u03A1\u03A3-\u03AB\u03CF\u03D2-\u03D4\u03D8\u03DA\u03DC\u03DE\u03E0\u03E2\u03E4\u03E6\u03E8\u03EA\u03EC\u03EE\u03F4\u03F7\u03F9-\u03FA\u03FD-\u042F\u0460\u0462\u0464\u0466\u0468\u046A\u046C\u046E\u0470\u0472\u0474\u0476\u0478\u047A\u047C\u047E\u0480\u048A\u048C\u048E\u0490\u0492\u0494\u0496\u0498\u049A\u049C\u049E\u04A0\u04A2\u04A4\u04A6\u04A8\u04AA\u04AC\u04AE\u04B0\u04B2\u04B4\u04B6\u04B8\u04BA\u04BC\u04BE\u04C0-\u04C1\u04C3\u04C5\u04C7\u04C9\u04CB\u04CD\u04D0\u04D2\u04D4\u04D6\u04D8\u04DA\u04DC\u04DE\u04E0\u04E2\u04E4\u04E6\u04E8\u04EA\u04EC\u04EE\u04F0\u04F2\u04F4\u04F6\u04F8\u04FA\u04FC\u04FE\u0500\u0502\u0504\u0506\u0508\u050A\u050C\u050E\u0510\u0512\u0514\u0516\u0518\u051A\u051C\u051E\u0520\u0522\u0524\u0526\u0531-\u0556\u10A0-\u10C5\u10C7\u10CD\u1E00\u1E02\u1E04\u1E06\u1E08\u1E0A\u1E0C\u1E0E\u1E10\u1E12\u1E14\u1E16\u1E18\u1E1A\u1E1C\u1E1E\u1E20\u1E22\u1E24\u1E26\u1E28\u1E2A\u1E2C\u1E2E\u1E30\u1E32\u1E34\u1E36\u1E38\u1E3A\u1E3C\u1E3E\u1E40\u1E42\u1E44\u1E46\u1E48\u1E4A\u1E4C\u1E4E\u1E50\u1E52\u1E54\u1E56\u1E58\u1E5A\u1E5C\u1E5E\u1E60\u1E62\u1E64\u1E66\u1E68\u1E6A\u1E6C\u1E6E\u1E70\u1E72\u1E74\u1E76\u1E78\u1E7A\u1E7C\u1E7E\u1E80\u1E82\u1E84\u1E86\u1E88\u1E8A\u1E8C\u1E8E\u1E90\u1E92\u1E94\u1E9E\u1EA0\u1EA2\u1EA4\u1EA6\u1EA8\u1EAA\u1EAC\u1EAE\u1EB0\u1EB2\u1EB4\u1EB6\u1EB8\u1EBA\u1EBC\u1EBE\u1EC0\u1EC2\u1EC4\u1EC6\u1EC8\u1ECA\u1ECC\u1ECE\u1ED0\u1ED2\u1ED4\u1ED6\u1ED8\u1EDA\u1EDC\u1EDE\u1EE0\u1EE2\u1EE4\u1EE6\u1EE8\u1EEA\u1EEC\u1EEE\u1EF0\u1EF2\u1EF4\u1EF6\u1EF8\u1EFA\u1EFC\u1EFE\u1F08-\u1F0F\u1F18-\u1F1D\u1F28-\u1F2F\u1F38-\u1F3F\u1F48-\u1F4D\u1F59\u1F5B\u1F5D\u1F5F\u1F68-\u1F6F\u1FB8-\u1FBB\u1FC8-\u1FCB\u1FD8-\u1FDB\u1FE8-\u1FEC\u1FF8-\u1FFB\u2102\u2107\u210B-\u210D\u2110-\u2112\u2115\u2119-\u211D\u2124\u2126\u2128\u212A-\u212D\u2130-\u2133\u213E-\u213F\u2145\u2183\u2C00-\u2C2E\u2C60\u2C62-\u2C64\u2C67\u2C69\u2C6B\u2C6D-\u2C70\u2C72\u2C75\u2C7E-\u2C80\u2C82\u2C84\u2C86\u2C88\u2C8A\u2C8C\u2C8E\u2C90\u2C92\u2C94\u2C96\u2C98\u2C9A\u2C9C\u2C9E\u2CA0\u2CA2\u2CA4\u2CA6\u2CA8\u2CAA\u2CAC\u2CAE\u2CB0\u2CB2\u2CB4\u2CB6\u2CB8\u2CBA\u2CBC\u2CBE\u2CC0\u2CC2\u2CC4\u2CC6\u2CC8\u2CCA\u2CCC\u2CCE\u2CD0\u2CD2\u2CD4\u2CD6\u2CD8\u2CDA\u2CDC\u2CDE\u2CE0\u2CE2\u2CEB\u2CED\u2CF2\uA640\uA642\uA644\uA646\uA648\uA64A\uA64C\uA64E\uA650\uA652\uA654\uA656\uA658\uA65A\uA65C\uA65E\uA660\uA662\uA664\uA666\uA668\uA66A\uA66C\uA680\uA682\uA684\uA686\uA688\uA68A\uA68C\uA68E\uA690\uA692\uA694\uA696\uA722\uA724\uA726\uA728\uA72A\uA72C\uA72E\uA732\uA734\uA736\uA738\uA73A\uA73C\uA73E\uA740\uA742\uA744\uA746\uA748\uA74A\uA74C\uA74E\uA750\uA752\uA754\uA756\uA758\uA75A\uA75C\uA75E\uA760\uA762\uA764\uA766\uA768\uA76A\uA76C\uA76E\uA779\uA77B\uA77D-\uA77E\uA780\uA782\uA784\uA786\uA78B\uA78D\uA790\uA792\uA7A0\uA7A2\uA7A4\uA7A6\uA7A8\uA7AA\uFF21-\uFF3A]/,{type:"class",value:"[\\u0041-\\u005A\\u00C0-\\u00D6\\u00D8-\\u00DE\\u0100\\u0102\\u0104\\u0106\\u0108\\u010A\\u010C\\u010E\\u0110\\u0112\\u0114\\u0116\\u0118\\u011A\\u011C\\u011E\\u0120\\u0122\\u0124\\u0126\\u0128\\u012A\\u012C\\u012E\\u0130\\u0132\\u0134\\u0136\\u0139\\u013B\\u013D\\u013F\\u0141\\u0143\\u0145\\u0147\\u014A\\u014C\\u014E\\u0150\\u0152\\u0154\\u0156\\u0158\\u015A\\u015C\\u015E\\u0160\\u0162\\u0164\\u0166\\u0168\\u016A\\u016C\\u016E\\u0170\\u0172\\u0174\\u0176\\u0178-\\u0179\\u017B\\u017D\\u0181-\\u0182\\u0184\\u0186-\\u0187\\u0189-\\u018B\\u018E-\\u0191\\u0193-\\u0194\\u0196-\\u0198\\u019C-\\u019D\\u019F-\\u01A0\\u01A2\\u01A4\\u01A6-\\u01A7\\u01A9\\u01AC\\u01AE-\\u01AF\\u01B1-\\u01B3\\u01B5\\u01B7-\\u01B8\\u01BC\\u01C4\\u01C7\\u01CA\\u01CD\\u01CF\\u01D1\\u01D3\\u01D5\\u01D7\\u01D9\\u01DB\\u01DE\\u01E0\\u01E2\\u01E4\\u01E6\\u01E8\\u01EA\\u01EC\\u01EE\\u01F1\\u01F4\\u01F6-\\u01F8\\u01FA\\u01FC\\u01FE\\u0200\\u0202\\u0204\\u0206\\u0208\\u020A\\u020C\\u020E\\u0210\\u0212\\u0214\\u0216\\u0218\\u021A\\u021C\\u021E\\u0220\\u0222\\u0224\\u0226\\u0228\\u022A\\u022C\\u022E\\u0230\\u0232\\u023A-\\u023B\\u023D-\\u023E\\u0241\\u0243-\\u0246\\u0248\\u024A\\u024C\\u024E\\u0370\\u0372\\u0376\\u0386\\u0388-\\u038A\\u038C\\u038E-\\u038F\\u0391-\\u03A1\\u03A3-\\u03AB\\u03CF\\u03D2-\\u03D4\\u03D8\\u03DA\\u03DC\\u03DE\\u03E0\\u03E2\\u03E4\\u03E6\\u03E8\\u03EA\\u03EC\\u03EE\\u03F4\\u03F7\\u03F9-\\u03FA\\u03FD-\\u042F\\u0460\\u0462\\u0464\\u0466\\u0468\\u046A\\u046C\\u046E\\u0470\\u0472\\u0474\\u0476\\u0478\\u047A\\u047C\\u047E\\u0480\\u048A\\u048C\\u048E\\u0490\\u0492\\u0494\\u0496\\u0498\\u049A\\u049C\\u049E\\u04A0\\u04A2\\u04A4\\u04A6\\u04A8\\u04AA\\u04AC\\u04AE\\u04B0\\u04B2\\u04B4\\u04B6\\u04B8\\u04BA\\u04BC\\u04BE\\u04C0-\\u04C1\\u04C3\\u04C5\\u04C7\\u04C9\\u04CB\\u04CD\\u04D0\\u04D2\\u04D4\\u04D6\\u04D8\\u04DA\\u04DC\\u04DE\\u04E0\\u04E2\\u04E4\\u04E6\\u04E8\\u04EA\\u04EC\\u04EE\\u04F0\\u04F2\\u04F4\\u04F6\\u04F8\\u04FA\\u04FC\\u04FE\\u0500\\u0502\\u0504\\u0506\\u0508\\u050A\\u050C\\u050E\\u0510\\u0512\\u0514\\u0516\\u0518\\u051A\\u051C\\u051E\\u0520\\u0522\\u0524\\u0526\\u0531-\\u0556\\u10A0-\\u10C5\\u10C7\\u10CD\\u1E00\\u1E02\\u1E04\\u1E06\\u1E08\\u1E0A\\u1E0C\\u1E0E\\u1E10\\u1E12\\u1E14\\u1E16\\u1E18\\u1E1A\\u1E1C\\u1E1E\\u1E20\\u1E22\\u1E24\\u1E26\\u1E28\\u1E2A\\u1E2C\\u1E2E\\u1E30\\u1E32\\u1E34\\u1E36\\u1E38\\u1E3A\\u1E3C\\u1E3E\\u1E40\\u1E42\\u1E44\\u1E46\\u1E48\\u1E4A\\u1E4C\\u1E4E\\u1E50\\u1E52\\u1E54\\u1E56\\u1E58\\u1E5A\\u1E5C\\u1E5E\\u1E60\\u1E62\\u1E64\\u1E66\\u1E68\\u1E6A\\u1E6C\\u1E6E\\u1E70\\u1E72\\u1E74\\u1E76\\u1E78\\u1E7A\\u1E7C\\u1E7E\\u1E80\\u1E82\\u1E84\\u1E86\\u1E88\\u1E8A\\u1E8C\\u1E8E\\u1E90\\u1E92\\u1E94\\u1E9E\\u1EA0\\u1EA2\\u1EA4\\u1EA6\\u1EA8\\u1EAA\\u1EAC\\u1EAE\\u1EB0\\u1EB2\\u1EB4\\u1EB6\\u1EB8\\u1EBA\\u1EBC\\u1EBE\\u1EC0\\u1EC2\\u1EC4\\u1EC6\\u1EC8\\u1ECA\\u1ECC\\u1ECE\\u1ED0\\u1ED2\\u1ED4\\u1ED6\\u1ED8\\u1EDA\\u1EDC\\u1EDE\\u1EE0\\u1EE2\\u1EE4\\u1EE6\\u1EE8\\u1EEA\\u1EEC\\u1EEE\\u1EF0\\u1EF2\\u1EF4\\u1EF6\\u1EF8\\u1EFA\\u1EFC\\u1EFE\\u1F08-\\u1F0F\\u1F18-\\u1F1D\\u1F28-\\u1F2F\\u1F38-\\u1F3F\\u1F48-\\u1F4D\\u1F59\\u1F5B\\u1F5D\\u1F5F\\u1F68-\\u1F6F\\u1FB8-\\u1FBB\\u1FC8-\\u1FCB\\u1FD8-\\u1FDB\\u1FE8-\\u1FEC\\u1FF8-\\u1FFB\\u2102\\u2107\\u210B-\\u210D\\u2110-\\u2112\\u2115\\u2119-\\u211D\\u2124\\u2126\\u2128\\u212A-\\u212D\\u2130-\\u2133\\u213E-\\u213F\\u2145\\u2183\\u2C00-\\u2C2E\\u2C60\\u2C62-\\u2C64\\u2C67\\u2C69\\u2C6B\\u2C6D-\\u2C70\\u2C72\\u2C75\\u2C7E-\\u2C80\\u2C82\\u2C84\\u2C86\\u2C88\\u2C8A\\u2C8C\\u2C8E\\u2C90\\u2C92\\u2C94\\u2C96\\u2C98\\u2C9A\\u2C9C\\u2C9E\\u2CA0\\u2CA2\\u2CA4\\u2CA6\\u2CA8\\u2CAA\\u2CAC\\u2CAE\\u2CB0\\u2CB2\\u2CB4\\u2CB6\\u2CB8\\u2CBA\\u2CBC\\u2CBE\\u2CC0\\u2CC2\\u2CC4\\u2CC6\\u2CC8\\u2CCA\\u2CCC\\u2CCE\\u2CD0\\u2CD2\\u2CD4\\u2CD6\\u2CD8\\u2CDA\\u2CDC\\u2CDE\\u2CE0\\u2CE2\\u2CEB\\u2CED\\u2CF2\\uA640\\uA642\\uA644\\uA646\\uA648\\uA64A\\uA64C\\uA64E\\uA650\\uA652\\uA654\\uA656\\uA658\\uA65A\\uA65C\\uA65E\\uA660\\uA662\\uA664\\uA666\\uA668\\uA66A\\uA66C\\uA680\\uA682\\uA684\\uA686\\uA688\\uA68A\\uA68C\\uA68E\\uA690\\uA692\\uA694\\uA696\\uA722\\uA724\\uA726\\uA728\\uA72A\\uA72C\\uA72E\\uA732\\uA734\\uA736\\uA738\\uA73A\\uA73C\\uA73E\\uA740\\uA742\\uA744\\uA746\\uA748\\uA74A\\uA74C\\uA74E\\uA750\\uA752\\uA754\\uA756\\uA758\\uA75A\\uA75C\\uA75E\\uA760\\uA762\\uA764\\uA766\\uA768\\uA76A\\uA76C\\uA76E\\uA779\\uA77B\\uA77D-\\uA77E\\uA780\\uA782\\uA784\\uA786\\uA78B\\uA78D\\uA790\\uA792\\uA7A0\\uA7A2\\uA7A4\\uA7A6\\uA7A8\\uA7AA\\uFF21-\\uFF3A]",description:"[\\u0041-\\u005A\\u00C0-\\u00D6\\u00D8-\\u00DE\\u0100\\u0102\\u0104\\u0106\\u0108\\u010A\\u010C\\u010E\\u0110\\u0112\\u0114\\u0116\\u0118\\u011A\\u011C\\u011E\\u0120\\u0122\\u0124\\u0126\\u0128\\u012A\\u012C\\u012E\\u0130\\u0132\\u0134\\u0136\\u0139\\u013B\\u013D\\u013F\\u0141\\u0143\\u0145\\u0147\\u014A\\u014C\\u014E\\u0150\\u0152\\u0154\\u0156\\u0158\\u015A\\u015C\\u015E\\u0160\\u0162\\u0164\\u0166\\u0168\\u016A\\u016C\\u016E\\u0170\\u0172\\u0174\\u0176\\u0178-\\u0179\\u017B\\u017D\\u0181-\\u0182\\u0184\\u0186-\\u0187\\u0189-\\u018B\\u018E-\\u0191\\u0193-\\u0194\\u0196-\\u0198\\u019C-\\u019D\\u019F-\\u01A0\\u01A2\\u01A4\\u01A6-\\u01A7\\u01A9\\u01AC\\u01AE-\\u01AF\\u01B1-\\u01B3\\u01B5\\u01B7-\\u01B8\\u01BC\\u01C4\\u01C7\\u01CA\\u01CD\\u01CF\\u01D1\\u01D3\\u01D5\\u01D7\\u01D9\\u01DB\\u01DE\\u01E0\\u01E2\\u01E4\\u01E6\\u01E8\\u01EA\\u01EC\\u01EE\\u01F1\\u01F4\\u01F6-\\u01F8\\u01FA\\u01FC\\u01FE\\u0200\\u0202\\u0204\\u0206\\u0208\\u020A\\u020C\\u020E\\u0210\\u0212\\u0214\\u0216\\u0218\\u021A\\u021C\\u021E\\u0220\\u0222\\u0224\\u0226\\u0228\\u022A\\u022C\\u022E\\u0230\\u0232\\u023A-\\u023B\\u023D-\\u023E\\u0241\\u0243-\\u0246\\u0248\\u024A\\u024C\\u024E\\u0370\\u0372\\u0376\\u0386\\u0388-\\u038A\\u038C\\u038E-\\u038F\\u0391-\\u03A1\\u03A3-\\u03AB\\u03CF\\u03D2-\\u03D4\\u03D8\\u03DA\\u03DC\\u03DE\\u03E0\\u03E2\\u03E4\\u03E6\\u03E8\\u03EA\\u03EC\\u03EE\\u03F4\\u03F7\\u03F9-\\u03FA\\u03FD-\\u042F\\u0460\\u0462\\u0464\\u0466\\u0468\\u046A\\u046C\\u046E\\u0470\\u0472\\u0474\\u0476\\u0478\\u047A\\u047C\\u047E\\u0480\\u048A\\u048C\\u048E\\u0490\\u0492\\u0494\\u0496\\u0498\\u049A\\u049C\\u049E\\u04A0\\u04A2\\u04A4\\u04A6\\u04A8\\u04AA\\u04AC\\u04AE\\u04B0\\u04B2\\u04B4\\u04B6\\u04B8\\u04BA\\u04BC\\u04BE\\u04C0-\\u04C1\\u04C3\\u04C5\\u04C7\\u04C9\\u04CB\\u04CD\\u04D0\\u04D2\\u04D4\\u04D6\\u04D8\\u04DA\\u04DC\\u04DE\\u04E0\\u04E2\\u04E4\\u04E6\\u04E8\\u04EA\\u04EC\\u04EE\\u04F0\\u04F2\\u04F4\\u04F6\\u04F8\\u04FA\\u04FC\\u04FE\\u0500\\u0502\\u0504\\u0506\\u0508\\u050A\\u050C\\u050E\\u0510\\u0512\\u0514\\u0516\\u0518\\u051A\\u051C\\u051E\\u0520\\u0522\\u0524\\u0526\\u0531-\\u0556\\u10A0-\\u10C5\\u10C7\\u10CD\\u1E00\\u1E02\\u1E04\\u1E06\\u1E08\\u1E0A\\u1E0C\\u1E0E\\u1E10\\u1E12\\u1E14\\u1E16\\u1E18\\u1E1A\\u1E1C\\u1E1E\\u1E20\\u1E22\\u1E24\\u1E26\\u1E28\\u1E2A\\u1E2C\\u1E2E\\u1E30\\u1E32\\u1E34\\u1E36\\u1E38\\u1E3A\\u1E3C\\u1E3E\\u1E40\\u1E42\\u1E44\\u1E46\\u1E48\\u1E4A\\u1E4C\\u1E4E\\u1E50\\u1E52\\u1E54\\u1E56\\u1E58\\u1E5A\\u1E5C\\u1E5E\\u1E60\\u1E62\\u1E64\\u1E66\\u1E68\\u1E6A\\u1E6C\\u1E6E\\u1E70\\u1E72\\u1E74\\u1E76\\u1E78\\u1E7A\\u1E7C\\u1E7E\\u1E80\\u1E82\\u1E84\\u1E86\\u1E88\\u1E8A\\u1E8C\\u1E8E\\u1E90\\u1E92\\u1E94\\u1E9E\\u1EA0\\u1EA2\\u1EA4\\u1EA6\\u1EA8\\u1EAA\\u1EAC\\u1EAE\\u1EB0\\u1EB2\\u1EB4\\u1EB6\\u1EB8\\u1EBA\\u1EBC\\u1EBE\\u1EC0\\u1EC2\\u1EC4\\u1EC6\\u1EC8\\u1ECA\\u1ECC\\u1ECE\\u1ED0\\u1ED2\\u1ED4\\u1ED6\\u1ED8\\u1EDA\\u1EDC\\u1EDE\\u1EE0\\u1EE2\\u1EE4\\u1EE6\\u1EE8\\u1EEA\\u1EEC\\u1EEE\\u1EF0\\u1EF2\\u1EF4\\u1EF6\\u1EF8\\u1EFA\\u1EFC\\u1EFE\\u1F08-\\u1F0F\\u1F18-\\u1F1D\\u1F28-\\u1F2F\\u1F38-\\u1F3F\\u1F48-\\u1F4D\\u1F59\\u1F5B\\u1F5D\\u1F5F\\u1F68-\\u1F6F\\u1FB8-\\u1FBB\\u1FC8-\\u1FCB\\u1FD8-\\u1FDB\\u1FE8-\\u1FEC\\u1FF8-\\u1FFB\\u2102\\u2107\\u210B-\\u210D\\u2110-\\u2112\\u2115\\u2119-\\u211D\\u2124\\u2126\\u2128\\u212A-\\u212D\\u2130-\\u2133\\u213E-\\u213F\\u2145\\u2183\\u2C00-\\u2C2E\\u2C60\\u2C62-\\u2C64\\u2C67\\u2C69\\u2C6B\\u2C6D-\\u2C70\\u2C72\\u2C75\\u2C7E-\\u2C80\\u2C82\\u2C84\\u2C86\\u2C88\\u2C8A\\u2C8C\\u2C8E\\u2C90\\u2C92\\u2C94\\u2C96\\u2C98\\u2C9A\\u2C9C\\u2C9E\\u2CA0\\u2CA2\\u2CA4\\u2CA6\\u2CA8\\u2CAA\\u2CAC\\u2CAE\\u2CB0\\u2CB2\\u2CB4\\u2CB6\\u2CB8\\u2CBA\\u2CBC\\u2CBE\\u2CC0\\u2CC2\\u2CC4\\u2CC6\\u2CC8\\u2CCA\\u2CCC\\u2CCE\\u2CD0\\u2CD2\\u2CD4\\u2CD6\\u2CD8\\u2CDA\\u2CDC\\u2CDE\\u2CE0\\u2CE2\\u2CEB\\u2CED\\u2CF2\\uA640\\uA642\\uA644\\uA646\\uA648\\uA64A\\uA64C\\uA64E\\uA650\\uA652\\uA654\\uA656\\uA658\\uA65A\\uA65C\\uA65E\\uA660\\uA662\\uA664\\uA666\\uA668\\uA66A\\uA66C\\uA680\\uA682\\uA684\\uA686\\uA688\\uA68A\\uA68C\\uA68E\\uA690\\uA692\\uA694\\uA696\\uA722\\uA724\\uA726\\uA728\\uA72A\\uA72C\\uA72E\\uA732\\uA734\\uA736\\uA738\\uA73A\\uA73C\\uA73E\\uA740\\uA742\\uA744\\uA746\\uA748\\uA74A\\uA74C\\uA74E\\uA750\\uA752\\uA754\\uA756\\uA758\\uA75A\\uA75C\\uA75E\\uA760\\uA762\\uA764\\uA766\\uA768\\uA76A\\uA76C\\uA76E\\uA779\\uA77B\\uA77D-\\uA77E\\uA780\\uA782\\uA784\\uA786\\uA78B\\uA78D\\uA790\\uA792\\uA7A0\\uA7A2\\uA7A4\\uA7A6\\uA7A8\\uA7AA\\uFF21-\\uFF3A]"},/^[\u0903\u093B\u093E-\u0940\u0949-\u094C\u094E-\u094F\u0982-\u0983\u09BE-\u09C0\u09C7-\u09C8\u09CB-\u09CC\u09D7\u0A03\u0A3E-\u0A40\u0A83\u0ABE-\u0AC0\u0AC9\u0ACB-\u0ACC\u0B02-\u0B03\u0B3E\u0B40\u0B47-\u0B48\u0B4B-\u0B4C\u0B57\u0BBE-\u0BBF\u0BC1-\u0BC2\u0BC6-\u0BC8\u0BCA-\u0BCC\u0BD7\u0C01-\u0C03\u0C41-\u0C44\u0C82-\u0C83\u0CBE\u0CC0-\u0CC4\u0CC7-\u0CC8\u0CCA-\u0CCB\u0CD5-\u0CD6\u0D02-\u0D03\u0D3E-\u0D40\u0D46-\u0D48\u0D4A-\u0D4C\u0D57\u0D82-\u0D83\u0DCF-\u0DD1\u0DD8-\u0DDF\u0DF2-\u0DF3\u0F3E-\u0F3F\u0F7F\u102B-\u102C\u1031\u1038\u103B-\u103C\u1056-\u1057\u1062-\u1064\u1067-\u106D\u1083-\u1084\u1087-\u108C\u108F\u109A-\u109C\u17B6\u17BE-\u17C5\u17C7-\u17C8\u1923-\u1926\u1929-\u192B\u1930-\u1931\u1933-\u1938\u19B0-\u19C0\u19C8-\u19C9\u1A19-\u1A1A\u1A55\u1A57\u1A61\u1A63-\u1A64\u1A6D-\u1A72\u1B04\u1B35\u1B3B\u1B3D-\u1B41\u1B43-\u1B44\u1B82\u1BA1\u1BA6-\u1BA7\u1BAA\u1BAC-\u1BAD\u1BE7\u1BEA-\u1BEC\u1BEE\u1BF2-\u1BF3\u1C24-\u1C2B\u1C34-\u1C35\u1CE1\u1CF2-\u1CF3\u302E-\u302F\uA823-\uA824\uA827\uA880-\uA881\uA8B4-\uA8C3\uA952-\uA953\uA983\uA9B4-\uA9B5\uA9BA-\uA9BB\uA9BD-\uA9C0\uAA2F-\uAA30\uAA33-\uAA34\uAA4D\uAA7B\uAAEB\uAAEE-\uAAEF\uAAF5\uABE3-\uABE4\uABE6-\uABE7\uABE9-\uABEA\uABEC]/,{type:"class",value:"[\\u0903\\u093B\\u093E-\\u0940\\u0949-\\u094C\\u094E-\\u094F\\u0982-\\u0983\\u09BE-\\u09C0\\u09C7-\\u09C8\\u09CB-\\u09CC\\u09D7\\u0A03\\u0A3E-\\u0A40\\u0A83\\u0ABE-\\u0AC0\\u0AC9\\u0ACB-\\u0ACC\\u0B02-\\u0B03\\u0B3E\\u0B40\\u0B47-\\u0B48\\u0B4B-\\u0B4C\\u0B57\\u0BBE-\\u0BBF\\u0BC1-\\u0BC2\\u0BC6-\\u0BC8\\u0BCA-\\u0BCC\\u0BD7\\u0C01-\\u0C03\\u0C41-\\u0C44\\u0C82-\\u0C83\\u0CBE\\u0CC0-\\u0CC4\\u0CC7-\\u0CC8\\u0CCA-\\u0CCB\\u0CD5-\\u0CD6\\u0D02-\\u0D03\\u0D3E-\\u0D40\\u0D46-\\u0D48\\u0D4A-\\u0D4C\\u0D57\\u0D82-\\u0D83\\u0DCF-\\u0DD1\\u0DD8-\\u0DDF\\u0DF2-\\u0DF3\\u0F3E-\\u0F3F\\u0F7F\\u102B-\\u102C\\u1031\\u1038\\u103B-\\u103C\\u1056-\\u1057\\u1062-\\u1064\\u1067-\\u106D\\u1083-\\u1084\\u1087-\\u108C\\u108F\\u109A-\\u109C\\u17B6\\u17BE-\\u17C5\\u17C7-\\u17C8\\u1923-\\u1926\\u1929-\\u192B\\u1930-\\u1931\\u1933-\\u1938\\u19B0-\\u19C0\\u19C8-\\u19C9\\u1A19-\\u1A1A\\u1A55\\u1A57\\u1A61\\u1A63-\\u1A64\\u1A6D-\\u1A72\\u1B04\\u1B35\\u1B3B\\u1B3D-\\u1B41\\u1B43-\\u1B44\\u1B82\\u1BA1\\u1BA6-\\u1BA7\\u1BAA\\u1BAC-\\u1BAD\\u1BE7\\u1BEA-\\u1BEC\\u1BEE\\u1BF2-\\u1BF3\\u1C24-\\u1C2B\\u1C34-\\u1C35\\u1CE1\\u1CF2-\\u1CF3\\u302E-\\u302F\\uA823-\\uA824\\uA827\\uA880-\\uA881\\uA8B4-\\uA8C3\\uA952-\\uA953\\uA983\\uA9B4-\\uA9B5\\uA9BA-\\uA9BB\\uA9BD-\\uA9C0\\uAA2F-\\uAA30\\uAA33-\\uAA34\\uAA4D\\uAA7B\\uAAEB\\uAAEE-\\uAAEF\\uAAF5\\uABE3-\\uABE4\\uABE6-\\uABE7\\uABE9-\\uABEA\\uABEC]",description:"[\\u0903\\u093B\\u093E-\\u0940\\u0949-\\u094C\\u094E-\\u094F\\u0982-\\u0983\\u09BE-\\u09C0\\u09C7-\\u09C8\\u09CB-\\u09CC\\u09D7\\u0A03\\u0A3E-\\u0A40\\u0A83\\u0ABE-\\u0AC0\\u0AC9\\u0ACB-\\u0ACC\\u0B02-\\u0B03\\u0B3E\\u0B40\\u0B47-\\u0B48\\u0B4B-\\u0B4C\\u0B57\\u0BBE-\\u0BBF\\u0BC1-\\u0BC2\\u0BC6-\\u0BC8\\u0BCA-\\u0BCC\\u0BD7\\u0C01-\\u0C03\\u0C41-\\u0C44\\u0C82-\\u0C83\\u0CBE\\u0CC0-\\u0CC4\\u0CC7-\\u0CC8\\u0CCA-\\u0CCB\\u0CD5-\\u0CD6\\u0D02-\\u0D03\\u0D3E-\\u0D40\\u0D46-\\u0D48\\u0D4A-\\u0D4C\\u0D57\\u0D82-\\u0D83\\u0DCF-\\u0DD1\\u0DD8-\\u0DDF\\u0DF2-\\u0DF3\\u0F3E-\\u0F3F\\u0F7F\\u102B-\\u102C\\u1031\\u1038\\u103B-\\u103C\\u1056-\\u1057\\u1062-\\u1064\\u1067-\\u106D\\u1083-\\u1084\\u1087-\\u108C\\u108F\\u109A-\\u109C\\u17B6\\u17BE-\\u17C5\\u17C7-\\u17C8\\u1923-\\u1926\\u1929-\\u192B\\u1930-\\u1931\\u1933-\\u1938\\u19B0-\\u19C0\\u19C8-\\u19C9\\u1A19-\\u1A1A\\u1A55\\u1A57\\u1A61\\u1A63-\\u1A64\\u1A6D-\\u1A72\\u1B04\\u1B35\\u1B3B\\u1B3D-\\u1B41\\u1B43-\\u1B44\\u1B82\\u1BA1\\u1BA6-\\u1BA7\\u1BAA\\u1BAC-\\u1BAD\\u1BE7\\u1BEA-\\u1BEC\\u1BEE\\u1BF2-\\u1BF3\\u1C24-\\u1C2B\\u1C34-\\u1C35\\u1CE1\\u1CF2-\\u1CF3\\u302E-\\u302F\\uA823-\\uA824\\uA827\\uA880-\\uA881\\uA8B4-\\uA8C3\\uA952-\\uA953\\uA983\\uA9B4-\\uA9B5\\uA9BA-\\uA9BB\\uA9BD-\\uA9C0\\uAA2F-\\uAA30\\uAA33-\\uAA34\\uAA4D\\uAA7B\\uAAEB\\uAAEE-\\uAAEF\\uAAF5\\uABE3-\\uABE4\\uABE6-\\uABE7\\uABE9-\\uABEA\\uABEC]"},/^[\u0300-\u036F\u0483-\u0487\u0591-\u05BD\u05BF\u05C1-\u05C2\u05C4-\u05C5\u05C7\u0610-\u061A\u064B-\u065F\u0670\u06D6-\u06DC\u06DF-\u06E4\u06E7-\u06E8\u06EA-\u06ED\u0711\u0730-\u074A\u07A6-\u07B0\u07EB-\u07F3\u0816-\u0819\u081B-\u0823\u0825-\u0827\u0829-\u082D\u0859-\u085B\u08E4-\u08FE\u0900-\u0902\u093A\u093C\u0941-\u0948\u094D\u0951-\u0957\u0962-\u0963\u0981\u09BC\u09C1-\u09C4\u09CD\u09E2-\u09E3\u0A01-\u0A02\u0A3C\u0A41-\u0A42\u0A47-\u0A48\u0A4B-\u0A4D\u0A51\u0A70-\u0A71\u0A75\u0A81-\u0A82\u0ABC\u0AC1-\u0AC5\u0AC7-\u0AC8\u0ACD\u0AE2-\u0AE3\u0B01\u0B3C\u0B3F\u0B41-\u0B44\u0B4D\u0B56\u0B62-\u0B63\u0B82\u0BC0\u0BCD\u0C3E-\u0C40\u0C46-\u0C48\u0C4A-\u0C4D\u0C55-\u0C56\u0C62-\u0C63\u0CBC\u0CBF\u0CC6\u0CCC-\u0CCD\u0CE2-\u0CE3\u0D41-\u0D44\u0D4D\u0D62-\u0D63\u0DCA\u0DD2-\u0DD4\u0DD6\u0E31\u0E34-\u0E3A\u0E47-\u0E4E\u0EB1\u0EB4-\u0EB9\u0EBB-\u0EBC\u0EC8-\u0ECD\u0F18-\u0F19\u0F35\u0F37\u0F39\u0F71-\u0F7E\u0F80-\u0F84\u0F86-\u0F87\u0F8D-\u0F97\u0F99-\u0FBC\u0FC6\u102D-\u1030\u1032-\u1037\u1039-\u103A\u103D-\u103E\u1058-\u1059\u105E-\u1060\u1071-\u1074\u1082\u1085-\u1086\u108D\u109D\u135D-\u135F\u1712-\u1714\u1732-\u1734\u1752-\u1753\u1772-\u1773\u17B4-\u17B5\u17B7-\u17BD\u17C6\u17C9-\u17D3\u17DD\u180B-\u180D\u18A9\u1920-\u1922\u1927-\u1928\u1932\u1939-\u193B\u1A17-\u1A18\u1A1B\u1A56\u1A58-\u1A5E\u1A60\u1A62\u1A65-\u1A6C\u1A73-\u1A7C\u1A7F\u1B00-\u1B03\u1B34\u1B36-\u1B3A\u1B3C\u1B42\u1B6B-\u1B73\u1B80-\u1B81\u1BA2-\u1BA5\u1BA8-\u1BA9\u1BAB\u1BE6\u1BE8-\u1BE9\u1BED\u1BEF-\u1BF1\u1C2C-\u1C33\u1C36-\u1C37\u1CD0-\u1CD2\u1CD4-\u1CE0\u1CE2-\u1CE8\u1CED\u1CF4\u1DC0-\u1DE6\u1DFC-\u1DFF\u20D0-\u20DC\u20E1\u20E5-\u20F0\u2CEF-\u2CF1\u2D7F\u2DE0-\u2DFF\u302A-\u302D\u3099-\u309A\uA66F\uA674-\uA67D\uA69F\uA6F0-\uA6F1\uA802\uA806\uA80B\uA825-\uA826\uA8C4\uA8E0-\uA8F1\uA926-\uA92D\uA947-\uA951\uA980-\uA982\uA9B3\uA9B6-\uA9B9\uA9BC\uAA29-\uAA2E\uAA31-\uAA32\uAA35-\uAA36\uAA43\uAA4C\uAAB0\uAAB2-\uAAB4\uAAB7-\uAAB8\uAABE-\uAABF\uAAC1\uAAEC-\uAAED\uAAF6\uABE5\uABE8\uABED\uFB1E\uFE00-\uFE0F\uFE20-\uFE26]/,{type:"class",value:"[\\u0300-\\u036F\\u0483-\\u0487\\u0591-\\u05BD\\u05BF\\u05C1-\\u05C2\\u05C4-\\u05C5\\u05C7\\u0610-\\u061A\\u064B-\\u065F\\u0670\\u06D6-\\u06DC\\u06DF-\\u06E4\\u06E7-\\u06E8\\u06EA-\\u06ED\\u0711\\u0730-\\u074A\\u07A6-\\u07B0\\u07EB-\\u07F3\\u0816-\\u0819\\u081B-\\u0823\\u0825-\\u0827\\u0829-\\u082D\\u0859-\\u085B\\u08E4-\\u08FE\\u0900-\\u0902\\u093A\\u093C\\u0941-\\u0948\\u094D\\u0951-\\u0957\\u0962-\\u0963\\u0981\\u09BC\\u09C1-\\u09C4\\u09CD\\u09E2-\\u09E3\\u0A01-\\u0A02\\u0A3C\\u0A41-\\u0A42\\u0A47-\\u0A48\\u0A4B-\\u0A4D\\u0A51\\u0A70-\\u0A71\\u0A75\\u0A81-\\u0A82\\u0ABC\\u0AC1-\\u0AC5\\u0AC7-\\u0AC8\\u0ACD\\u0AE2-\\u0AE3\\u0B01\\u0B3C\\u0B3F\\u0B41-\\u0B44\\u0B4D\\u0B56\\u0B62-\\u0B63\\u0B82\\u0BC0\\u0BCD\\u0C3E-\\u0C40\\u0C46-\\u0C48\\u0C4A-\\u0C4D\\u0C55-\\u0C56\\u0C62-\\u0C63\\u0CBC\\u0CBF\\u0CC6\\u0CCC-\\u0CCD\\u0CE2-\\u0CE3\\u0D41-\\u0D44\\u0D4D\\u0D62-\\u0D63\\u0DCA\\u0DD2-\\u0DD4\\u0DD6\\u0E31\\u0E34-\\u0E3A\\u0E47-\\u0E4E\\u0EB1\\u0EB4-\\u0EB9\\u0EBB-\\u0EBC\\u0EC8-\\u0ECD\\u0F18-\\u0F19\\u0F35\\u0F37\\u0F39\\u0F71-\\u0F7E\\u0F80-\\u0F84\\u0F86-\\u0F87\\u0F8D-\\u0F97\\u0F99-\\u0FBC\\u0FC6\\u102D-\\u1030\\u1032-\\u1037\\u1039-\\u103A\\u103D-\\u103E\\u1058-\\u1059\\u105E-\\u1060\\u1071-\\u1074\\u1082\\u1085-\\u1086\\u108D\\u109D\\u135D-\\u135F\\u1712-\\u1714\\u1732-\\u1734\\u1752-\\u1753\\u1772-\\u1773\\u17B4-\\u17B5\\u17B7-\\u17BD\\u17C6\\u17C9-\\u17D3\\u17DD\\u180B-\\u180D\\u18A9\\u1920-\\u1922\\u1927-\\u1928\\u1932\\u1939-\\u193B\\u1A17-\\u1A18\\u1A1B\\u1A56\\u1A58-\\u1A5E\\u1A60\\u1A62\\u1A65-\\u1A6C\\u1A73-\\u1A7C\\u1A7F\\u1B00-\\u1B03\\u1B34\\u1B36-\\u1B3A\\u1B3C\\u1B42\\u1B6B-\\u1B73\\u1B80-\\u1B81\\u1BA2-\\u1BA5\\u1BA8-\\u1BA9\\u1BAB\\u1BE6\\u1BE8-\\u1BE9\\u1BED\\u1BEF-\\u1BF1\\u1C2C-\\u1C33\\u1C36-\\u1C37\\u1CD0-\\u1CD2\\u1CD4-\\u1CE0\\u1CE2-\\u1CE8\\u1CED\\u1CF4\\u1DC0-\\u1DE6\\u1DFC-\\u1DFF\\u20D0-\\u20DC\\u20E1\\u20E5-\\u20F0\\u2CEF-\\u2CF1\\u2D7F\\u2DE0-\\u2DFF\\u302A-\\u302D\\u3099-\\u309A\\uA66F\\uA674-\\uA67D\\uA69F\\uA6F0-\\uA6F1\\uA802\\uA806\\uA80B\\uA825-\\uA826\\uA8C4\\uA8E0-\\uA8F1\\uA926-\\uA92D\\uA947-\\uA951\\uA980-\\uA982\\uA9B3\\uA9B6-\\uA9B9\\uA9BC\\uAA29-\\uAA2E\\uAA31-\\uAA32\\uAA35-\\uAA36\\uAA43\\uAA4C\\uAAB0\\uAAB2-\\uAAB4\\uAAB7-\\uAAB8\\uAABE-\\uAABF\\uAAC1\\uAAEC-\\uAAED\\uAAF6\\uABE5\\uABE8\\uABED\\uFB1E\\uFE00-\\uFE0F\\uFE20-\\uFE26]",description:"[\\u0300-\\u036F\\u0483-\\u0487\\u0591-\\u05BD\\u05BF\\u05C1-\\u05C2\\u05C4-\\u05C5\\u05C7\\u0610-\\u061A\\u064B-\\u065F\\u0670\\u06D6-\\u06DC\\u06DF-\\u06E4\\u06E7-\\u06E8\\u06EA-\\u06ED\\u0711\\u0730-\\u074A\\u07A6-\\u07B0\\u07EB-\\u07F3\\u0816-\\u0819\\u081B-\\u0823\\u0825-\\u0827\\u0829-\\u082D\\u0859-\\u085B\\u08E4-\\u08FE\\u0900-\\u0902\\u093A\\u093C\\u0941-\\u0948\\u094D\\u0951-\\u0957\\u0962-\\u0963\\u0981\\u09BC\\u09C1-\\u09C4\\u09CD\\u09E2-\\u09E3\\u0A01-\\u0A02\\u0A3C\\u0A41-\\u0A42\\u0A47-\\u0A48\\u0A4B-\\u0A4D\\u0A51\\u0A70-\\u0A71\\u0A75\\u0A81-\\u0A82\\u0ABC\\u0AC1-\\u0AC5\\u0AC7-\\u0AC8\\u0ACD\\u0AE2-\\u0AE3\\u0B01\\u0B3C\\u0B3F\\u0B41-\\u0B44\\u0B4D\\u0B56\\u0B62-\\u0B63\\u0B82\\u0BC0\\u0BCD\\u0C3E-\\u0C40\\u0C46-\\u0C48\\u0C4A-\\u0C4D\\u0C55-\\u0C56\\u0C62-\\u0C63\\u0CBC\\u0CBF\\u0CC6\\u0CCC-\\u0CCD\\u0CE2-\\u0CE3\\u0D41-\\u0D44\\u0D4D\\u0D62-\\u0D63\\u0DCA\\u0DD2-\\u0DD4\\u0DD6\\u0E31\\u0E34-\\u0E3A\\u0E47-\\u0E4E\\u0EB1\\u0EB4-\\u0EB9\\u0EBB-\\u0EBC\\u0EC8-\\u0ECD\\u0F18-\\u0F19\\u0F35\\u0F37\\u0F39\\u0F71-\\u0F7E\\u0F80-\\u0F84\\u0F86-\\u0F87\\u0F8D-\\u0F97\\u0F99-\\u0FBC\\u0FC6\\u102D-\\u1030\\u1032-\\u1037\\u1039-\\u103A\\u103D-\\u103E\\u1058-\\u1059\\u105E-\\u1060\\u1071-\\u1074\\u1082\\u1085-\\u1086\\u108D\\u109D\\u135D-\\u135F\\u1712-\\u1714\\u1732-\\u1734\\u1752-\\u1753\\u1772-\\u1773\\u17B4-\\u17B5\\u17B7-\\u17BD\\u17C6\\u17C9-\\u17D3\\u17DD\\u180B-\\u180D\\u18A9\\u1920-\\u1922\\u1927-\\u1928\\u1932\\u1939-\\u193B\\u1A17-\\u1A18\\u1A1B\\u1A56\\u1A58-\\u1A5E\\u1A60\\u1A62\\u1A65-\\u1A6C\\u1A73-\\u1A7C\\u1A7F\\u1B00-\\u1B03\\u1B34\\u1B36-\\u1B3A\\u1B3C\\u1B42\\u1B6B-\\u1B73\\u1B80-\\u1B81\\u1BA2-\\u1BA5\\u1BA8-\\u1BA9\\u1BAB\\u1BE6\\u1BE8-\\u1BE9\\u1BED\\u1BEF-\\u1BF1\\u1C2C-\\u1C33\\u1C36-\\u1C37\\u1CD0-\\u1CD2\\u1CD4-\\u1CE0\\u1CE2-\\u1CE8\\u1CED\\u1CF4\\u1DC0-\\u1DE6\\u1DFC-\\u1DFF\\u20D0-\\u20DC\\u20E1\\u20E5-\\u20F0\\u2CEF-\\u2CF1\\u2D7F\\u2DE0-\\u2DFF\\u302A-\\u302D\\u3099-\\u309A\\uA66F\\uA674-\\uA67D\\uA69F\\uA6F0-\\uA6F1\\uA802\\uA806\\uA80B\\uA825-\\uA826\\uA8C4\\uA8E0-\\uA8F1\\uA926-\\uA92D\\uA947-\\uA951\\uA980-\\uA982\\uA9B3\\uA9B6-\\uA9B9\\uA9BC\\uAA29-\\uAA2E\\uAA31-\\uAA32\\uAA35-\\uAA36\\uAA43\\uAA4C\\uAAB0\\uAAB2-\\uAAB4\\uAAB7-\\uAAB8\\uAABE-\\uAABF\\uAAC1\\uAAEC-\\uAAED\\uAAF6\\uABE5\\uABE8\\uABED\\uFB1E\\uFE00-\\uFE0F\\uFE20-\\uFE26]"},/^[0-9\u0660-\u0669\u06F0-\u06F9\u07C0-\u07C9\u0966-\u096F\u09E6-\u09EF\u0A66-\u0A6F\u0AE6-\u0AEF\u0B66-\u0B6F\u0BE6-\u0BEF\u0C66-\u0C6F\u0CE6-\u0CEF\u0D66-\u0D6F\u0E50-\u0E59\u0ED0-\u0ED9\u0F20-\u0F29\u1040-\u1049\u1090-\u1099\u17E0-\u17E9\u1810-\u1819\u1946-\u194F\u19D0-\u19D9\u1A80-\u1A89\u1A90-\u1A99\u1B50-\u1B59\u1BB0-\u1BB9\u1C40-\u1C49\u1C50-\u1C59\uA620-\uA629\uA8D0-\uA8D9\uA900-\uA909\uA9D0-\uA9D9\uAA50-\uAA59\uABF0-\uABF9\uFF10-\uFF19]/,{type:"class",value:"[\\u0030-\\u0039\\u0660-\\u0669\\u06F0-\\u06F9\\u07C0-\\u07C9\\u0966-\\u096F\\u09E6-\\u09EF\\u0A66-\\u0A6F\\u0AE6-\\u0AEF\\u0B66-\\u0B6F\\u0BE6-\\u0BEF\\u0C66-\\u0C6F\\u0CE6-\\u0CEF\\u0D66-\\u0D6F\\u0E50-\\u0E59\\u0ED0-\\u0ED9\\u0F20-\\u0F29\\u1040-\\u1049\\u1090-\\u1099\\u17E0-\\u17E9\\u1810-\\u1819\\u1946-\\u194F\\u19D0-\\u19D9\\u1A80-\\u1A89\\u1A90-\\u1A99\\u1B50-\\u1B59\\u1BB0-\\u1BB9\\u1C40-\\u1C49\\u1C50-\\u1C59\\uA620-\\uA629\\uA8D0-\\uA8D9\\uA900-\\uA909\\uA9D0-\\uA9D9\\uAA50-\\uAA59\\uABF0-\\uABF9\\uFF10-\\uFF19]",description:"[\\u0030-\\u0039\\u0660-\\u0669\\u06F0-\\u06F9\\u07C0-\\u07C9\\u0966-\\u096F\\u09E6-\\u09EF\\u0A66-\\u0A6F\\u0AE6-\\u0AEF\\u0B66-\\u0B6F\\u0BE6-\\u0BEF\\u0C66-\\u0C6F\\u0CE6-\\u0CEF\\u0D66-\\u0D6F\\u0E50-\\u0E59\\u0ED0-\\u0ED9\\u0F20-\\u0F29\\u1040-\\u1049\\u1090-\\u1099\\u17E0-\\u17E9\\u1810-\\u1819\\u1946-\\u194F\\u19D0-\\u19D9\\u1A80-\\u1A89\\u1A90-\\u1A99\\u1B50-\\u1B59\\u1BB0-\\u1BB9\\u1C40-\\u1C49\\u1C50-\\u1C59\\uA620-\\uA629\\uA8D0-\\uA8D9\\uA900-\\uA909\\uA9D0-\\uA9D9\\uAA50-\\uAA59\\uABF0-\\uABF9\\uFF10-\\uFF19]"},/^[\u16EE-\u16F0\u2160-\u2182\u2185-\u2188\u3007\u3021-\u3029\u3038-\u303A\uA6E6-\uA6EF]/,{type:"class",value:"[\\u16EE-\\u16F0\\u2160-\\u2182\\u2185-\\u2188\\u3007\\u3021-\\u3029\\u3038-\\u303A\\uA6E6-\\uA6EF]",description:"[\\u16EE-\\u16F0\\u2160-\\u2182\\u2185-\\u2188\\u3007\\u3021-\\u3029\\u3038-\\u303A\\uA6E6-\\uA6EF]"},/^[_\u203F-\u2040\u2054\uFE33-\uFE34\uFE4D-\uFE4F\uFF3F]/,{type:"class",value:"[\\u005F\\u203F-\\u2040\\u2054\\uFE33-\\uFE34\\uFE4D-\\uFE4F\\uFF3F]",description:"[\\u005F\\u203F-\\u2040\\u2054\\uFE33-\\uFE34\\uFE4D-\\uFE4F\\uFF3F]"},/^[ \xA0\u1680\u2000-\u200A\u202F\u205F\u3000]/,{type:"class",value:"[\\u0020\\u00A0\\u1680\\u2000-\\u200A\\u202F\\u205F\\u3000]",description:"[\\u0020\\u00A0\\u1680\\u2000-\\u200A\\u202F\\u205F\\u3000]"},"break",{type:"literal",value:"break",description:'"break"'},"case",{type:"literal",value:"case",description:'"case"'},"catch",{type:"literal",value:"catch",description:'"catch"'},"class",{type:"literal",value:"class",description:'"class"'},"const",{type:"literal",value:"const",description:'"const"'},"continue",{type:"literal",value:"continue",description:'"continue"'},"debugger",{type:"literal",value:"debugger",description:'"debugger"'},"default",{type:"literal",value:"default",description:'"default"'},"delete",{type:"literal",value:"delete",description:'"delete"'},"do",{type:"literal",value:"do",description:'"do"'},"else",{type:"literal",value:"else",description:'"else"'},"enum",{type:"literal",value:"enum",description:'"enum"'},"export",{type:"literal",value:"export",description:'"export"'},"extends",{type:"literal",value:"extends",description:'"extends"'},"false",{type:"literal",value:"false",description:'"false"'},"finally",{type:"literal",value:"finally",description:'"finally"'},"for",{type:"literal",value:"for",description:'"for"'},"function",{type:"literal",value:"function",description:'"function"'},"get",{type:"literal",value:"get",description:'"get"'},"if",{type:"literal",value:"if",description:'"if"'},"import",{type:"literal",value:"import",description:'"import"'},"instanceof",{type:"literal",value:"instanceof",description:'"instanceof"'},"in",{type:"literal",value:"in",description:'"in"'},"new",{type:"literal",value:"new",description:'"new"'},"null",{type:"literal",value:"null",description:'"null"'},"return",{type:"literal",value:"return",description:'"return"'},"set",{type:"literal",value:"set",description:'"set"'},"super",{type:"literal",value:"super",description:'"super"'},"switch",{type:"literal",value:"switch",description:'"switch"'},"this",{type:"literal",value:"this",description:'"this"'},"throw",{type:"literal",value:"throw",description:'"throw"'},"true",{type:"literal",value:"true",description:'"true"'},"try",{type:"literal",value:"try",description:'"try"'},"typeof",{type:"literal",value:"typeof",
-description:'"typeof"'},"var",{type:"literal",value:"var",description:'"var"'},"void",{type:"literal",value:"void",description:'"void"'},"while",{type:"literal",value:"while",description:'"while"'},"with",{type:"literal",value:"with",description:'"with"'},";",{type:"literal",value:";",description:'";"'},function(){return{type:"ThisExpression"}},function(u){return u},function(u){return p(u.length+1,null)},function(u,A){return{key:u,value:{type:"FunctionExpression",id:null,params:[],body:A},kind:"get"}},function(u,A,$){return{key:u,value:{type:"FunctionExpression",id:null,params:A,body:$},kind:"set"}},function(u){return[u]},function(u,A){return{type:"NewExpression",callee:u,arguments:A}},function(u,A){return{property:A,computed:!0}},function(u,A){return{property:A,computed:!1}},function(u,A){return f(u,A,function(u,A){return{type:"MemberExpression",object:u,property:A.property,computed:A.computed}})},function(u){return{type:"NewExpression",callee:u,arguments:[]}},function(u,A){return{type:"CallExpression",callee:u,arguments:A}},function(u,A){return{type:"CallExpression",arguments:A}},function(u,A){return{type:"MemberExpression",property:A,computed:!0}},function(u,A){return{type:"MemberExpression",property:A,computed:!1}},function(u,A){return f(u,A,function(u,A){return A[_[A.type]]=u,A})},function(u){return v(c(u,0))},function(u,A){return{type:"UpdateExpression",operator:A,argument:u,prefix:!1}},"++",{type:"literal",value:"++",description:'"++"'},"--",{type:"literal",value:"--",description:'"--"'},function(u,A){var $="++"===u||"--"===u?"UpdateExpression":"UnaryExpression";return{type:$,operator:u,argument:A,prefix:!0}},"+",{type:"literal",value:"+",description:'"+"'},"-",{type:"literal",value:"-",description:'"-"'},"~",{type:"literal",value:"~",description:'"~"'},"!",{type:"literal",value:"!",description:'"!"'},"*",{type:"literal",value:"*",description:'"*"'},"%",{type:"literal",value:"%",description:'"%"'},/^[+=]/,{type:"class",value:"[+=]",description:"[+=]"},/^[\-=]/,{type:"class",value:"[-=]",description:"[-=]"},"<<",{type:"literal",value:"<<",description:'"<<"'},">>>",{type:"literal",value:">>>",description:'">>>"'},">>",{type:"literal",value:">>",description:'">>"'},"<=",{type:"literal",value:"<=",description:'"<="'},">=",{type:"literal",value:">=",description:'">="'},"<",{type:"literal",value:"<",description:'"<"'},">",{type:"literal",value:">",description:'">"'},"===",{type:"literal",value:"===",description:'"==="'},"!==",{type:"literal",value:"!==",description:'"!=="'},"==",{type:"literal",value:"==",description:'"=="'},"!=",{type:"literal",value:"!=",description:'"!="'},"&",{type:"literal",value:"&",description:'"&"'},/^[&=]/,{type:"class",value:"[&=]",description:"[&=]"},"^",{type:"literal",value:"^",description:'"^"'},/^[|=]/,{type:"class",value:"[|=]",description:"[|=]"},"&&",{type:"literal",value:"&&",description:'"&&"'},"||",{type:"literal",value:"||",description:'"||"'},"*=",{type:"literal",value:"*=",description:'"*="'},"/=",{type:"literal",value:"/=",description:'"/="'},"%=",{type:"literal",value:"%=",description:'"%="'},"+=",{type:"literal",value:"+=",description:'"+="'},"-=",{type:"literal",value:"-=",description:'"-="'},"<<=",{type:"literal",value:"<<=",description:'"<<="'},">>=",{type:"literal",value:">>=",description:'">>="'},">>>=",{type:"literal",value:">>>=",description:'">>>="'},"&=",{type:"literal",value:"&=",description:'"&="'},"^=",{type:"literal",value:"^=",description:'"^="'},"|=",{type:"literal",value:"|=",description:'"|="'},function(u,A){if(A.length>0)return{type:"SequenceExpression",expressions:y(u,A,3),original:$()};var E=u;return E.original=$(),E},function(u){return{type:"BlockStatement",body:v(c(u,0))}},function(u,A){return y(u,A,1)},function(u){return{type:"VariableDeclaration",declarations:u}},function(u,A){return{type:"VariableDeclarator",id:u,init:c(A,1)}},function(){return{type:"EmptyStatement"}},function(u){return{type:"ExpressionStatement",expression:u}},function(u,A,$){return{type:"IfStatement",test:u,consequent:A,alternate:$}},function(u,A){return{type:"IfStatement",test:u,consequent:A,alternate:null}},function(u,A){return{type:"DoWhileStatement",body:u,test:A}},function(u,A){return{type:"WhileStatement",test:u,body:A}},function(u,A,$,E){return{type:"ForStatement",init:c(u,0),test:c(A,0),update:c($,0),body:E}},function(u,A,$,E){return{type:"ForStatement",init:{type:"VariableDeclaration",declarations:u},test:c(A,0),update:c($,0),body:E}},function(u,A,$){return{type:"ForInStatement",left:u,right:A,body:$}},function(u,A,$){return{type:"ForInStatement",left:{type:"VariableDeclaration",declarations:u},right:A,body:$}},function(){return{type:"ContinueStatement",label:null}},function(u){return{type:"ContinueStatement",label:u}},function(){return{type:"BreakStatement",label:null}},function(u){return{type:"BreakStatement",label:u}},function(){return{type:"ReturnStatement",argument:null}},function(u){return{type:"ReturnStatement",argument:u}},function(u,A){return{type:"WithStatement",object:u,body:A}},function(u,A){return{type:"SwitchStatement",discriminant:u,cases:A}},function(u){return v(c(u,0))},function(u,A,$){return v(c(u,0)).concat(A).concat(v(c($,0)))},function(u,A){return{type:"SwitchCase",test:u,consequent:v(c(A,1))}},function(u){return{type:"SwitchCase",test:null,consequent:v(c(u,1))}},function(u,A){return{type:"LabeledStatement",label:u,body:A}},function(u){return{type:"ThrowStatement",argument:u}},function(u,A,$){return{type:"TryStatement",block:u,handler:A,finalizer:$}},function(u,A){return{type:"TryStatement",block:u,handler:A,finalizer:null}},function(u,A){return{type:"TryStatement",block:u,handler:null,finalizer:A}},function(u,A){return{type:"CatchClause",param:u,body:A}},function(u){return u},function(){return{type:"DebuggerStatement"}},function(u,A,$){return{type:"FunctionDeclaration",id:u,params:v(c(A,0)),body:$}},function(u,A,E){return{type:"FunctionExpression",id:c(u,0),params:v(c(A,0)),body:E,original:$()}},function(u){return{type:"BlockStatement",body:v(u)}},function(u){return{type:"Program",body:v(u)}},function(u,A){return y(u,A,1)},function(u){return u}],k=[D('!7«+I#7!*" ";+;$7«+2$7Ć+)$4$6 $"" %$$#<$##<$"#<"#<'),D('!76+L#7«+C$7"+:$7«+1$77+($4%6!%!"%$%#<$$#<$##<$"#<"#<'),D('!7ć+\' 4!6"!! %*. "!7«+& 4!6#! %'),D('!7(*" ";+2#7$+)$4"6$""! %$"#<"#<'),D('7%*) "7&*# "7\''),D('!7.+b#7«+Y$.%""2%3&+J$7«+A$74*" ";+3$7;+*$4&6\'&#%! %$&#<$%#<$$#<$##<$"#<"#<'),D('!7.+b#7«+Y$.(""2(3)+J$7«+A$74*" ";+3$7;+*$4&6*&#%! %$&#<$%#<$$#<$##<$"#<"#<'),D('!7.+#7«+$.+""2+3,*) ".-""2-3.+u$7«+l$7.+c$7«+Z$.(""2(3)+K$7«+B$74*" ";+4$7;++$4*6/*$)%! %$*#<$)#<$(#<$\'#<$&#<$%#<$$#<$##<$"#<"#<'),D('!7)+I#7«+@$.0""2031+1$7«+($4$62$!#%$$#<$##<$"#<"#<'),D('!=!!!8.0""20319*##"":"#<+;#03""1!34+,$7g+#$\'#%$##<$"#<"#<+"!"(%+a#,^&!!!8.0""20319*##"":"#<+;#03""1!34+,$7g+#$\'#%$##<$"#<"#<+"!"(%"""<+\' 4!65!! %'),D('!7«+È#7++¿$=!7«+I#.6""2637*" ";+5$7«+,$7++#$\'$%$$#<$##<$"#<"#<,S&!7«+I#.6""2637*" ";+5$7«+,$7++#$\'$%$$#<$##<$"#<"#<"+O$7«+F$.6""2637*" ";+2$7«+)$4&68&"$#%$&#<$%#<$$#<$##<$"#<"#<'),D('!71+q#!.9""293:+M#7«+D$7,+;$7«+2$.;""2;3<+#$\'%%$%#<$$#<$##<$"#<"#<*" ";+)$4"6=""! %$"#<"#<'),D('!7-+#=!7«+D#.6""2637+5$7«+,$7-+#$\'$%$$#<$##<$"#<"#<,N&!7«+D#.6""2637+5$7«+,$7-+#$\'$%$$#<$##<$"#<"#<"+)$4"68""! %$"#<"#<'),D("!7ã+' 4!6>!! %"),D('!7/+#=!7«+D#.6""2637+5$7«+,$7/+#$\'$%$$#<$##<$"#<"#<,N&!7«+D#.6""2637+5$7«+,$7/+#$\'$%$$#<$##<$"#<"#<"+)$4"68""! %$"#<"#<'),D('!71+q#!.9""293:+M#7«+D$72+;$7«+2$.;""2;3<+#$\'%%$%#<$$#<$##<$"#<"#<*" ";+)$4"6?""! %$"#<"#<'),D('!71+q#!.9""293:+M#7«+D$79+;$7«+2$.;""2;3<+#$\'%%$%#<$$#<$##<$"#<"#<*" ";+)$4"6@""! %$"#<"#<'),D('!0A""1!3B+E#=0C""1!3D,)&0C""1!3D"+)$4"6E""! %$"#<"#<'),D('!73+#=!7«+D#.6""2637+5$7«+,$73+#$\'$%$$#<$##<$"#<"#<,N&!7«+D#.6""2637+5$7«+,$73+#$\'$%$$#<$##<$"#<"#<"+)$4"68""! %$"#<"#<'),D("!7?+' 4!6>!! %"),D('!7:+d#7«+[$.F""2F3G+L$!8.F""2F3G9*##"":"#<+1$7«+($4%6H%!$%$%#<$$#<$##<$"#<"#<'),D('!76+S#7«+J$!7^+"!"(%+:$7«+1$77+($4%6I%!"%$%#<$$#<$##<$"#<"#<* "!76+L#7«+C$7ă+:$7«+1$77+($4%6J%!"%$%#<$$#<$##<$"#<"#<*] "!76+S#7«+J$!7ã+"!"(%+:$7«+1$77+($4%6K%!"%$%#<$$#<$##<$"#<"#<'),D('.L""2L3M*) ".N""2N3O'),D('.P""2P3Q'),D('!.9""293:+#7«+y$7Ą*" ";+k$7«+b$.;""2;3<+S$7«+J$.R""2R3S+;$7«+2$7"+)$4)6T)"& %$)#<$(#<$\'#<$&#<$%#<$$#<$##<$"#<"#<'),D("!7ã+' 4!6U!! %"),D("!7C+' 4!6U!! %"),D('!7<+#=!7«+D#.6""2637+5$7«+,$7<+#$\'$%$$#<$##<$"#<"#<,N&!7«+D#.6""2637+5$7«+,$7<+#$\'$%$$#<$##<$"#<"#<"+)$4"68""! %$"#<"#<'),D('75*# "70'),D('!.V""2V3W+a#7«+X$!7²+,#7«+#$\'"%$"#<"#<*" ";+7$.X""2X3Y+($4$6Z$!!%$$#<$##<$"#<"#<*á "!.V""2V3W+R#7«+I$7>+@$7«+7$.X""2X3Y+($4%6[%!"%$%#<$$#<$##<$"#<"#<* "!.V""2V3W+#7«+$7>+z$7«+q$.6""2637+b$7«+Y$!7²+,#7«+#$\'"%$"#<"#<*" ";+8$.X""2X3Y+)$4(6\\("%!%$(#<$\'#<$&#<$%#<$$#<$##<$"#<"#<'),D('!!!7²+,#7«+#$\'"%$"#<"#<*" ";+2#7?+)$4"6]""! %$"#<"#<+ß#=!7«+l#.6""2637+]$7«+T$!7²+,#7«+#$\'"%$"#<"#<*" ";+3$7?+*$4%6^%#\'! %$%#<$$#<$##<$"#<"#<,v&!7«+l#.6""2637+]$7«+T$!7²+,#7«+#$\'"%$"#<"#<*" ";+3$7?+*$4%6^%#\'! %$%#<$$#<$##<$"#<"#<"+)$4"6_""! %$"#<"#<'),D('7P*/ "7Y*) "7=*# "7@'),D('!.N""2N3O+?#7«+6$.P""2P3Q+\'$4#6`# %$##<$"#<"#<*¿ "!.N""2N3O+R#7«+I$7A+@$7«+7$.P""2P3Q+($4%6a%!"%$%#<$$#<$##<$"#<"#<*z "!.N""2N3O+j#7«+a$7A+X$7«+O$.6""2637+@$7«+7$.P""2P3Q+($4\'6a\'!$%$\'#<$&#<$%#<$$#<$##<$"#<"#<'),D('!7B+#=!7«+D#.6""2637+5$7«+,$7B+#$\'$%$$#<$##<$"#<"#<,N&!7«+D#.6""2637+5$7«+,$7B+#$\'$%$$#<$##<$"#<"#<"+)$4"68""! %$"#<"#<'),D('!7¶+S#7«+J$.b""2b3c+;$7«+2$7à+)$4%6d%"$ %$%#<$$#<$##<$"#<"#<'),D('!7D+#=!7«+D#.6""2637+5$7«+,$7D+#$\'$%$$#<$##<$"#<"#<,N&!7«+D#.6""2637+5$7«+,$7D+#$\'$%$$#<$##<$"#<"#<"+)$4"6e""! %$"#<"#<'),D('75*¹ "!7½+n#7«+e$.f""2f3g+V$!8.f""2f3g9*##"":"#<+;$7«+2$7D+)$4&6h&"% %$&#<$%#<$$#<$##<$"#<"#<*^ "!7½+N#7«+E$7â+<$7«+3$7D+*$4%6i%#$" %$%#<$$#<$##<$"#<"#<*# "7E'),D('!7F+~#7«+u$.j""2j3k+f$7«+]$7D+T$7«+K$.b""2b3c+<$7«+3$7D+*$4)6l)#($ %$)#<$(#<$\'#<$&#<$%#<$$#<$##<$"#<"#<*# "7F'),D('!7G+#=!7«+D#.m""2m3n+5$7«+,$7G+#$\'$%$$#<$##<$"#<"#<,N&!7«+D#.m""2m3n+5$7«+,$7G+#$\'$%$$#<$##<$"#<"#<"+)$4"6o""! %$"#<"#<'),D('!7Ò+#=!7«+>#7Ú+5$7«+,$7Ò+#$\'$%$$#<$##<$"#<"#<,H&!7«+>#7Ú+5$7«+,$7Ò+#$\'$%$$#<$##<$"#<"#<"+)$4"6o""! %$"#<"#<'),D('-""1!3p'),D('8.r""2r3s*_ ".t""2t3u*S ".v""2v3w*G ".x""2x3y*; ".z""2z3{*/ ".|""2|3}*# "79*" 3q'),D('0~""1!3'),D('8.""23*M ".""23*A ".""23*5 ".""23*) ".""239*" 3'),D('87M*# "7O9*" 3'),D('!.""23+#=!!8.""239*##"":"#<+,#7H+#$\'"%$"#<"#<,H&!!8.""239*##"":"#<+,#7H+#$\'"%$"#<"#<"+2$.""23+#$\'#%$##<$"#<"#<'),D('!.""23+#=!!8.""23*# "7J9*##"":"#<+,#7H+#$\'"%$"#<"#<,N&!!8.""23*# "7J9*##"":"#<+,#7H+#$\'"%$"#<"#<"+2$.""23+#$\'#%$##<$"#<"#<'),D('!.""23+q#=!!87J9*##"":"#<+,#7H+#$\'"%$"#<"#<,B&!!87J9*##"":"#<+,#7H+#$\'"%$"#<"#<"+#$\'"%$"#<"#<'),D('!!87V9*##"":"#<+1#7Q+($4"6"! %$"#<"#<'),D('8!7R+9#=7S,#&7S"+)$4"6""! %$"#<"#<9*" 3'),D('7T*Y ".""23*M ".""23*A "!.+""2+3,+1#7p+($4"6"! %$"#<"#<'),D('7R*G "7U*A "7*; "7*5 ".""23*) ".""23'),D('7~*; "7z*5 "7}*/ "7{*) "7|*# "7'),D('7*# "7'),D('7W*/ "7X*) "7Z*# "7['),D('7*³ "7*­ "7*§ "7*¡ "7* "7* "7* "7* "7* "7*} "7*w "7*q "7*k "7*e "7*_ "7*Y "7*S "7¡*M "7¢*G "7£*A "7¥*; "7¦*5 "7§*/ "7¨*) "7©*# "7ª'),D('7*A "7*; "7*5 "7*/ "7*) "7*# "7 '),D('7Z*5 "7[*/ "7\\*) "7f*# "7q'),D("!7+& 4!6! %"),D('!7¤+& 4!6! %*. "!7+& 4!6 ! %'),D('8!7d+C#!87R*# "7_9*##"":"#<+($4"6¢"!!%$"#<"#<*M "!7]+C#!87R*# "7_9*##"":"#<+($4"6¢"!!%$"#<"#<9*" 3¡'),D('!7^+T#.£""2£3¤+E$=7_,#&7_"+5$7a*" ";+\'$4$6¥$ %$$#<$##<$"#<"#<*} "!.£""2£3¤+K#=7_+&#,#&7_"""<+5$7a*" ";+\'$4#6¥# %$##<$"#<"#<*? "!7^+5#7a*" ";+\'$4"6¥" %$"#<"#<'),D('.¦""2¦3§*= "!7`+3#=7_,#&7_"+#$\'"%$"#<"#<'),D('0¨""1!3©'),D('0ª""1!3«'),D('!7b+,#7c+#$\'"%$"#<"#<'),D('/¬""1!3­'),D('!0®""1!3¯*" ";+9#=7_+&#,#&7_"""<+#$\'"%$"#<"#<'),D('!/°""1"3±+E#!=7e+&#,#&7e"""<+"!"(%+($4"6²"! %$"#<"#<'),D('0³""1!3´'),D('8!.¶""2¶3·+G#=7g,#&7g"+7$.¶""2¶3·+($4#6¸#!!%$##<$"#<"#<*W "!.¹""2¹3º+G#=7h,#&7h"+7$.¹""2¹3º+($4#6¸#!!%$##<$"#<"#<9*" 3µ'),D('!!8.¶""2¶3·*/ ".+""2+3,*# "7J9*##"":"#<+0#7H+\'$4"6»" %$"#<"#<*G "!.+""2+3,+1#7j+($4"6"! %$"#<"#<*# "7i'),D('!!8.¹""2¹3º*/ ".+""2+3,*# "7J9*##"":"#<+0#7H+\'$4"6»" %$"#<"#<*G "!.+""2+3,+1#7j+($4"6"! %$"#<"#<*# "7i'),D('!.+""2+3,+0#7K+\'$4"6¼" %$"#<"#<'),D('7k*X "!.¦""2¦3§+<#!87_9*##"":"#<+\'$4"6½" %$"#<"#<*) "7o*# "7p'),D('7l*# "7m'),D('.¹""2¹3º*¿ ".¶""2¶3·*³ ".+""2+3,*§ "!.¾""2¾3¿+& 4!6À! %* "!.Á""2Á3Â+& 4!6Ã! %*y "!.Ä""2Ä3Å+& 4!6Æ! %*b "!.Ç""2Ç3È+& 4!6É! %*K "!.Ê""2Ê3Ë+& 4!6Ì! %*4 "!.Í""2Í3Î+& 4!6Ï! %'),D('!!87n*# "7J9*##"":"#<+0#7H+\'$4"6»" %$"#<"#<'),D('7l*; "7_*5 ".Ð""2Ð3Ñ*) ".Ò""2Ò3Ó'),D('!.Ð""2Ð3Ñ+K#!!7e+,#7e+#$\'"%$"#<"#<+"!"(%+($4"6Ô"! %$"#<"#<'),D('!.Ò""2Ò3Ó+]#!!7e+>#7e+5$7e+,$7e+#$\'$%$$#<$##<$"#<"#<+"!"(%+($4"6Ô"! %$"#<"#<'),D('8!.-""2-3.+X#!7r+"!"(%+H$.-""2-3.+9$!7y+"!"(%+)$4$6Ö$"" %$$#<$##<$"#<"#<9*" 3Õ'),D('!7s+3#=7t,#&7t"+#$\'"%$"#<"#<'),D('!!80×""1!3Ø9*##"":"#<+,#7v+#$\'"%$"#<"#<*) "7u*# "7w'),D('!!80Ù""1!3Ú9*##"":"#<+,#7v+#$\'"%$"#<"#<*) "7u*# "7w'),D('!.+""2+3,+,#7v+#$\'"%$"#<"#<'),D('!!87J9*##"":"#<+,#7H+#$\'"%$"#<"#<'),D('!.V""2V3W+B#=7x,#&7x"+2$.X""2X3Y+#$\'#%$##<$"#<"#<'),D('!!80Û""1!3Ü9*##"":"#<+,#7v+#$\'"%$"#<"#<*# "7u'),D('=7S,#&7S"'),D('0Ý""1!3Þ'),D('0ß""1!3à'),D('0á""1!3â'),D('0ã""1!3ä'),D('0å""1!3æ'),D('0ç""1!3è'),D('0é""1!3ê'),D('0ë""1!3ì'),D('0í""1!3î'),D('0ï""1!3ð'),D('0ñ""1!3ò'),D('!.ó""2ó3ô+8#!87S9*##"":"#<+#$\'"%$"#<"#<'),D('!.õ""2õ3ö+8#!87S9*##"":"#<+#$\'"%$"#<"#<'),D('!.÷""2÷3ø+8#!87S9*##"":"#<+#$\'"%$"#<"#<'),D('!.ù""2ù3ú+8#!87S9*##"":"#<+#$\'"%$"#<"#<'),D('!.û""2û3ü+8#!87S9*##"":"#<+#$\'"%$"#<"#<'),D('!.ý""2ý3þ+8#!87S9*##"":"#<+#$\'"%$"#<"#<'),D('!.ÿ""2ÿ3Ā+8#!87S9*##"":"#<+#$\'"%$"#<"#<'),D('!.ā""2ā3Ă+8#!87S9*##"":"#<+#$\'"%$"#<"#<'),D('!.ă""2ă3Ą+8#!87S9*##"":"#<+#$\'"%$"#<"#<'),D('!.ą""2ą3Ć+8#!87S9*##"":"#<+#$\'"%$"#<"#<'),D('!.ć""2ć3Ĉ+8#!87S9*##"":"#<+#$\'"%$"#<"#<'),D('!.ĉ""2ĉ3Ċ+8#!87S9*##"":"#<+#$\'"%$"#<"#<'),D('!.ċ""2ċ3Č+8#!87S9*##"":"#<+#$\'"%$"#<"#<'),D('!.č""2č3Ď+8#!87S9*##"":"#<+#$\'"%$"#<"#<'),D('!.ď""2ď3Đ+8#!87S9*##"":"#<+#$\'"%$"#<"#<'),D('!.đ""2đ3Ē+8#!87S9*##"":"#<+#$\'"%$"#<"#<'),D('!.ē""2ē3Ĕ+8#!87S9*##"":"#<+#$\'"%$"#<"#<'),D('!.ĕ""2ĕ3Ė+8#!87S9*##"":"#<+#$\'"%$"#<"#<'),D('!.ė""2ė3Ę+8#!87S9*##"":"#<+#$\'"%$"#<"#<'),D('!.ę""2ę3Ě+8#!87S9*##"":"#<+#$\'"%$"#<"#<'),D('!.ě""2ě3Ĝ+8#!87S9*##"":"#<+#$\'"%$"#<"#<'),D('!.ĝ""2ĝ3Ğ+8#!87S9*##"":"#<+#$\'"%$"#<"#<'),D('!.ğ""2ğ3Ġ+8#!87S9*##"":"#<+#$\'"%$"#<"#<'),D('!.ġ""2ġ3Ģ+8#!87S9*##"":"#<+#$\'"%$"#<"#<'),D('!.ģ""2ģ3Ĥ+8#!87S9*##"":"#<+#$\'"%$"#<"#<'),D('!.ĥ""2ĥ3Ħ+8#!87S9*##"":"#<+#$\'"%$"#<"#<'),D('!.ħ""2ħ3Ĩ+8#!87S9*##"":"#<+#$\'"%$"#<"#<'),D('!.ĩ""2ĩ3Ī+8#!87S9*##"":"#<+#$\'"%$"#<"#<'),D('!.ī""2ī3Ĭ+8#!87S9*##"":"#<+#$\'"%$"#<"#<'),D('!.ĭ""2ĭ3Į+8#!87S9*##"":"#<+#$\'"%$"#<"#<'),D('!.į""2į3İ+8#!87S9*##"":"#<+#$\'"%$"#<"#<'),D('!.ı""2ı3Ĳ+8#!87S9*##"":"#<+#$\'"%$"#<"#<'),D('!.ĳ""2ĳ3Ĵ+8#!87S9*##"":"#<+#$\'"%$"#<"#<'),D('!.ĵ""2ĵ3Ķ+8#!87S9*##"":"#<+#$\'"%$"#<"#<'),D('!.ķ""2ķ3ĸ+8#!87S9*##"":"#<+#$\'"%$"#<"#<'),D('!.Ĺ""2Ĺ3ĺ+8#!87S9*##"":"#<+#$\'"%$"#<"#<'),D('!.Ļ""2Ļ3ļ+8#!87S9*##"":"#<+#$\'"%$"#<"#<'),D('!.Ľ""2Ľ3ľ+8#!87S9*##"":"#<+#$\'"%$"#<"#<'),D('=7I*) "7K*# "7L,/&7I*) "7K*# "7L"'),D('=7I*# "7N,)&7I*# "7N"'),D('!7«+2#.Ŀ""2Ŀ3ŀ+#$\'"%$"#<"#<* "!7¬+:#7O*" ";+,$7K+#$\'#%$##<$"#<"#<*a "!7¬+>#!8.P""2P3Q9+##"#:""<+#$\'"%$"#<"#<*6 "!7«+,#7®+#$\'"%$"#<"#<'),D('!8-""1!3p9*##"":"#<'),D('!7¢+& 4!6Ł! %*z "7P*t "7Y*n "7°*h "7³*b "!.9""293:+R#7«+I$7ã+@$7«+7$.;""2;3<+($4%6ł%!"%$%#<$$#<$##<$"#<"#<'),D('!.V""2V3W+a#7«+X$!7²+,#7«+#$\'"%$"#<"#<*" ";+7$.X""2X3Y+($4$6Z$!!%$$#<$##<$"#<"#<*á "!.V""2V3W+R#7«+I$7±+@$7«+7$.X""2X3Y+($4%6[%!"%$%#<$$#<$##<$"#<"#<* "!.V""2V3W+#7«+$7±+z$7«+q$.6""2637+b$7«+Y$!7²+,#7«+#$\'"%$"#<"#<*" ";+8$.X""2X3Y+)$4(6\\("%!%$(#<$\'#<$&#<$%#<$$#<$##<$"#<"#<'),D('!!!7²+,#7«+#$\'"%$"#<"#<*" ";+2#7à+)$4"6]""! %$"#<"#<+ß#=!7«+l#.6""2637+]$7«+T$!7²+,#7«+#$\'"%$"#<"#<*" ";+3$7à+*$4%6^%#\'! %$%#<$$#<$##<$"#<"#<,v&!7«+l#.6""2637+]$7«+T$!7²+,#7«+#$\'"%$"#<"#<*" ";+3$7à+*$4%6^%#\'! %$%#<$$#<$##<$"#<"#<"+)$4"6_""! %$"#<"#<'),D('!.6""2637+j#=!7«+2#.6""2637+#$\'"%$"#<"#<,<&!7«+2#.6""2637+#$\'"%$"#<"#<"+($4"6Ń"! %$"#<"#<'),D('!.N""2N3O+?#7«+6$.P""2P3Q+\'$4#6`# %$##<$"#<"#<*¿ "!.N""2N3O+R#7«+I$7´+@$7«+7$.P""2P3Q+($4%6a%!"%$%#<$$#<$##<$"#<"#<*z "!.N""2N3O+j#7«+a$7´+X$7«+O$.6""2637+@$7«+7$.P""2P3Q+($4\'6a\'!$%$\'#<$&#<$%#<$$#<$##<$"#<"#<'),D('!7µ+#=!7«+D#.6""2637+5$7«+,$7µ+#$\'$%$$#<$##<$"#<"#<,N&!7«+D#.6""2637+5$7«+,$7µ+#$\'$%$$#<$##<$"#<"#<"+)$4"68""! %$"#<"#<'),D('!7¶+S#7«+J$.b""2b3c+;$7«+2$7à+)$4%6d%"$ %$%#<$$#<$##<$"#<"#<*Ť "!7+­#7«+¤$7¶+$7«+$.9""293:+$7«+z$.;""2;3<+k$7«+b$.N""2N3O+S$7«+J$7ą+A$7«+8$.P""2P3Q+)$4-6ń-"*"%$-#<$,#<$+#<$*#<$)#<$(#<$\'#<$&#<$%#<$$#<$##<$"#<"#<*Ê "!7+À#7«+·$7¶+®$7«+¥$.9""293:+$7«+$7·+$7«+{$.;""2;3<+l$7«+c$.N""2N3O+T$7«+K$7ą+B$7«+9$.P""2P3Q+*$4/6Ņ/#,("%$/#<$.#<$-#<$,#<$+#<$*#<$)#<$(#<$\'#<$&#<$%#<$$#<$##<$"#<"#<'),D('7Q*) "7f*# "7\\'),D("!7P+' 4!6ņ!! %"),D('!7¯*] "7ă*W "!7+M#7«+D$7¸+;$7«+2$7»+)$4%6Ň%"" %$%#<$$#<$##<$"#<"#<+Ĺ#=!7«+b#.V""2V3W+S$7«+J$7ã+A$7«+8$.X""2X3Y+)$4&6ň&"("%$&#<$%#<$$#<$##<$"#<"#<*T "!7«+J#.£""2£3¤+;$7«+2$7Q+)$4$6ŉ$"& %$$#<$##<$"#<"#<,£&!7«+b#.V""2V3W+S$7«+J$7ã+A$7«+8$.X""2X3Y+)$4&6ň&"("%$&#<$%#<$$#<$##<$"#<"#<*T "!7«+J#.£""2£3¤+;$7«+2$7Q+)$4$6ŉ$"& %$$#<$##<$"#<"#<"+)$4"6Ŋ""! %$"#<"#<'),D('7¸*D "!7+:#7«+1$7¹+($4#6ŋ#! %$##<$"#<"#<'),D('!!7¸+;#7«+2$7»+)$4#6Ō#"" %$##<$"#<"#<+ŷ#=!7«+2#7»+)$4"6ō""$ %$"#<"#<*£ "!7«+b#.V""2V3W+S$7«+J$7ã+A$7«+8$.X""2X3Y+)$4&6Ŏ&"("%$&#<$%#<$$#<$##<$"#<"#<*T "!7«+J#.£""2£3¤+;$7«+2$7Q+)$4$6ŏ$"& %$$#<$##<$"#<"#<,Â&!7«+2#7»+)$4"6ō""$ %$"#<"#<*£ "!7«+b#.V""2V3W+S$7«+J$7ã+A$7«+8$.X""2X3Y+)$4&6Ŏ&"("%$&#<$%#<$$#<$##<$"#<"#<*T "!7«+J#.£""2£3¤+;$7«+2$7Q+)$4$6ŏ$"& %$$#<$##<$"#<"#<"+)$4"6Ő""! %$"#<"#<'),D('!.9""293:+a#7«+X$!7¼+,#7«+#$\'"%$"#<"#<*" ";+7$.;""2;3<+($4$6ő$!!%$$#<$##<$"#<"#<'),D('!7à+#=!7«+D#.6""2637+5$7«+,$7à+#$\'$%$$#<$##<$"#<"#<,N&!7«+D#.6""2637+5$7«+,$7à+#$\'$%$$#<$##<$"#<"#<"+)$4"68""! %$"#<"#<'),D('7º*# "7¹'),D('!7½+;#7¬+2$7¿+)$4#6Œ#"" %$##<$"#<"#<*# "7½'),D('.œ""2œ3Ŕ*) ".ŕ""2ŕ3Ŗ'),D('7¾*E "!7Á+;#7«+2$7À+)$4#6ŗ#"" %$##<$"#<"#<'),D('!7+"!"(%*× "!7¨+"!"(%*Ê "!7¦+"!"(%*½ ".œ""2œ3Ŕ*± ".ŕ""2ŕ3Ŗ*¥ "!!.Ř""2Ř3ř+>#!8.f""2f3g9*##"":"#<+#$\'"%$"#<"#<+"!"(%*m "!!.Ś""2Ś3ś+>#!8.f""2f3g9*##"":"#<+#$\'"%$"#<"#<+"!"(%*5 ".Ŝ""2Ŝ3ŝ*) ".Ş""2Ş3ş'),D('!7À+#=!7«+>#7Ã+5$7«+,$7À+#$\'$%$$#<$##<$"#<"#<,H&!7«+>#7Ã+5$7«+,$7À+#$\'$%$$#<$##<$"#<"#<"+)$4"6o""! %$"#<"#<'),D('!!.Š""2Š3š+>#!8.f""2f3g9*##"":"#<+#$\'"%$"#<"#<+"!"(%* "!!.-""2-3.+>#!8.f""2f3g9*##"":"#<+#$\'"%$"#<"#<+"!"(%*U "!!.Ţ""2Ţ3ţ+>#!8.f""2f3g9*##"":"#<+#$\'"%$"#<"#<+"!"(%'),D('!7Â+#=!7«+>#7Å+5$7«+,$7Â+#$\'$%$$#<$##<$"#<"#<,H&!7«+>#7Å+5$7«+,$7Â+#$\'$%$$#<$##<$"#<"#<"+)$4"6o""! %$"#<"#<'),D('!!.Ř""2Ř3ř+>#!80Ť""1!3ť9*##"":"#<+#$\'"%$"#<"#<+"!"(%*U "!!.Ś""2Ś3ś+>#!80Ŧ""1!3ŧ9*##"":"#<+#$\'"%$"#<"#<+"!"(%'),D('!7Ä+#=!7«+>#7Ç+5$7«+,$7Ä+#$\'$%$$#<$##<$"#<"#<,H&!7«+>#7Ç+5$7«+,$7Ä+#$\'$%$$#<$##<$"#<"#<"+)$4"6o""! %$"#<"#<'),D('!!.Ũ""2Ũ3ũ+>#!8.f""2f3g9*##"":"#<+#$\'"%$"#<"#<+"!"(%* "!!.Ū""2Ū3ū+>#!8.f""2f3g9*##"":"#<+#$\'"%$"#<"#<+"!"(%*U "!!.Ŭ""2Ŭ3ŭ+>#!8.f""2f3g9*##"":"#<+#$\'"%$"#<"#<+"!"(%'),D('!7Æ+#=!7«+>#7É+5$7«+,$7Æ+#$\'$%$$#<$##<$"#<"#<,H&!7«+>#7É+5$7«+,$7Æ+#$\'$%$$#<$##<$"#<"#<"+)$4"6o""! %$"#<"#<'),D('.Ů""2Ů3ů*³ ".Ű""2Ű3ű*§ "!!.Ų""2Ų3ų+>#!8.Ų""2Ų3ų9*##"":"#<+#$\'"%$"#<"#<+"!"(%*o "!!.Ŵ""2Ŵ3ŵ+>#!8.Ŵ""2Ŵ3ŵ9*##"":"#<+#$\'"%$"#<"#<+"!"(%*7 "!7+"!"(%** "!7+"!"(%'),D('!7Æ+#=!7«+>#7Ë+5$7«+,$7Æ+#$\'$%$$#<$##<$"#<"#<,H&!7«+>#7Ë+5$7«+,$7Æ+#$\'$%$$#<$##<$"#<"#<"+)$4"6o""! %$"#<"#<'),D('.Ů""2Ů3ů*¦ ".Ű""2Ű3ű* "!!.Ų""2Ų3ų+>#!8.Ų""2Ų3ų9*##"":"#<+#$\'"%$"#<"#<+"!"(%*b "!!.Ŵ""2Ŵ3ŵ+>#!8.Ŵ""2Ŵ3ŵ9*##"":"#<+#$\'"%$"#<"#<+"!"(%** "!7+"!"(%'),D('!7È+#=!7«+>#7Î+5$7«+,$7È+#$\'$%$$#<$##<$"#<"#<,H&!7«+>#7Î+5$7«+,$7È+#$\'$%$$#<$##<$"#<"#<"+)$4"6o""! %$"#<"#<'),D('!7Ê+#=!7«+>#7Î+5$7«+,$7Ê+#$\'$%$$#<$##<$"#<"#<,H&!7«+>#7Î+5$7«+,$7Ê+#$\'$%$$#<$##<$"#<"#<"+)$4"6o""! %$"#<"#<'),D('.Ŷ""2Ŷ3ŷ*A ".Ÿ""2Ÿ3Ź*5 ".ź""2ź3Ż*) ".ż""2ż3Ž'),D('!7Ì+#=!7«+>#7Ñ+5$7«+,$7Ì+#$\'$%$$#<$##<$"#<"#<,H&!7«+>#7Ñ+5$7«+,$7Ì+#$\'$%$$#<$##<$"#<"#<"+)$4"6o""! %$"#<"#<'),D('!7Í+#=!7«+>#7Ñ+5$7«+,$7Í+#$\'$%$$#<$##<$"#<"#<,H&!7«+>#7Ñ+5$7«+,$7Í+#$\'$%$$#<$##<$"#<"#<"+)$4"6o""! %$"#<"#<'),D('!!.ž""2ž3ſ+>#!80ƀ""1!3Ɓ9*##"":"#<+#$\'"%$"#<"#<+"!"(%'),D('!7Ï+#=!7«+>#7Ô+5$7«+,$7Ï+#$\'$%$$#<$##<$"#<"#<,H&!7«+>#7Ô+5$7«+,$7Ï+#$\'$%$$#<$##<$"#<"#<"+)$4"6o""! %$"#<"#<'),D('!7Ð+#=!7«+>#7Ô+5$7«+,$7Ð+#$\'$%$$#<$##<$"#<"#<,H&!7«+>#7Ô+5$7«+,$7Ð+#$\'$%$$#<$##<$"#<"#<"+)$4"6o""! %$"#<"#<'),D('!!.Ƃ""2Ƃ3ƃ+>#!8.f""2f3g9*##"":"#<+#$\'"%$"#<"#<+"!"(%'),D('!7Ò+#=!7«+>#7×+5$7«+,$7Ò+#$\'$%$$#<$##<$"#<"#<,H&!7«+>#7×+5$7«+,$7Ò+#$\'$%$$#<$##<$"#<"#<"+)$4"6o""! %$"#<"#<'),D('!7Ó+#=!7«+>#7×+5$7«+,$7Ó+#$\'$%$$#<$##<$"#<"#<,H&!7«+>#7×+5$7«+,$7Ó+#$\'$%$$#<$##<$"#<"#<"+)$4"6o""! %$"#<"#<'),D('!!.F""2F3G+>#!80Ƅ""1!3ƅ9*##"":"#<+#$\'"%$"#<"#<+"!"(%'),D('!7Õ+#=!7«+>#7Ú+5$7«+,$7Õ+#$\'$%$$#<$##<$"#<"#<,H&!7«+>#7Ú+5$7«+,$7Õ+#$\'$%$$#<$##<$"#<"#<"+)$4"6o""! %$"#<"#<'),D('!7Ö+#=!7«+>#7Ú+5$7«+,$7Ö+#$\'$%$$#<$##<$"#<"#<,H&!7«+>#7Ú+5$7«+,$7Ö+#$\'$%$$#<$##<$"#<"#<"+)$4"6o""! %$"#<"#<'),D('.Ɔ""2Ɔ3Ƈ'),D('!7Ø+#=!7«+>#7Ý+5$7«+,$7Ø+#$\'$%$$#<$##<$"#<"#<,H&!7«+>#7Ý+5$7«+,$7Ø+#$\'$%$$#<$##<$"#<"#<"+)$4"6o""! %$"#<"#<'),D('!7Ù+#=!7«+>#7Ý+5$7«+,$7Ù+#$\'$%$$#<$##<$"#<"#<,H&!7«+>#7Ý+5$7«+,$7Ù+#$\'$%$$#<$##<$"#<"#<"+)$4"6o""! %$"#<"#<'),D('.ƈ""2ƈ3Ɖ'),D('!7Û+~#7«+u$.j""2j3k+f$7«+]$7à+T$7«+K$.b""2b3c+<$7«+3$7à+*$4)6l)#($ %$)#<$(#<$\'#<$&#<$%#<$$#<$##<$"#<"#<*# "7Û'),D('!7Ü+~#7«+u$.j""2j3k+f$7«+]$7à+T$7«+K$.b""2b3c+<$7«+3$7á+*$4)6l)#($ %$)#<$(#<$\'#<$&#<$%#<$$#<$##<$"#<"#<*# "7Ü'),D('!7½+n#7«+e$.f""2f3g+V$!8.f""2f3g9*##"":"#<+;$7«+2$7à+)$4&6h&"% %$&#<$%#<$$#<$##<$"#<"#<*^ "!7½+N#7«+E$7â+<$7«+3$7à+*$4%6i%#$" %$%#<$$#<$##<$"#<"#<*# "7Þ'),D('!7½+n#7«+e$.f""2f3g+V$!8.f""2f3g9*##"":"#<+;$7«+2$7á+)$4&6h&"% %$&#<$%#<$$#<$##<$"#<"#<*^ "!7½+N#7«+E$7â+<$7«+3$7á+*$4%6i%#$" %$%#<$$#<$##<$"#<"#<*# "7ß'),D('.Ɗ""2Ɗ3Ƌ* ".ƌ""2ƌ3ƍ* ".Ǝ""2Ǝ3Ə*} ".Ɛ""2Ɛ3Ƒ*q ".ƒ""2ƒ3Ɠ*e ".Ɣ""2Ɣ3ƕ*Y ".Ɩ""2Ɩ3Ɨ*M ".Ƙ""2Ƙ3ƙ*A ".ƚ""2ƚ3ƛ*5 ".Ɯ""2Ɯ3Ɲ*) ".ƞ""2ƞ3Ɵ'),D('!7à+#=!7«+D#.6""2637+5$7«+,$7à+#$\'$%$$#<$##<$"#<"#<,N&!7«+D#.6""2637+5$7«+,$7à+#$\'$%$$#<$##<$"#<"#<"+)$4"6Ơ""! %$"#<"#<'),D('!7á+#=!7«+D#.6""2637+5$7«+,$7á+#$\'$%$$#<$##<$"#<"#<,N&!7«+D#.6""2637+5$7«+,$7á+#$\'$%$$#<$##<$"#<"#<"+)$4"6e""! %$"#<"#<'),D('7æ*q "7è*k "7ï*e "7ð*_ "7ñ*Y "7ò*S "7ó*M "7ô*G "7õ*A "7ö*; "7ü*5 "7÷*/ "7ý*) "7þ*# "7ā'),D('!.N""2N3O+a#7«+X$!7ç+,#7«+#$\'"%$"#<"#<*" ";+7$.P""2P3Q+($4$6ơ$!!%$$#<$##<$"#<"#<'),D('!7å+_#=!7«+,#7å+#$\'"%$"#<"#<,6&!7«+,#7å+#$\'"%$"#<"#<"+)$4"6Ƣ""! %$"#<"#<'),D('!7§+C#7«+:$7é+1$7­+($4$6ƣ$!!%$$#<$##<$"#<"#<'),D('!7ë+#=!7«+D#.6""2637+5$7«+,$7ë+#$\'$%$$#<$##<$"#<"#<,N&!7«+D#.6""2637+5$7«+,$7ë+#$\'$%$$#<$##<$"#<"#<"+)$4"68""! %$"#<"#<'),D('!7ì+#=!7«+D#.6""2637+5$7«+,$7ì+#$\'$%$$#<$##<$"#<"#<,N&!7«+D#.6""2637+5$7«+,$7ì+#$\'$%$$#<$##<$"#<"#<"+)$4"68""! %$"#<"#<'),D('!7P+J#!7«+,#7í+#$\'"%$"#<"#<*" ";+)$4"6Ƥ""! %$"#<"#<'),D('!7P+J#!7«+,#7î+#$\'"%$"#<"#<*" ";+)$4"6Ƥ""! %$"#<"#<'),D('!.f""2f3g+U#!8.f""2f3g9*##"":"#<+:$7«+1$7à+($4$6ł$! %$$#<$##<$"#<"#<'),D('!.f""2f3g+U#!8.f""2f3g9*##"":"#<+:$7«+1$7á+($4$6ł$! %$$#<$##<$"#<"#<'),D('!.Ŀ""2Ŀ3ŀ+& 4!6ƥ! %'),D('!!8.N""2N3O*# "79*##"":"#<+:#7ã+1$7­+($4#6Ʀ#!!%$##<$"#<"#<'),D('!7+¢#7«+$.9""293:+$7«+$7ã+x$7«+o$.;""2;3<+`$7«+W$7å+N$7«+E$7+<$7«+3$7å+*$4-6Ƨ-#($ %$-#<$,#<$+#<$*#<$)#<$(#<$\'#<$&#<$%#<$$#<$##<$"#<"#<* "!7+}#7«+t$.9""293:+e$7«+\\$7ã+S$7«+J$.;""2;3<+;$7«+2$7å+)$4)6ƨ)"$ %$)#<$(#<$\'#<$&#<$%#<$$#<$##<$"#<"#<'),D('!7+#7«+$7å+$7«+}$7©+t$7«+k$.9""293:+\\$7«+S$7ã+J$7«+A$.;""2;3<+2$7­+)$4,6Ʃ,")#%$,#<$+#<$*#<$)#<$(#<$\'#<$&#<$%#<$$#<$##<$"#<"#<*Δ "!7©+}#7«+t$.9""293:+e$7«+\\$7ã+S$7«+J$.;""2;3<+;$7«+2$7å+)$4)6ƪ)"$ %$)#<$(#<$\'#<$&#<$%#<$$#<$##<$"#<"#<*̪ "!7+Ā#7«+÷$.9""293:+è$7«+ß$!7ä+,#7«+#$\'"%$"#<"#<*" ";+¾$.Ŀ""2Ŀ3ŀ+¯$7«+¦$!7ã+,#7«+#$\'"%$"#<"#<*" ";+$.Ŀ""2Ŀ3ŀ+v$7«+m$!7ã+,#7«+#$\'"%$"#<"#<*" ";+L$.;""2;3<+=$7«+4$7å++$4.6ƫ.$)&# %$.#<$-#<$,#<$+#<$*#<$)#<$(#<$\'#<$&#<$%#<$$#<$##<$"#<"#<*Ƚ "!7+ă#7«+ú$.9""293:+ë$7«+â$7§+Ù$7«+Ð$7ê+Ç$7«+¾$.Ŀ""2Ŀ3ŀ+¯$7«+¦$!7ã+,#7«+#$\'"%$"#<"#<*" ";+$.Ŀ""2Ŀ3ŀ+v$7«+m$!7ã+,#7«+#$\'"%$"#<"#<*" ";+L$.;""2;3<+=$7«+4$7å++$416Ƭ1$*&# %$1#<$0#<$/#<$.#<$-#<$,#<$+#<$*#<$)#<$(#<$\'#<$&#<$%#<$$#<$##<$"#<"#<*ō "!7+¢#7«+$.9""293:+$7«+$7½+x$7«+o$7+f$7«+]$7ã+T$7«+K$.;""2;3<+<$7«+3$7å+*$4-6ƭ-#($ %$-#<$,#<$+#<$*#<$)#<$(#<$\'#<$&#<$%#<$$#<$##<$"#<"#<*¾ "!7+´#7«+«$.9""293:+$7«+$7§+$7«+$7ê+x$7«+o$7+f$7«+]$7ã+T$7«+K$.;""2;3<+<$7«+3$7å+*$4/6Ʈ/#($ %$/#<$.#<$-#<$,#<$+#<$*#<$)#<$(#<$\'#<$&#<$%#<$$#<$##<$"#<"#<'),D('!7+0#7­+\'$4"6Ư" %$"#<"#<*M "!7+C#7¬+:$7P+1$7­+($4$6ư$!!%$$#<$##<$"#<"#<'),D('!7+0#7­+\'$4"6Ʊ" %$"#<"#<*M "!7+C#7¬+:$7P+1$7­+($4$6Ʋ$!!%$$#<$##<$"#<"#<'),D('!7+0#7­+\'$4"6Ƴ" %$"#<"#<*M "!7+C#7¬+:$7ã+1$7­+($4$6ƴ$!!%$$#<$##<$"#<"#<'),D('!7ª+}#7«+t$.9""293:+e$7«+\\$7ã+S$7«+J$.;""2;3<+;$7«+2$7å+)$4)6Ƶ)"$ %$)#<$(#<$\'#<$&#<$%#<$$#<$##<$"#<"#<'),D('!7¡+}#7«+t$.9""293:+e$7«+\\$7ã+S$7«+J$.;""2;3<+;$7«+2$7ø+)$4)6ƶ)"$ %$)#<$(#<$\'#<$&#<$%#<$$#<$##<$"#<"#<'),D('!.N""2N3O+a#7«+X$!7ù+,#7«+#$\'"%$"#<"#<*" ";+7$.P""2P3Q+($4$6Ʒ$!!%$$#<$##<$"#<"#<*¦ "!.N""2N3O+#7«+$!7ù+,#7«+#$\'"%$"#<"#<*" ";+l$7û+c$7«+Z$!7ù+,#7«+#$\'"%$"#<"#<*" ";+9$.P""2P3Q+*$4\'6Ƹ\'#$#!%$\'#<$&#<$%#<$$#<$##<$"#<"#<'),D('!7ú+_#=!7«+,#7ú+#$\'"%$"#<"#<,6&!7«+,#7ú+#$\'"%$"#<"#<"+)$4"6Ƣ""! %$"#<"#<'),D('!7+t#7«+k$7ã+b$7«+Y$.b""2b3c+J$!7«+,#7ç+#$\'"%$"#<"#<*" ";+)$4&6ƹ&"# %$&#<$%#<$$#<$##<$"#<"#<'),D('!7+a#7«+X$.b""2b3c+I$!7«+,#7ç+#$\'"%$"#<"#<*" ";+($4$6ƺ$! %$$#<$##<$"#<"#<'),D('!7P+S#7«+J$.b""2b3c+;$7«+2$7å+)$4%6ƻ%"$ %$%#<$$#<$##<$"#<"#<'),D('!7£+C#7¬+:$7ã+1$7­+($4$6Ƽ$!!%$$#<$##<$"#<"#<'),D('!7¥+`#7«+W$7æ+N$7«+E$7ÿ+<$7«+3$7Ā+*$4\'6ƽ\'#$" %$\'#<$&#<$%#<$$#<$##<$"#<"#<* "!7¥+M#7«+D$7æ+;$7«+2$7ÿ+)$4%6ƾ%"" %$%#<$$#<$##<$"#<"#<*W "!7¥+M#7«+D$7æ+;$7«+2$7Ā+)$4%6ƿ%"" %$%#<$$#<$##<$"#<"#<'),D('!7+}#7«+t$.9""293:+e$7«+\\$7P+S$7«+J$.;""2;3<+;$7«+2$7æ+)$4)6ǀ)"$ %$)#<$(#<$\'#<$&#<$%#<$$#<$##<$"#<"#<'),D('!7+:#7«+1$7æ+($4#6ǁ#! %$##<$"#<"#<'),D('!7+0#7­+\'$4"6ǂ" %$"#<"#<'),D('!7+Ï#7«+Æ$7P+½$7«+´$.9""293:+¥$7«+$!7Ą+,#7«+#$\'"%$"#<"#<*" ";+{$.;""2;3<+l$7«+c$.N""2N3O+T$7«+K$7ą+B$7«+9$.P""2P3Q+*$4.6ǃ.#+\'"%$.#<$-#<$,#<$+#<$*#<$)#<$(#<$\'#<$&#<$%#<$$#<$##<$"#<"#<'),D('!7+Þ#7«+Õ$!7P+,#7«+#$\'"%$"#<"#<*" ";+´$.9""293:+¥$7«+$!7Ą+,#7«+#$\'"%$"#<"#<*" ";+{$.;""2;3<+l$7«+c$.N""2N3O+T$7«+K$7ą+B$7«+9$.P""2P3Q+*$4-6Ǆ-#*\'"%$-#<$,#<$+#<$*#<$)#<$(#<$\'#<$&#<$%#<$$#<$##<$"#<"#<'),D('!7P+#=!7«+D#.6""2637+5$7«+,$7P+#$\'$%$$#<$##<$"#<"#<,N&!7«+D#.6""2637+5$7«+,$7P+#$\'$%$$#<$##<$"#<"#<"+)$4"68""! %$"#<"#<'),D('!7ć*" ";+\' 4!6ǅ!! %'),D('!7«+?#7ĉ*" ";+1$7«+($4#6ǆ#!!%$##<$"#<"#<'),D('!7Ĉ+_#=!7«+,#7Ĉ+#$\'"%$"#<"#<,6&!7«+,#7Ĉ+#$\'"%$"#<"#<"+)$4"6Ǉ""! %$"#<"#<'),D('7å*# "7Ă'),D('!7Ċ+_#=!7«+,#7Ċ+#$\'"%$"#<"#<,6&!7«+,#7Ċ+#$\'"%$"#<"#<"+)$4"6Ǉ""! %$"#<"#<'),D('!7#+<#.Ŀ""2Ŀ3ŀ*" ";+($4"6ǈ"!!%$"#<"#<')],N=0,P=0,w=[{line:1,column:1,seenCR:!1}],J=0,R=[],X=0;if("startRule"in m){if(!(m.startRule in b))throw new Error("Can't start parsing from rule \""+m.startRule+'".');S=b[m.startRule]}var _={CallExpression:"callee",MemberExpression:"object"};if(h=r(S),h!==g&&N===u.length)return h;throw h!==g&&N<u.length&&B({type:"end",description:"end of input"}),t(null,R,J<u.length?u.charAt(J):null,J<u.length?F(J,J+1):F(J,J))}return u(A,Error),{SyntaxError:A,parse:$}}()},{}]},{},[1])(1)});
+(function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.chrparser = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+module.exports = (function() {
+  "use strict";
+
+  /*
+   * Generated by PEG.js 0.9.0.
+   *
+   * http://pegjs.org/
+   */
+
+  function peg$subclass(child, parent) {
+    function ctor() { this.constructor = child; }
+    ctor.prototype = parent.prototype;
+    child.prototype = new ctor();
+  }
+
+  function peg$SyntaxError(message, expected, found, location) {
+    this.message  = message;
+    this.expected = expected;
+    this.found    = found;
+    this.location = location;
+    this.name     = "SyntaxError";
+
+    if (typeof Error.captureStackTrace === "function") {
+      Error.captureStackTrace(this, peg$SyntaxError);
+    }
+  }
+
+  peg$subclass(peg$SyntaxError, Error);
+
+  function peg$parse(input) {
+    var options = arguments.length > 1 ? arguments[1] : {},
+        parser  = this,
+
+        peg$FAILED = {},
+
+        peg$startRuleIndices = { Program: 230, ProgramWithPreamble: 0, Query: 10 },
+        peg$startRuleIndex   = 230,
+
+        peg$consts = [
+          function(preamble, program) {
+                program.preamble = preamble
+                program.replacements = []
+                program.body.forEach(function (rule) {
+                  program.replacements = program.replacements.concat(rule.replacements)
+                })
+                return program
+              },
+          function(source) {
+                return source
+              },
+          function(source) {
+                return text()
+              },
+          function() {
+                return ''
+              },
+          function(name, rule) {
+                if (name) {
+                  rule.name = name;
+                }
+                rule.original = text()
+                rule.location = location()
+                return rule;
+              },
+          "==>",
+          { type: "literal", value: "==>", description: "\"==>\"" },
+          function(headConstraints, guard, bodyConstraints) {
+                var desc = {
+                  type: 'PropagationRule',
+                  kept: headConstraints,
+                  removed: [],
+                  body: bodyConstraints,
+                  guard: guard || []
+                };
+                desc = formatRule(desc);
+                return desc;
+              },
+          "<=>",
+          { type: "literal", value: "<=>", description: "\"<=>\"" },
+          function(headConstraints, guard, bodyConstraints) {
+                var desc = {
+                  type: 'SimplificationRule',
+                  kept: [],
+                  removed: headConstraints,
+                  body: bodyConstraints,
+                  guard: guard || []
+                };
+                desc = formatRule(desc);
+                return desc;
+              },
+          "\\",
+          { type: "literal", value: "\\", description: "\"\\\\\"" },
+          "/",
+          { type: "literal", value: "/", description: "\"/\"" },
+          function(keptConstraints, removedConstraints, guard, bodyConstraints) {
+                var desc = {
+                  type: 'SimpagationRule',
+                  kept: keptConstraints,
+                  removed: removedConstraints,
+                  body: bodyConstraints,
+                  guard: guard || []
+                };
+                desc = formatRule(desc);
+                return desc;
+              },
+          "@",
+          { type: "literal", value: "@", description: "\"@\"" },
+          function(identifier) {
+                return identifier;
+              },
+          /^[a-z0-9_]/,
+          { type: "class", value: "[a-z0-9_]", description: "[a-z0-9_]" },
+          function(chars) {
+                return chars.join('').trim();
+              },
+          ",",
+          { type: "literal", value: ",", description: "\",\"" },
+          function(first, rest) {
+                return buildList(first, rest, 3);
+              },
+          "(",
+          { type: "literal", value: "(", description: "\"(\"" },
+          ")",
+          { type: "literal", value: ")", description: "\")\"" },
+          function(constraintName, parameters) {
+                var desc = { 
+                  type: 'Constraint',
+                  name: constraintName,
+                  parameters: extractOptional(parameters, 2, []),
+                  original: text()
+                };
+                if (desc.parameters === null) {
+                  desc.parameters = [];
+                }
+                desc.arity = desc.parameters.length
+                desc.functor = desc.name + '/' + desc.arity;
+                return desc;
+              },
+          function(expression) {
+                expression.original = text();
+                return expression;
+              },
+          function(constraintName, parameters) {
+                var desc = { 
+                  type: 'Constraint',
+                  name: constraintName,
+                  parameters: extractOptional(parameters, 2, []),
+                  original: text(),
+                  location: location()
+                };
+                if (desc.parameters === null) {
+                  desc.parameters = [];
+                }
+                desc.arity = desc.parameters.length
+                desc.functor = desc.name + '/' + desc.arity;
+                return desc;
+              },
+          function(constraintName, parameters) {
+                var desc = { 
+                  type: 'Constraint',
+                  name: constraintName,
+                  parameters: extractOptional(parameters, 2, []),
+                  original: text()
+                };
+                if (desc.parameters === null) {
+                  desc.parameters = [];
+                }
+                desc.arity = desc.parameters.length
+                desc.functor = desc.name + '/' + desc.arity
+                return desc;
+              },
+          /^[a-z]/,
+          { type: "class", value: "[a-z]", description: "[a-z]" },
+          /^[A-z0-9_]/,
+          { type: "class", value: "[A-z0-9_]", description: "[A-z0-9_]" },
+          function(first, following) {
+                return first+following.join('');
+              },
+          "|",
+          { type: "literal", value: "|", description: "\"|\"" },
+          function(guard) {
+                return guard;
+              },
+          function(num) {
+                return {
+                  type: 'Replacement',
+                  num: parseInt(num)
+                };
+              },
+          function(func) {
+                return {
+                  type: 'Replacement',
+                  expr: func
+                };
+              },
+          function(expr) {
+                return {
+                  type: 'Replacement',
+                  expr: {
+                    type: 'SourceCode',
+                    original: expr
+                  }
+                };
+              },
+          "${",
+          { type: "literal", value: "${", description: "\"${\"" },
+          "{",
+          { type: "literal", value: "{", description: "\"{\"" },
+          "}",
+          { type: "literal", value: "}", description: "\"}\"" },
+          "=>",
+          { type: "literal", value: "=>", description: "\"=>\"" },
+          function(params, body) {
+                var desc = {
+                  type: 'ArrowFunction',
+                  original: text(),
+                  params: [],
+                  body: body
+                }
+                if (params) {
+                  desc.params = params
+                }
+                return desc;
+              },
+          function(expression) {
+                if (expression.type === 'SequenceExpression') {
+                  return expression.expressions;
+                }
+                if (!(expression instanceof Array)) {
+                  return [ expression ]
+                }
+                return expression
+              },
+          "[",
+          { type: "literal", value: "[", description: "\"[\"" },
+          "]",
+          { type: "literal", value: "]", description: "\"]\"" },
+          function(elision) {
+                return {
+                  type:     "ArrayExpression",
+                  elements: optionalList(extractOptional(elision, 0))
+                };
+              },
+          function(elements) {
+                return {
+                  type:     "ArrayExpression",
+                  elements: elements
+                };
+              },
+          function(elements, elision) {
+                return {
+                  type:     "ArrayExpression",
+                  elements: elements.concat(optionalList(extractOptional(elision, 0)))
+                };
+              },
+          function(elision, element) {
+                  return optionalList(extractOptional(elision, 0)).concat(element);
+                },
+          function(first, elision, element) {
+                  return optionalList(extractOptional(elision, 0)).concat(element);
+                },
+          function(first, rest) { return Array.prototype.concat.apply(first, rest); },
+          function() { return { type: "ObjectExpression", properties: [] }; },
+          function(properties) {
+                 return { type: "ObjectExpression", properties: properties };
+               },
+          ":",
+          { type: "literal", value: ":", description: "\":\"" },
+          function(key, value) {
+                return { key: key, value: value, kind: "init" };
+              },
+          function(first, rest) {
+                return rest.length > 0
+                  ? { type: "SequenceExpression", expressions: buildList(first, rest, 3) }
+                  : first;
+              },
+          "=",
+          { type: "literal", value: "=", description: "\"=\"" },
+          function(left, right) {
+                return {
+                  type:     "AssignmentExpression",
+                  operator: "=",
+                  left:     left,
+                  right:    right
+                };
+              },
+          function(left, operator, right) {
+                return {
+                  type:     "AssignmentExpression",
+                  operator: operator,
+                  left:     left,
+                  right:    right
+                };
+              },
+          "?",
+          { type: "literal", value: "?", description: "\"?\"" },
+          function(test, consequent, alternate) {
+                return {
+                  type:       "ConditionalExpression",
+                  test:       test,
+                  consequent: consequent,
+                  alternate:  alternate
+                };
+              },
+          "LogicalOROperator",
+          { type: "literal", value: "LogicalOROperator", description: "\"LogicalOROperator\"" },
+          function(first, rest) { return buildBinaryExpression(first, rest); },
+          { type: "any", description: "any character" },
+          { type: "other", description: "whitespace" },
+          "\t",
+          { type: "literal", value: "\t", description: "\"\\t\"" },
+          "\x0B",
+          { type: "literal", value: "\x0B", description: "\"\\x0B\"" },
+          "\f",
+          { type: "literal", value: "\f", description: "\"\\f\"" },
+          " ",
+          { type: "literal", value: " ", description: "\" \"" },
+          "\xA0",
+          { type: "literal", value: "\xA0", description: "\"\\xA0\"" },
+          "\uFEFF",
+          { type: "literal", value: "\uFEFF", description: "\"\\uFEFF\"" },
+          /^[\n\r\u2028\u2029]/,
+          { type: "class", value: "[\\n\\r\\u2028\\u2029]", description: "[\\n\\r\\u2028\\u2029]" },
+          { type: "other", description: "end of line" },
+          "\n",
+          { type: "literal", value: "\n", description: "\"\\n\"" },
+          "\r\n",
+          { type: "literal", value: "\r\n", description: "\"\\r\\n\"" },
+          "\r",
+          { type: "literal", value: "\r", description: "\"\\r\"" },
+          "\u2028",
+          { type: "literal", value: "\u2028", description: "\"\\u2028\"" },
+          "\u2029",
+          { type: "literal", value: "\u2029", description: "\"\\u2029\"" },
+          { type: "other", description: "comment" },
+          "/*",
+          { type: "literal", value: "/*", description: "\"/*\"" },
+          "*/",
+          { type: "literal", value: "*/", description: "\"*/\"" },
+          "//",
+          { type: "literal", value: "//", description: "\"//\"" },
+          function(name) { return name; },
+          { type: "other", description: "identifier" },
+          function(first, rest) {
+                return {
+                  type: "Identifier",
+                  name: first + rest.join("")
+                };
+              },
+          "$",
+          { type: "literal", value: "$", description: "\"$\"" },
+          "_",
+          { type: "literal", value: "_", description: "\"_\"" },
+          function(sequence) { return sequence; },
+          "\u200C",
+          { type: "literal", value: "\u200C", description: "\"\\u200C\"" },
+          "\u200D",
+          { type: "literal", value: "\u200D", description: "\"\\u200D\"" },
+          function() { return { type: "Literal", value: null }; },
+          function() { return { type: "Literal", value: true  }; },
+          function() { return { type: "Literal", value: false }; },
+          { type: "other", description: "number" },
+          function(literal) {
+                return literal;
+              },
+          ".",
+          { type: "literal", value: ".", description: "\".\"" },
+          function() {
+                return { type: "Literal", value: parseFloat(text()) };
+              },
+          "0",
+          { type: "literal", value: "0", description: "\"0\"" },
+          /^[0-9]/,
+          { type: "class", value: "[0-9]", description: "[0-9]" },
+          /^[1-9]/,
+          { type: "class", value: "[1-9]", description: "[1-9]" },
+          "e",
+          { type: "literal", value: "e", description: "\"e\"" },
+          /^[+\-]/,
+          { type: "class", value: "[+-]", description: "[+-]" },
+          "0x",
+          { type: "literal", value: "0x", description: "\"0x\"" },
+          function(digits) {
+                return { type: "Literal", value: parseInt(digits, 16) };
+               },
+          /^[0-9a-f]/i,
+          { type: "class", value: "[0-9a-f]i", description: "[0-9a-f]i" },
+          { type: "other", description: "string" },
+          "\"",
+          { type: "literal", value: "\"", description: "\"\\\"\"" },
+          function(chars) {
+                return { type: "Literal", value: chars.join("") };
+              },
+          "'",
+          { type: "literal", value: "'", description: "\"'\"" },
+          function() { return text(); },
+          function() { return ""; },
+          function() { return "\0"; },
+          "b",
+          { type: "literal", value: "b", description: "\"b\"" },
+          function() { return "\b";   },
+          "f",
+          { type: "literal", value: "f", description: "\"f\"" },
+          function() { return "\f";   },
+          "n",
+          { type: "literal", value: "n", description: "\"n\"" },
+          function() { return "\n";   },
+          "r",
+          { type: "literal", value: "r", description: "\"r\"" },
+          function() { return "\r";   },
+          "t",
+          { type: "literal", value: "t", description: "\"t\"" },
+          function() { return "\t";   },
+          "v",
+          { type: "literal", value: "v", description: "\"v\"" },
+          function() { return "\x0B"; },
+          "x",
+          { type: "literal", value: "x", description: "\"x\"" },
+          "u",
+          { type: "literal", value: "u", description: "\"u\"" },
+          function(digits) {
+                return String.fromCharCode(parseInt(digits, 16));
+              },
+          { type: "other", description: "regular expression" },
+          function(pattern, flags) {
+                var value;
+
+                try {
+                  value = new RegExp(pattern, flags);
+                } catch (e) {
+                  error(e.message);
+                }
+
+                return { type: "Literal", value: value };
+              },
+          /^[*\\\/[]/,
+          { type: "class", value: "[*\\\\/[]", description: "[*\\\\/[]" },
+          /^[\\\/[]/,
+          { type: "class", value: "[\\\\/[]", description: "[\\\\/[]" },
+          /^[\]\\]/,
+          { type: "class", value: "[\\]\\\\]", description: "[\\]\\\\]" },
+          /^[a-z\xB5\xDF-\xF6\xF8-\xFF\u0101\u0103\u0105\u0107\u0109\u010B\u010D\u010F\u0111\u0113\u0115\u0117\u0119\u011B\u011D\u011F\u0121\u0123\u0125\u0127\u0129\u012B\u012D\u012F\u0131\u0133\u0135\u0137-\u0138\u013A\u013C\u013E\u0140\u0142\u0144\u0146\u0148-\u0149\u014B\u014D\u014F\u0151\u0153\u0155\u0157\u0159\u015B\u015D\u015F\u0161\u0163\u0165\u0167\u0169\u016B\u016D\u016F\u0171\u0173\u0175\u0177\u017A\u017C\u017E-\u0180\u0183\u0185\u0188\u018C-\u018D\u0192\u0195\u0199-\u019B\u019E\u01A1\u01A3\u01A5\u01A8\u01AA-\u01AB\u01AD\u01B0\u01B4\u01B6\u01B9-\u01BA\u01BD-\u01BF\u01C6\u01C9\u01CC\u01CE\u01D0\u01D2\u01D4\u01D6\u01D8\u01DA\u01DC-\u01DD\u01DF\u01E1\u01E3\u01E5\u01E7\u01E9\u01EB\u01ED\u01EF-\u01F0\u01F3\u01F5\u01F9\u01FB\u01FD\u01FF\u0201\u0203\u0205\u0207\u0209\u020B\u020D\u020F\u0211\u0213\u0215\u0217\u0219\u021B\u021D\u021F\u0221\u0223\u0225\u0227\u0229\u022B\u022D\u022F\u0231\u0233-\u0239\u023C\u023F-\u0240\u0242\u0247\u0249\u024B\u024D\u024F-\u0293\u0295-\u02AF\u0371\u0373\u0377\u037B-\u037D\u0390\u03AC-\u03CE\u03D0-\u03D1\u03D5-\u03D7\u03D9\u03DB\u03DD\u03DF\u03E1\u03E3\u03E5\u03E7\u03E9\u03EB\u03ED\u03EF-\u03F3\u03F5\u03F8\u03FB-\u03FC\u0430-\u045F\u0461\u0463\u0465\u0467\u0469\u046B\u046D\u046F\u0471\u0473\u0475\u0477\u0479\u047B\u047D\u047F\u0481\u048B\u048D\u048F\u0491\u0493\u0495\u0497\u0499\u049B\u049D\u049F\u04A1\u04A3\u04A5\u04A7\u04A9\u04AB\u04AD\u04AF\u04B1\u04B3\u04B5\u04B7\u04B9\u04BB\u04BD\u04BF\u04C2\u04C4\u04C6\u04C8\u04CA\u04CC\u04CE-\u04CF\u04D1\u04D3\u04D5\u04D7\u04D9\u04DB\u04DD\u04DF\u04E1\u04E3\u04E5\u04E7\u04E9\u04EB\u04ED\u04EF\u04F1\u04F3\u04F5\u04F7\u04F9\u04FB\u04FD\u04FF\u0501\u0503\u0505\u0507\u0509\u050B\u050D\u050F\u0511\u0513\u0515\u0517\u0519\u051B\u051D\u051F\u0521\u0523\u0525\u0527\u0561-\u0587\u1D00-\u1D2B\u1D6B-\u1D77\u1D79-\u1D9A\u1E01\u1E03\u1E05\u1E07\u1E09\u1E0B\u1E0D\u1E0F\u1E11\u1E13\u1E15\u1E17\u1E19\u1E1B\u1E1D\u1E1F\u1E21\u1E23\u1E25\u1E27\u1E29\u1E2B\u1E2D\u1E2F\u1E31\u1E33\u1E35\u1E37\u1E39\u1E3B\u1E3D\u1E3F\u1E41\u1E43\u1E45\u1E47\u1E49\u1E4B\u1E4D\u1E4F\u1E51\u1E53\u1E55\u1E57\u1E59\u1E5B\u1E5D\u1E5F\u1E61\u1E63\u1E65\u1E67\u1E69\u1E6B\u1E6D\u1E6F\u1E71\u1E73\u1E75\u1E77\u1E79\u1E7B\u1E7D\u1E7F\u1E81\u1E83\u1E85\u1E87\u1E89\u1E8B\u1E8D\u1E8F\u1E91\u1E93\u1E95-\u1E9D\u1E9F\u1EA1\u1EA3\u1EA5\u1EA7\u1EA9\u1EAB\u1EAD\u1EAF\u1EB1\u1EB3\u1EB5\u1EB7\u1EB9\u1EBB\u1EBD\u1EBF\u1EC1\u1EC3\u1EC5\u1EC7\u1EC9\u1ECB\u1ECD\u1ECF\u1ED1\u1ED3\u1ED5\u1ED7\u1ED9\u1EDB\u1EDD\u1EDF\u1EE1\u1EE3\u1EE5\u1EE7\u1EE9\u1EEB\u1EED\u1EEF\u1EF1\u1EF3\u1EF5\u1EF7\u1EF9\u1EFB\u1EFD\u1EFF-\u1F07\u1F10-\u1F15\u1F20-\u1F27\u1F30-\u1F37\u1F40-\u1F45\u1F50-\u1F57\u1F60-\u1F67\u1F70-\u1F7D\u1F80-\u1F87\u1F90-\u1F97\u1FA0-\u1FA7\u1FB0-\u1FB4\u1FB6-\u1FB7\u1FBE\u1FC2-\u1FC4\u1FC6-\u1FC7\u1FD0-\u1FD3\u1FD6-\u1FD7\u1FE0-\u1FE7\u1FF2-\u1FF4\u1FF6-\u1FF7\u210A\u210E-\u210F\u2113\u212F\u2134\u2139\u213C-\u213D\u2146-\u2149\u214E\u2184\u2C30-\u2C5E\u2C61\u2C65-\u2C66\u2C68\u2C6A\u2C6C\u2C71\u2C73-\u2C74\u2C76-\u2C7B\u2C81\u2C83\u2C85\u2C87\u2C89\u2C8B\u2C8D\u2C8F\u2C91\u2C93\u2C95\u2C97\u2C99\u2C9B\u2C9D\u2C9F\u2CA1\u2CA3\u2CA5\u2CA7\u2CA9\u2CAB\u2CAD\u2CAF\u2CB1\u2CB3\u2CB5\u2CB7\u2CB9\u2CBB\u2CBD\u2CBF\u2CC1\u2CC3\u2CC5\u2CC7\u2CC9\u2CCB\u2CCD\u2CCF\u2CD1\u2CD3\u2CD5\u2CD7\u2CD9\u2CDB\u2CDD\u2CDF\u2CE1\u2CE3-\u2CE4\u2CEC\u2CEE\u2CF3\u2D00-\u2D25\u2D27\u2D2D\uA641\uA643\uA645\uA647\uA649\uA64B\uA64D\uA64F\uA651\uA653\uA655\uA657\uA659\uA65B\uA65D\uA65F\uA661\uA663\uA665\uA667\uA669\uA66B\uA66D\uA681\uA683\uA685\uA687\uA689\uA68B\uA68D\uA68F\uA691\uA693\uA695\uA697\uA723\uA725\uA727\uA729\uA72B\uA72D\uA72F-\uA731\uA733\uA735\uA737\uA739\uA73B\uA73D\uA73F\uA741\uA743\uA745\uA747\uA749\uA74B\uA74D\uA74F\uA751\uA753\uA755\uA757\uA759\uA75B\uA75D\uA75F\uA761\uA763\uA765\uA767\uA769\uA76B\uA76D\uA76F\uA771-\uA778\uA77A\uA77C\uA77F\uA781\uA783\uA785\uA787\uA78C\uA78E\uA791\uA793\uA7A1\uA7A3\uA7A5\uA7A7\uA7A9\uA7FA\uFB00-\uFB06\uFB13-\uFB17\uFF41-\uFF5A]/,
+          { type: "class", value: "[\\u0061-\\u007A\\u00B5\\u00DF-\\u00F6\\u00F8-\\u00FF\\u0101\\u0103\\u0105\\u0107\\u0109\\u010B\\u010D\\u010F\\u0111\\u0113\\u0115\\u0117\\u0119\\u011B\\u011D\\u011F\\u0121\\u0123\\u0125\\u0127\\u0129\\u012B\\u012D\\u012F\\u0131\\u0133\\u0135\\u0137-\\u0138\\u013A\\u013C\\u013E\\u0140\\u0142\\u0144\\u0146\\u0148-\\u0149\\u014B\\u014D\\u014F\\u0151\\u0153\\u0155\\u0157\\u0159\\u015B\\u015D\\u015F\\u0161\\u0163\\u0165\\u0167\\u0169\\u016B\\u016D\\u016F\\u0171\\u0173\\u0175\\u0177\\u017A\\u017C\\u017E-\\u0180\\u0183\\u0185\\u0188\\u018C-\\u018D\\u0192\\u0195\\u0199-\\u019B\\u019E\\u01A1\\u01A3\\u01A5\\u01A8\\u01AA-\\u01AB\\u01AD\\u01B0\\u01B4\\u01B6\\u01B9-\\u01BA\\u01BD-\\u01BF\\u01C6\\u01C9\\u01CC\\u01CE\\u01D0\\u01D2\\u01D4\\u01D6\\u01D8\\u01DA\\u01DC-\\u01DD\\u01DF\\u01E1\\u01E3\\u01E5\\u01E7\\u01E9\\u01EB\\u01ED\\u01EF-\\u01F0\\u01F3\\u01F5\\u01F9\\u01FB\\u01FD\\u01FF\\u0201\\u0203\\u0205\\u0207\\u0209\\u020B\\u020D\\u020F\\u0211\\u0213\\u0215\\u0217\\u0219\\u021B\\u021D\\u021F\\u0221\\u0223\\u0225\\u0227\\u0229\\u022B\\u022D\\u022F\\u0231\\u0233-\\u0239\\u023C\\u023F-\\u0240\\u0242\\u0247\\u0249\\u024B\\u024D\\u024F-\\u0293\\u0295-\\u02AF\\u0371\\u0373\\u0377\\u037B-\\u037D\\u0390\\u03AC-\\u03CE\\u03D0-\\u03D1\\u03D5-\\u03D7\\u03D9\\u03DB\\u03DD\\u03DF\\u03E1\\u03E3\\u03E5\\u03E7\\u03E9\\u03EB\\u03ED\\u03EF-\\u03F3\\u03F5\\u03F8\\u03FB-\\u03FC\\u0430-\\u045F\\u0461\\u0463\\u0465\\u0467\\u0469\\u046B\\u046D\\u046F\\u0471\\u0473\\u0475\\u0477\\u0479\\u047B\\u047D\\u047F\\u0481\\u048B\\u048D\\u048F\\u0491\\u0493\\u0495\\u0497\\u0499\\u049B\\u049D\\u049F\\u04A1\\u04A3\\u04A5\\u04A7\\u04A9\\u04AB\\u04AD\\u04AF\\u04B1\\u04B3\\u04B5\\u04B7\\u04B9\\u04BB\\u04BD\\u04BF\\u04C2\\u04C4\\u04C6\\u04C8\\u04CA\\u04CC\\u04CE-\\u04CF\\u04D1\\u04D3\\u04D5\\u04D7\\u04D9\\u04DB\\u04DD\\u04DF\\u04E1\\u04E3\\u04E5\\u04E7\\u04E9\\u04EB\\u04ED\\u04EF\\u04F1\\u04F3\\u04F5\\u04F7\\u04F9\\u04FB\\u04FD\\u04FF\\u0501\\u0503\\u0505\\u0507\\u0509\\u050B\\u050D\\u050F\\u0511\\u0513\\u0515\\u0517\\u0519\\u051B\\u051D\\u051F\\u0521\\u0523\\u0525\\u0527\\u0561-\\u0587\\u1D00-\\u1D2B\\u1D6B-\\u1D77\\u1D79-\\u1D9A\\u1E01\\u1E03\\u1E05\\u1E07\\u1E09\\u1E0B\\u1E0D\\u1E0F\\u1E11\\u1E13\\u1E15\\u1E17\\u1E19\\u1E1B\\u1E1D\\u1E1F\\u1E21\\u1E23\\u1E25\\u1E27\\u1E29\\u1E2B\\u1E2D\\u1E2F\\u1E31\\u1E33\\u1E35\\u1E37\\u1E39\\u1E3B\\u1E3D\\u1E3F\\u1E41\\u1E43\\u1E45\\u1E47\\u1E49\\u1E4B\\u1E4D\\u1E4F\\u1E51\\u1E53\\u1E55\\u1E57\\u1E59\\u1E5B\\u1E5D\\u1E5F\\u1E61\\u1E63\\u1E65\\u1E67\\u1E69\\u1E6B\\u1E6D\\u1E6F\\u1E71\\u1E73\\u1E75\\u1E77\\u1E79\\u1E7B\\u1E7D\\u1E7F\\u1E81\\u1E83\\u1E85\\u1E87\\u1E89\\u1E8B\\u1E8D\\u1E8F\\u1E91\\u1E93\\u1E95-\\u1E9D\\u1E9F\\u1EA1\\u1EA3\\u1EA5\\u1EA7\\u1EA9\\u1EAB\\u1EAD\\u1EAF\\u1EB1\\u1EB3\\u1EB5\\u1EB7\\u1EB9\\u1EBB\\u1EBD\\u1EBF\\u1EC1\\u1EC3\\u1EC5\\u1EC7\\u1EC9\\u1ECB\\u1ECD\\u1ECF\\u1ED1\\u1ED3\\u1ED5\\u1ED7\\u1ED9\\u1EDB\\u1EDD\\u1EDF\\u1EE1\\u1EE3\\u1EE5\\u1EE7\\u1EE9\\u1EEB\\u1EED\\u1EEF\\u1EF1\\u1EF3\\u1EF5\\u1EF7\\u1EF9\\u1EFB\\u1EFD\\u1EFF-\\u1F07\\u1F10-\\u1F15\\u1F20-\\u1F27\\u1F30-\\u1F37\\u1F40-\\u1F45\\u1F50-\\u1F57\\u1F60-\\u1F67\\u1F70-\\u1F7D\\u1F80-\\u1F87\\u1F90-\\u1F97\\u1FA0-\\u1FA7\\u1FB0-\\u1FB4\\u1FB6-\\u1FB7\\u1FBE\\u1FC2-\\u1FC4\\u1FC6-\\u1FC7\\u1FD0-\\u1FD3\\u1FD6-\\u1FD7\\u1FE0-\\u1FE7\\u1FF2-\\u1FF4\\u1FF6-\\u1FF7\\u210A\\u210E-\\u210F\\u2113\\u212F\\u2134\\u2139\\u213C-\\u213D\\u2146-\\u2149\\u214E\\u2184\\u2C30-\\u2C5E\\u2C61\\u2C65-\\u2C66\\u2C68\\u2C6A\\u2C6C\\u2C71\\u2C73-\\u2C74\\u2C76-\\u2C7B\\u2C81\\u2C83\\u2C85\\u2C87\\u2C89\\u2C8B\\u2C8D\\u2C8F\\u2C91\\u2C93\\u2C95\\u2C97\\u2C99\\u2C9B\\u2C9D\\u2C9F\\u2CA1\\u2CA3\\u2CA5\\u2CA7\\u2CA9\\u2CAB\\u2CAD\\u2CAF\\u2CB1\\u2CB3\\u2CB5\\u2CB7\\u2CB9\\u2CBB\\u2CBD\\u2CBF\\u2CC1\\u2CC3\\u2CC5\\u2CC7\\u2CC9\\u2CCB\\u2CCD\\u2CCF\\u2CD1\\u2CD3\\u2CD5\\u2CD7\\u2CD9\\u2CDB\\u2CDD\\u2CDF\\u2CE1\\u2CE3-\\u2CE4\\u2CEC\\u2CEE\\u2CF3\\u2D00-\\u2D25\\u2D27\\u2D2D\\uA641\\uA643\\uA645\\uA647\\uA649\\uA64B\\uA64D\\uA64F\\uA651\\uA653\\uA655\\uA657\\uA659\\uA65B\\uA65D\\uA65F\\uA661\\uA663\\uA665\\uA667\\uA669\\uA66B\\uA66D\\uA681\\uA683\\uA685\\uA687\\uA689\\uA68B\\uA68D\\uA68F\\uA691\\uA693\\uA695\\uA697\\uA723\\uA725\\uA727\\uA729\\uA72B\\uA72D\\uA72F-\\uA731\\uA733\\uA735\\uA737\\uA739\\uA73B\\uA73D\\uA73F\\uA741\\uA743\\uA745\\uA747\\uA749\\uA74B\\uA74D\\uA74F\\uA751\\uA753\\uA755\\uA757\\uA759\\uA75B\\uA75D\\uA75F\\uA761\\uA763\\uA765\\uA767\\uA769\\uA76B\\uA76D\\uA76F\\uA771-\\uA778\\uA77A\\uA77C\\uA77F\\uA781\\uA783\\uA785\\uA787\\uA78C\\uA78E\\uA791\\uA793\\uA7A1\\uA7A3\\uA7A5\\uA7A7\\uA7A9\\uA7FA\\uFB00-\\uFB06\\uFB13-\\uFB17\\uFF41-\\uFF5A]", description: "[\\u0061-\\u007A\\u00B5\\u00DF-\\u00F6\\u00F8-\\u00FF\\u0101\\u0103\\u0105\\u0107\\u0109\\u010B\\u010D\\u010F\\u0111\\u0113\\u0115\\u0117\\u0119\\u011B\\u011D\\u011F\\u0121\\u0123\\u0125\\u0127\\u0129\\u012B\\u012D\\u012F\\u0131\\u0133\\u0135\\u0137-\\u0138\\u013A\\u013C\\u013E\\u0140\\u0142\\u0144\\u0146\\u0148-\\u0149\\u014B\\u014D\\u014F\\u0151\\u0153\\u0155\\u0157\\u0159\\u015B\\u015D\\u015F\\u0161\\u0163\\u0165\\u0167\\u0169\\u016B\\u016D\\u016F\\u0171\\u0173\\u0175\\u0177\\u017A\\u017C\\u017E-\\u0180\\u0183\\u0185\\u0188\\u018C-\\u018D\\u0192\\u0195\\u0199-\\u019B\\u019E\\u01A1\\u01A3\\u01A5\\u01A8\\u01AA-\\u01AB\\u01AD\\u01B0\\u01B4\\u01B6\\u01B9-\\u01BA\\u01BD-\\u01BF\\u01C6\\u01C9\\u01CC\\u01CE\\u01D0\\u01D2\\u01D4\\u01D6\\u01D8\\u01DA\\u01DC-\\u01DD\\u01DF\\u01E1\\u01E3\\u01E5\\u01E7\\u01E9\\u01EB\\u01ED\\u01EF-\\u01F0\\u01F3\\u01F5\\u01F9\\u01FB\\u01FD\\u01FF\\u0201\\u0203\\u0205\\u0207\\u0209\\u020B\\u020D\\u020F\\u0211\\u0213\\u0215\\u0217\\u0219\\u021B\\u021D\\u021F\\u0221\\u0223\\u0225\\u0227\\u0229\\u022B\\u022D\\u022F\\u0231\\u0233-\\u0239\\u023C\\u023F-\\u0240\\u0242\\u0247\\u0249\\u024B\\u024D\\u024F-\\u0293\\u0295-\\u02AF\\u0371\\u0373\\u0377\\u037B-\\u037D\\u0390\\u03AC-\\u03CE\\u03D0-\\u03D1\\u03D5-\\u03D7\\u03D9\\u03DB\\u03DD\\u03DF\\u03E1\\u03E3\\u03E5\\u03E7\\u03E9\\u03EB\\u03ED\\u03EF-\\u03F3\\u03F5\\u03F8\\u03FB-\\u03FC\\u0430-\\u045F\\u0461\\u0463\\u0465\\u0467\\u0469\\u046B\\u046D\\u046F\\u0471\\u0473\\u0475\\u0477\\u0479\\u047B\\u047D\\u047F\\u0481\\u048B\\u048D\\u048F\\u0491\\u0493\\u0495\\u0497\\u0499\\u049B\\u049D\\u049F\\u04A1\\u04A3\\u04A5\\u04A7\\u04A9\\u04AB\\u04AD\\u04AF\\u04B1\\u04B3\\u04B5\\u04B7\\u04B9\\u04BB\\u04BD\\u04BF\\u04C2\\u04C4\\u04C6\\u04C8\\u04CA\\u04CC\\u04CE-\\u04CF\\u04D1\\u04D3\\u04D5\\u04D7\\u04D9\\u04DB\\u04DD\\u04DF\\u04E1\\u04E3\\u04E5\\u04E7\\u04E9\\u04EB\\u04ED\\u04EF\\u04F1\\u04F3\\u04F5\\u04F7\\u04F9\\u04FB\\u04FD\\u04FF\\u0501\\u0503\\u0505\\u0507\\u0509\\u050B\\u050D\\u050F\\u0511\\u0513\\u0515\\u0517\\u0519\\u051B\\u051D\\u051F\\u0521\\u0523\\u0525\\u0527\\u0561-\\u0587\\u1D00-\\u1D2B\\u1D6B-\\u1D77\\u1D79-\\u1D9A\\u1E01\\u1E03\\u1E05\\u1E07\\u1E09\\u1E0B\\u1E0D\\u1E0F\\u1E11\\u1E13\\u1E15\\u1E17\\u1E19\\u1E1B\\u1E1D\\u1E1F\\u1E21\\u1E23\\u1E25\\u1E27\\u1E29\\u1E2B\\u1E2D\\u1E2F\\u1E31\\u1E33\\u1E35\\u1E37\\u1E39\\u1E3B\\u1E3D\\u1E3F\\u1E41\\u1E43\\u1E45\\u1E47\\u1E49\\u1E4B\\u1E4D\\u1E4F\\u1E51\\u1E53\\u1E55\\u1E57\\u1E59\\u1E5B\\u1E5D\\u1E5F\\u1E61\\u1E63\\u1E65\\u1E67\\u1E69\\u1E6B\\u1E6D\\u1E6F\\u1E71\\u1E73\\u1E75\\u1E77\\u1E79\\u1E7B\\u1E7D\\u1E7F\\u1E81\\u1E83\\u1E85\\u1E87\\u1E89\\u1E8B\\u1E8D\\u1E8F\\u1E91\\u1E93\\u1E95-\\u1E9D\\u1E9F\\u1EA1\\u1EA3\\u1EA5\\u1EA7\\u1EA9\\u1EAB\\u1EAD\\u1EAF\\u1EB1\\u1EB3\\u1EB5\\u1EB7\\u1EB9\\u1EBB\\u1EBD\\u1EBF\\u1EC1\\u1EC3\\u1EC5\\u1EC7\\u1EC9\\u1ECB\\u1ECD\\u1ECF\\u1ED1\\u1ED3\\u1ED5\\u1ED7\\u1ED9\\u1EDB\\u1EDD\\u1EDF\\u1EE1\\u1EE3\\u1EE5\\u1EE7\\u1EE9\\u1EEB\\u1EED\\u1EEF\\u1EF1\\u1EF3\\u1EF5\\u1EF7\\u1EF9\\u1EFB\\u1EFD\\u1EFF-\\u1F07\\u1F10-\\u1F15\\u1F20-\\u1F27\\u1F30-\\u1F37\\u1F40-\\u1F45\\u1F50-\\u1F57\\u1F60-\\u1F67\\u1F70-\\u1F7D\\u1F80-\\u1F87\\u1F90-\\u1F97\\u1FA0-\\u1FA7\\u1FB0-\\u1FB4\\u1FB6-\\u1FB7\\u1FBE\\u1FC2-\\u1FC4\\u1FC6-\\u1FC7\\u1FD0-\\u1FD3\\u1FD6-\\u1FD7\\u1FE0-\\u1FE7\\u1FF2-\\u1FF4\\u1FF6-\\u1FF7\\u210A\\u210E-\\u210F\\u2113\\u212F\\u2134\\u2139\\u213C-\\u213D\\u2146-\\u2149\\u214E\\u2184\\u2C30-\\u2C5E\\u2C61\\u2C65-\\u2C66\\u2C68\\u2C6A\\u2C6C\\u2C71\\u2C73-\\u2C74\\u2C76-\\u2C7B\\u2C81\\u2C83\\u2C85\\u2C87\\u2C89\\u2C8B\\u2C8D\\u2C8F\\u2C91\\u2C93\\u2C95\\u2C97\\u2C99\\u2C9B\\u2C9D\\u2C9F\\u2CA1\\u2CA3\\u2CA5\\u2CA7\\u2CA9\\u2CAB\\u2CAD\\u2CAF\\u2CB1\\u2CB3\\u2CB5\\u2CB7\\u2CB9\\u2CBB\\u2CBD\\u2CBF\\u2CC1\\u2CC3\\u2CC5\\u2CC7\\u2CC9\\u2CCB\\u2CCD\\u2CCF\\u2CD1\\u2CD3\\u2CD5\\u2CD7\\u2CD9\\u2CDB\\u2CDD\\u2CDF\\u2CE1\\u2CE3-\\u2CE4\\u2CEC\\u2CEE\\u2CF3\\u2D00-\\u2D25\\u2D27\\u2D2D\\uA641\\uA643\\uA645\\uA647\\uA649\\uA64B\\uA64D\\uA64F\\uA651\\uA653\\uA655\\uA657\\uA659\\uA65B\\uA65D\\uA65F\\uA661\\uA663\\uA665\\uA667\\uA669\\uA66B\\uA66D\\uA681\\uA683\\uA685\\uA687\\uA689\\uA68B\\uA68D\\uA68F\\uA691\\uA693\\uA695\\uA697\\uA723\\uA725\\uA727\\uA729\\uA72B\\uA72D\\uA72F-\\uA731\\uA733\\uA735\\uA737\\uA739\\uA73B\\uA73D\\uA73F\\uA741\\uA743\\uA745\\uA747\\uA749\\uA74B\\uA74D\\uA74F\\uA751\\uA753\\uA755\\uA757\\uA759\\uA75B\\uA75D\\uA75F\\uA761\\uA763\\uA765\\uA767\\uA769\\uA76B\\uA76D\\uA76F\\uA771-\\uA778\\uA77A\\uA77C\\uA77F\\uA781\\uA783\\uA785\\uA787\\uA78C\\uA78E\\uA791\\uA793\\uA7A1\\uA7A3\\uA7A5\\uA7A7\\uA7A9\\uA7FA\\uFB00-\\uFB06\\uFB13-\\uFB17\\uFF41-\\uFF5A]" },
+          /^[\u02B0-\u02C1\u02C6-\u02D1\u02E0-\u02E4\u02EC\u02EE\u0374\u037A\u0559\u0640\u06E5-\u06E6\u07F4-\u07F5\u07FA\u081A\u0824\u0828\u0971\u0E46\u0EC6\u10FC\u17D7\u1843\u1AA7\u1C78-\u1C7D\u1D2C-\u1D6A\u1D78\u1D9B-\u1DBF\u2071\u207F\u2090-\u209C\u2C7C-\u2C7D\u2D6F\u2E2F\u3005\u3031-\u3035\u303B\u309D-\u309E\u30FC-\u30FE\uA015\uA4F8-\uA4FD\uA60C\uA67F\uA717-\uA71F\uA770\uA788\uA7F8-\uA7F9\uA9CF\uAA70\uAADD\uAAF3-\uAAF4\uFF70\uFF9E-\uFF9F]/,
+          { type: "class", value: "[\\u02B0-\\u02C1\\u02C6-\\u02D1\\u02E0-\\u02E4\\u02EC\\u02EE\\u0374\\u037A\\u0559\\u0640\\u06E5-\\u06E6\\u07F4-\\u07F5\\u07FA\\u081A\\u0824\\u0828\\u0971\\u0E46\\u0EC6\\u10FC\\u17D7\\u1843\\u1AA7\\u1C78-\\u1C7D\\u1D2C-\\u1D6A\\u1D78\\u1D9B-\\u1DBF\\u2071\\u207F\\u2090-\\u209C\\u2C7C-\\u2C7D\\u2D6F\\u2E2F\\u3005\\u3031-\\u3035\\u303B\\u309D-\\u309E\\u30FC-\\u30FE\\uA015\\uA4F8-\\uA4FD\\uA60C\\uA67F\\uA717-\\uA71F\\uA770\\uA788\\uA7F8-\\uA7F9\\uA9CF\\uAA70\\uAADD\\uAAF3-\\uAAF4\\uFF70\\uFF9E-\\uFF9F]", description: "[\\u02B0-\\u02C1\\u02C6-\\u02D1\\u02E0-\\u02E4\\u02EC\\u02EE\\u0374\\u037A\\u0559\\u0640\\u06E5-\\u06E6\\u07F4-\\u07F5\\u07FA\\u081A\\u0824\\u0828\\u0971\\u0E46\\u0EC6\\u10FC\\u17D7\\u1843\\u1AA7\\u1C78-\\u1C7D\\u1D2C-\\u1D6A\\u1D78\\u1D9B-\\u1DBF\\u2071\\u207F\\u2090-\\u209C\\u2C7C-\\u2C7D\\u2D6F\\u2E2F\\u3005\\u3031-\\u3035\\u303B\\u309D-\\u309E\\u30FC-\\u30FE\\uA015\\uA4F8-\\uA4FD\\uA60C\\uA67F\\uA717-\\uA71F\\uA770\\uA788\\uA7F8-\\uA7F9\\uA9CF\\uAA70\\uAADD\\uAAF3-\\uAAF4\\uFF70\\uFF9E-\\uFF9F]" },
+          /^[\xAA\xBA\u01BB\u01C0-\u01C3\u0294\u05D0-\u05EA\u05F0-\u05F2\u0620-\u063F\u0641-\u064A\u066E-\u066F\u0671-\u06D3\u06D5\u06EE-\u06EF\u06FA-\u06FC\u06FF\u0710\u0712-\u072F\u074D-\u07A5\u07B1\u07CA-\u07EA\u0800-\u0815\u0840-\u0858\u08A0\u08A2-\u08AC\u0904-\u0939\u093D\u0950\u0958-\u0961\u0972-\u0977\u0979-\u097F\u0985-\u098C\u098F-\u0990\u0993-\u09A8\u09AA-\u09B0\u09B2\u09B6-\u09B9\u09BD\u09CE\u09DC-\u09DD\u09DF-\u09E1\u09F0-\u09F1\u0A05-\u0A0A\u0A0F-\u0A10\u0A13-\u0A28\u0A2A-\u0A30\u0A32-\u0A33\u0A35-\u0A36\u0A38-\u0A39\u0A59-\u0A5C\u0A5E\u0A72-\u0A74\u0A85-\u0A8D\u0A8F-\u0A91\u0A93-\u0AA8\u0AAA-\u0AB0\u0AB2-\u0AB3\u0AB5-\u0AB9\u0ABD\u0AD0\u0AE0-\u0AE1\u0B05-\u0B0C\u0B0F-\u0B10\u0B13-\u0B28\u0B2A-\u0B30\u0B32-\u0B33\u0B35-\u0B39\u0B3D\u0B5C-\u0B5D\u0B5F-\u0B61\u0B71\u0B83\u0B85-\u0B8A\u0B8E-\u0B90\u0B92-\u0B95\u0B99-\u0B9A\u0B9C\u0B9E-\u0B9F\u0BA3-\u0BA4\u0BA8-\u0BAA\u0BAE-\u0BB9\u0BD0\u0C05-\u0C0C\u0C0E-\u0C10\u0C12-\u0C28\u0C2A-\u0C33\u0C35-\u0C39\u0C3D\u0C58-\u0C59\u0C60-\u0C61\u0C85-\u0C8C\u0C8E-\u0C90\u0C92-\u0CA8\u0CAA-\u0CB3\u0CB5-\u0CB9\u0CBD\u0CDE\u0CE0-\u0CE1\u0CF1-\u0CF2\u0D05-\u0D0C\u0D0E-\u0D10\u0D12-\u0D3A\u0D3D\u0D4E\u0D60-\u0D61\u0D7A-\u0D7F\u0D85-\u0D96\u0D9A-\u0DB1\u0DB3-\u0DBB\u0DBD\u0DC0-\u0DC6\u0E01-\u0E30\u0E32-\u0E33\u0E40-\u0E45\u0E81-\u0E82\u0E84\u0E87-\u0E88\u0E8A\u0E8D\u0E94-\u0E97\u0E99-\u0E9F\u0EA1-\u0EA3\u0EA5\u0EA7\u0EAA-\u0EAB\u0EAD-\u0EB0\u0EB2-\u0EB3\u0EBD\u0EC0-\u0EC4\u0EDC-\u0EDF\u0F00\u0F40-\u0F47\u0F49-\u0F6C\u0F88-\u0F8C\u1000-\u102A\u103F\u1050-\u1055\u105A-\u105D\u1061\u1065-\u1066\u106E-\u1070\u1075-\u1081\u108E\u10D0-\u10FA\u10FD-\u1248\u124A-\u124D\u1250-\u1256\u1258\u125A-\u125D\u1260-\u1288\u128A-\u128D\u1290-\u12B0\u12B2-\u12B5\u12B8-\u12BE\u12C0\u12C2-\u12C5\u12C8-\u12D6\u12D8-\u1310\u1312-\u1315\u1318-\u135A\u1380-\u138F\u13A0-\u13F4\u1401-\u166C\u166F-\u167F\u1681-\u169A\u16A0-\u16EA\u1700-\u170C\u170E-\u1711\u1720-\u1731\u1740-\u1751\u1760-\u176C\u176E-\u1770\u1780-\u17B3\u17DC\u1820-\u1842\u1844-\u1877\u1880-\u18A8\u18AA\u18B0-\u18F5\u1900-\u191C\u1950-\u196D\u1970-\u1974\u1980-\u19AB\u19C1-\u19C7\u1A00-\u1A16\u1A20-\u1A54\u1B05-\u1B33\u1B45-\u1B4B\u1B83-\u1BA0\u1BAE-\u1BAF\u1BBA-\u1BE5\u1C00-\u1C23\u1C4D-\u1C4F\u1C5A-\u1C77\u1CE9-\u1CEC\u1CEE-\u1CF1\u1CF5-\u1CF6\u2135-\u2138\u2D30-\u2D67\u2D80-\u2D96\u2DA0-\u2DA6\u2DA8-\u2DAE\u2DB0-\u2DB6\u2DB8-\u2DBE\u2DC0-\u2DC6\u2DC8-\u2DCE\u2DD0-\u2DD6\u2DD8-\u2DDE\u3006\u303C\u3041-\u3096\u309F\u30A1-\u30FA\u30FF\u3105-\u312D\u3131-\u318E\u31A0-\u31BA\u31F0-\u31FF\u3400-\u4DB5\u4E00-\u9FCC\uA000-\uA014\uA016-\uA48C\uA4D0-\uA4F7\uA500-\uA60B\uA610-\uA61F\uA62A-\uA62B\uA66E\uA6A0-\uA6E5\uA7FB-\uA801\uA803-\uA805\uA807-\uA80A\uA80C-\uA822\uA840-\uA873\uA882-\uA8B3\uA8F2-\uA8F7\uA8FB\uA90A-\uA925\uA930-\uA946\uA960-\uA97C\uA984-\uA9B2\uAA00-\uAA28\uAA40-\uAA42\uAA44-\uAA4B\uAA60-\uAA6F\uAA71-\uAA76\uAA7A\uAA80-\uAAAF\uAAB1\uAAB5-\uAAB6\uAAB9-\uAABD\uAAC0\uAAC2\uAADB-\uAADC\uAAE0-\uAAEA\uAAF2\uAB01-\uAB06\uAB09-\uAB0E\uAB11-\uAB16\uAB20-\uAB26\uAB28-\uAB2E\uABC0-\uABE2\uAC00-\uD7A3\uD7B0-\uD7C6\uD7CB-\uD7FB\uF900-\uFA6D\uFA70-\uFAD9\uFB1D\uFB1F-\uFB28\uFB2A-\uFB36\uFB38-\uFB3C\uFB3E\uFB40-\uFB41\uFB43-\uFB44\uFB46-\uFBB1\uFBD3-\uFD3D\uFD50-\uFD8F\uFD92-\uFDC7\uFDF0-\uFDFB\uFE70-\uFE74\uFE76-\uFEFC\uFF66-\uFF6F\uFF71-\uFF9D\uFFA0-\uFFBE\uFFC2-\uFFC7\uFFCA-\uFFCF\uFFD2-\uFFD7\uFFDA-\uFFDC]/,
+          { type: "class", value: "[\\u00AA\\u00BA\\u01BB\\u01C0-\\u01C3\\u0294\\u05D0-\\u05EA\\u05F0-\\u05F2\\u0620-\\u063F\\u0641-\\u064A\\u066E-\\u066F\\u0671-\\u06D3\\u06D5\\u06EE-\\u06EF\\u06FA-\\u06FC\\u06FF\\u0710\\u0712-\\u072F\\u074D-\\u07A5\\u07B1\\u07CA-\\u07EA\\u0800-\\u0815\\u0840-\\u0858\\u08A0\\u08A2-\\u08AC\\u0904-\\u0939\\u093D\\u0950\\u0958-\\u0961\\u0972-\\u0977\\u0979-\\u097F\\u0985-\\u098C\\u098F-\\u0990\\u0993-\\u09A8\\u09AA-\\u09B0\\u09B2\\u09B6-\\u09B9\\u09BD\\u09CE\\u09DC-\\u09DD\\u09DF-\\u09E1\\u09F0-\\u09F1\\u0A05-\\u0A0A\\u0A0F-\\u0A10\\u0A13-\\u0A28\\u0A2A-\\u0A30\\u0A32-\\u0A33\\u0A35-\\u0A36\\u0A38-\\u0A39\\u0A59-\\u0A5C\\u0A5E\\u0A72-\\u0A74\\u0A85-\\u0A8D\\u0A8F-\\u0A91\\u0A93-\\u0AA8\\u0AAA-\\u0AB0\\u0AB2-\\u0AB3\\u0AB5-\\u0AB9\\u0ABD\\u0AD0\\u0AE0-\\u0AE1\\u0B05-\\u0B0C\\u0B0F-\\u0B10\\u0B13-\\u0B28\\u0B2A-\\u0B30\\u0B32-\\u0B33\\u0B35-\\u0B39\\u0B3D\\u0B5C-\\u0B5D\\u0B5F-\\u0B61\\u0B71\\u0B83\\u0B85-\\u0B8A\\u0B8E-\\u0B90\\u0B92-\\u0B95\\u0B99-\\u0B9A\\u0B9C\\u0B9E-\\u0B9F\\u0BA3-\\u0BA4\\u0BA8-\\u0BAA\\u0BAE-\\u0BB9\\u0BD0\\u0C05-\\u0C0C\\u0C0E-\\u0C10\\u0C12-\\u0C28\\u0C2A-\\u0C33\\u0C35-\\u0C39\\u0C3D\\u0C58-\\u0C59\\u0C60-\\u0C61\\u0C85-\\u0C8C\\u0C8E-\\u0C90\\u0C92-\\u0CA8\\u0CAA-\\u0CB3\\u0CB5-\\u0CB9\\u0CBD\\u0CDE\\u0CE0-\\u0CE1\\u0CF1-\\u0CF2\\u0D05-\\u0D0C\\u0D0E-\\u0D10\\u0D12-\\u0D3A\\u0D3D\\u0D4E\\u0D60-\\u0D61\\u0D7A-\\u0D7F\\u0D85-\\u0D96\\u0D9A-\\u0DB1\\u0DB3-\\u0DBB\\u0DBD\\u0DC0-\\u0DC6\\u0E01-\\u0E30\\u0E32-\\u0E33\\u0E40-\\u0E45\\u0E81-\\u0E82\\u0E84\\u0E87-\\u0E88\\u0E8A\\u0E8D\\u0E94-\\u0E97\\u0E99-\\u0E9F\\u0EA1-\\u0EA3\\u0EA5\\u0EA7\\u0EAA-\\u0EAB\\u0EAD-\\u0EB0\\u0EB2-\\u0EB3\\u0EBD\\u0EC0-\\u0EC4\\u0EDC-\\u0EDF\\u0F00\\u0F40-\\u0F47\\u0F49-\\u0F6C\\u0F88-\\u0F8C\\u1000-\\u102A\\u103F\\u1050-\\u1055\\u105A-\\u105D\\u1061\\u1065-\\u1066\\u106E-\\u1070\\u1075-\\u1081\\u108E\\u10D0-\\u10FA\\u10FD-\\u1248\\u124A-\\u124D\\u1250-\\u1256\\u1258\\u125A-\\u125D\\u1260-\\u1288\\u128A-\\u128D\\u1290-\\u12B0\\u12B2-\\u12B5\\u12B8-\\u12BE\\u12C0\\u12C2-\\u12C5\\u12C8-\\u12D6\\u12D8-\\u1310\\u1312-\\u1315\\u1318-\\u135A\\u1380-\\u138F\\u13A0-\\u13F4\\u1401-\\u166C\\u166F-\\u167F\\u1681-\\u169A\\u16A0-\\u16EA\\u1700-\\u170C\\u170E-\\u1711\\u1720-\\u1731\\u1740-\\u1751\\u1760-\\u176C\\u176E-\\u1770\\u1780-\\u17B3\\u17DC\\u1820-\\u1842\\u1844-\\u1877\\u1880-\\u18A8\\u18AA\\u18B0-\\u18F5\\u1900-\\u191C\\u1950-\\u196D\\u1970-\\u1974\\u1980-\\u19AB\\u19C1-\\u19C7\\u1A00-\\u1A16\\u1A20-\\u1A54\\u1B05-\\u1B33\\u1B45-\\u1B4B\\u1B83-\\u1BA0\\u1BAE-\\u1BAF\\u1BBA-\\u1BE5\\u1C00-\\u1C23\\u1C4D-\\u1C4F\\u1C5A-\\u1C77\\u1CE9-\\u1CEC\\u1CEE-\\u1CF1\\u1CF5-\\u1CF6\\u2135-\\u2138\\u2D30-\\u2D67\\u2D80-\\u2D96\\u2DA0-\\u2DA6\\u2DA8-\\u2DAE\\u2DB0-\\u2DB6\\u2DB8-\\u2DBE\\u2DC0-\\u2DC6\\u2DC8-\\u2DCE\\u2DD0-\\u2DD6\\u2DD8-\\u2DDE\\u3006\\u303C\\u3041-\\u3096\\u309F\\u30A1-\\u30FA\\u30FF\\u3105-\\u312D\\u3131-\\u318E\\u31A0-\\u31BA\\u31F0-\\u31FF\\u3400-\\u4DB5\\u4E00-\\u9FCC\\uA000-\\uA014\\uA016-\\uA48C\\uA4D0-\\uA4F7\\uA500-\\uA60B\\uA610-\\uA61F\\uA62A-\\uA62B\\uA66E\\uA6A0-\\uA6E5\\uA7FB-\\uA801\\uA803-\\uA805\\uA807-\\uA80A\\uA80C-\\uA822\\uA840-\\uA873\\uA882-\\uA8B3\\uA8F2-\\uA8F7\\uA8FB\\uA90A-\\uA925\\uA930-\\uA946\\uA960-\\uA97C\\uA984-\\uA9B2\\uAA00-\\uAA28\\uAA40-\\uAA42\\uAA44-\\uAA4B\\uAA60-\\uAA6F\\uAA71-\\uAA76\\uAA7A\\uAA80-\\uAAAF\\uAAB1\\uAAB5-\\uAAB6\\uAAB9-\\uAABD\\uAAC0\\uAAC2\\uAADB-\\uAADC\\uAAE0-\\uAAEA\\uAAF2\\uAB01-\\uAB06\\uAB09-\\uAB0E\\uAB11-\\uAB16\\uAB20-\\uAB26\\uAB28-\\uAB2E\\uABC0-\\uABE2\\uAC00-\\uD7A3\\uD7B0-\\uD7C6\\uD7CB-\\uD7FB\\uF900-\\uFA6D\\uFA70-\\uFAD9\\uFB1D\\uFB1F-\\uFB28\\uFB2A-\\uFB36\\uFB38-\\uFB3C\\uFB3E\\uFB40-\\uFB41\\uFB43-\\uFB44\\uFB46-\\uFBB1\\uFBD3-\\uFD3D\\uFD50-\\uFD8F\\uFD92-\\uFDC7\\uFDF0-\\uFDFB\\uFE70-\\uFE74\\uFE76-\\uFEFC\\uFF66-\\uFF6F\\uFF71-\\uFF9D\\uFFA0-\\uFFBE\\uFFC2-\\uFFC7\\uFFCA-\\uFFCF\\uFFD2-\\uFFD7\\uFFDA-\\uFFDC]", description: "[\\u00AA\\u00BA\\u01BB\\u01C0-\\u01C3\\u0294\\u05D0-\\u05EA\\u05F0-\\u05F2\\u0620-\\u063F\\u0641-\\u064A\\u066E-\\u066F\\u0671-\\u06D3\\u06D5\\u06EE-\\u06EF\\u06FA-\\u06FC\\u06FF\\u0710\\u0712-\\u072F\\u074D-\\u07A5\\u07B1\\u07CA-\\u07EA\\u0800-\\u0815\\u0840-\\u0858\\u08A0\\u08A2-\\u08AC\\u0904-\\u0939\\u093D\\u0950\\u0958-\\u0961\\u0972-\\u0977\\u0979-\\u097F\\u0985-\\u098C\\u098F-\\u0990\\u0993-\\u09A8\\u09AA-\\u09B0\\u09B2\\u09B6-\\u09B9\\u09BD\\u09CE\\u09DC-\\u09DD\\u09DF-\\u09E1\\u09F0-\\u09F1\\u0A05-\\u0A0A\\u0A0F-\\u0A10\\u0A13-\\u0A28\\u0A2A-\\u0A30\\u0A32-\\u0A33\\u0A35-\\u0A36\\u0A38-\\u0A39\\u0A59-\\u0A5C\\u0A5E\\u0A72-\\u0A74\\u0A85-\\u0A8D\\u0A8F-\\u0A91\\u0A93-\\u0AA8\\u0AAA-\\u0AB0\\u0AB2-\\u0AB3\\u0AB5-\\u0AB9\\u0ABD\\u0AD0\\u0AE0-\\u0AE1\\u0B05-\\u0B0C\\u0B0F-\\u0B10\\u0B13-\\u0B28\\u0B2A-\\u0B30\\u0B32-\\u0B33\\u0B35-\\u0B39\\u0B3D\\u0B5C-\\u0B5D\\u0B5F-\\u0B61\\u0B71\\u0B83\\u0B85-\\u0B8A\\u0B8E-\\u0B90\\u0B92-\\u0B95\\u0B99-\\u0B9A\\u0B9C\\u0B9E-\\u0B9F\\u0BA3-\\u0BA4\\u0BA8-\\u0BAA\\u0BAE-\\u0BB9\\u0BD0\\u0C05-\\u0C0C\\u0C0E-\\u0C10\\u0C12-\\u0C28\\u0C2A-\\u0C33\\u0C35-\\u0C39\\u0C3D\\u0C58-\\u0C59\\u0C60-\\u0C61\\u0C85-\\u0C8C\\u0C8E-\\u0C90\\u0C92-\\u0CA8\\u0CAA-\\u0CB3\\u0CB5-\\u0CB9\\u0CBD\\u0CDE\\u0CE0-\\u0CE1\\u0CF1-\\u0CF2\\u0D05-\\u0D0C\\u0D0E-\\u0D10\\u0D12-\\u0D3A\\u0D3D\\u0D4E\\u0D60-\\u0D61\\u0D7A-\\u0D7F\\u0D85-\\u0D96\\u0D9A-\\u0DB1\\u0DB3-\\u0DBB\\u0DBD\\u0DC0-\\u0DC6\\u0E01-\\u0E30\\u0E32-\\u0E33\\u0E40-\\u0E45\\u0E81-\\u0E82\\u0E84\\u0E87-\\u0E88\\u0E8A\\u0E8D\\u0E94-\\u0E97\\u0E99-\\u0E9F\\u0EA1-\\u0EA3\\u0EA5\\u0EA7\\u0EAA-\\u0EAB\\u0EAD-\\u0EB0\\u0EB2-\\u0EB3\\u0EBD\\u0EC0-\\u0EC4\\u0EDC-\\u0EDF\\u0F00\\u0F40-\\u0F47\\u0F49-\\u0F6C\\u0F88-\\u0F8C\\u1000-\\u102A\\u103F\\u1050-\\u1055\\u105A-\\u105D\\u1061\\u1065-\\u1066\\u106E-\\u1070\\u1075-\\u1081\\u108E\\u10D0-\\u10FA\\u10FD-\\u1248\\u124A-\\u124D\\u1250-\\u1256\\u1258\\u125A-\\u125D\\u1260-\\u1288\\u128A-\\u128D\\u1290-\\u12B0\\u12B2-\\u12B5\\u12B8-\\u12BE\\u12C0\\u12C2-\\u12C5\\u12C8-\\u12D6\\u12D8-\\u1310\\u1312-\\u1315\\u1318-\\u135A\\u1380-\\u138F\\u13A0-\\u13F4\\u1401-\\u166C\\u166F-\\u167F\\u1681-\\u169A\\u16A0-\\u16EA\\u1700-\\u170C\\u170E-\\u1711\\u1720-\\u1731\\u1740-\\u1751\\u1760-\\u176C\\u176E-\\u1770\\u1780-\\u17B3\\u17DC\\u1820-\\u1842\\u1844-\\u1877\\u1880-\\u18A8\\u18AA\\u18B0-\\u18F5\\u1900-\\u191C\\u1950-\\u196D\\u1970-\\u1974\\u1980-\\u19AB\\u19C1-\\u19C7\\u1A00-\\u1A16\\u1A20-\\u1A54\\u1B05-\\u1B33\\u1B45-\\u1B4B\\u1B83-\\u1BA0\\u1BAE-\\u1BAF\\u1BBA-\\u1BE5\\u1C00-\\u1C23\\u1C4D-\\u1C4F\\u1C5A-\\u1C77\\u1CE9-\\u1CEC\\u1CEE-\\u1CF1\\u1CF5-\\u1CF6\\u2135-\\u2138\\u2D30-\\u2D67\\u2D80-\\u2D96\\u2DA0-\\u2DA6\\u2DA8-\\u2DAE\\u2DB0-\\u2DB6\\u2DB8-\\u2DBE\\u2DC0-\\u2DC6\\u2DC8-\\u2DCE\\u2DD0-\\u2DD6\\u2DD8-\\u2DDE\\u3006\\u303C\\u3041-\\u3096\\u309F\\u30A1-\\u30FA\\u30FF\\u3105-\\u312D\\u3131-\\u318E\\u31A0-\\u31BA\\u31F0-\\u31FF\\u3400-\\u4DB5\\u4E00-\\u9FCC\\uA000-\\uA014\\uA016-\\uA48C\\uA4D0-\\uA4F7\\uA500-\\uA60B\\uA610-\\uA61F\\uA62A-\\uA62B\\uA66E\\uA6A0-\\uA6E5\\uA7FB-\\uA801\\uA803-\\uA805\\uA807-\\uA80A\\uA80C-\\uA822\\uA840-\\uA873\\uA882-\\uA8B3\\uA8F2-\\uA8F7\\uA8FB\\uA90A-\\uA925\\uA930-\\uA946\\uA960-\\uA97C\\uA984-\\uA9B2\\uAA00-\\uAA28\\uAA40-\\uAA42\\uAA44-\\uAA4B\\uAA60-\\uAA6F\\uAA71-\\uAA76\\uAA7A\\uAA80-\\uAAAF\\uAAB1\\uAAB5-\\uAAB6\\uAAB9-\\uAABD\\uAAC0\\uAAC2\\uAADB-\\uAADC\\uAAE0-\\uAAEA\\uAAF2\\uAB01-\\uAB06\\uAB09-\\uAB0E\\uAB11-\\uAB16\\uAB20-\\uAB26\\uAB28-\\uAB2E\\uABC0-\\uABE2\\uAC00-\\uD7A3\\uD7B0-\\uD7C6\\uD7CB-\\uD7FB\\uF900-\\uFA6D\\uFA70-\\uFAD9\\uFB1D\\uFB1F-\\uFB28\\uFB2A-\\uFB36\\uFB38-\\uFB3C\\uFB3E\\uFB40-\\uFB41\\uFB43-\\uFB44\\uFB46-\\uFBB1\\uFBD3-\\uFD3D\\uFD50-\\uFD8F\\uFD92-\\uFDC7\\uFDF0-\\uFDFB\\uFE70-\\uFE74\\uFE76-\\uFEFC\\uFF66-\\uFF6F\\uFF71-\\uFF9D\\uFFA0-\\uFFBE\\uFFC2-\\uFFC7\\uFFCA-\\uFFCF\\uFFD2-\\uFFD7\\uFFDA-\\uFFDC]" },
+          /^[\u01C5\u01C8\u01CB\u01F2\u1F88-\u1F8F\u1F98-\u1F9F\u1FA8-\u1FAF\u1FBC\u1FCC\u1FFC]/,
+          { type: "class", value: "[\\u01C5\\u01C8\\u01CB\\u01F2\\u1F88-\\u1F8F\\u1F98-\\u1F9F\\u1FA8-\\u1FAF\\u1FBC\\u1FCC\\u1FFC]", description: "[\\u01C5\\u01C8\\u01CB\\u01F2\\u1F88-\\u1F8F\\u1F98-\\u1F9F\\u1FA8-\\u1FAF\\u1FBC\\u1FCC\\u1FFC]" },
+          /^[A-Z\xC0-\xD6\xD8-\xDE\u0100\u0102\u0104\u0106\u0108\u010A\u010C\u010E\u0110\u0112\u0114\u0116\u0118\u011A\u011C\u011E\u0120\u0122\u0124\u0126\u0128\u012A\u012C\u012E\u0130\u0132\u0134\u0136\u0139\u013B\u013D\u013F\u0141\u0143\u0145\u0147\u014A\u014C\u014E\u0150\u0152\u0154\u0156\u0158\u015A\u015C\u015E\u0160\u0162\u0164\u0166\u0168\u016A\u016C\u016E\u0170\u0172\u0174\u0176\u0178-\u0179\u017B\u017D\u0181-\u0182\u0184\u0186-\u0187\u0189-\u018B\u018E-\u0191\u0193-\u0194\u0196-\u0198\u019C-\u019D\u019F-\u01A0\u01A2\u01A4\u01A6-\u01A7\u01A9\u01AC\u01AE-\u01AF\u01B1-\u01B3\u01B5\u01B7-\u01B8\u01BC\u01C4\u01C7\u01CA\u01CD\u01CF\u01D1\u01D3\u01D5\u01D7\u01D9\u01DB\u01DE\u01E0\u01E2\u01E4\u01E6\u01E8\u01EA\u01EC\u01EE\u01F1\u01F4\u01F6-\u01F8\u01FA\u01FC\u01FE\u0200\u0202\u0204\u0206\u0208\u020A\u020C\u020E\u0210\u0212\u0214\u0216\u0218\u021A\u021C\u021E\u0220\u0222\u0224\u0226\u0228\u022A\u022C\u022E\u0230\u0232\u023A-\u023B\u023D-\u023E\u0241\u0243-\u0246\u0248\u024A\u024C\u024E\u0370\u0372\u0376\u0386\u0388-\u038A\u038C\u038E-\u038F\u0391-\u03A1\u03A3-\u03AB\u03CF\u03D2-\u03D4\u03D8\u03DA\u03DC\u03DE\u03E0\u03E2\u03E4\u03E6\u03E8\u03EA\u03EC\u03EE\u03F4\u03F7\u03F9-\u03FA\u03FD-\u042F\u0460\u0462\u0464\u0466\u0468\u046A\u046C\u046E\u0470\u0472\u0474\u0476\u0478\u047A\u047C\u047E\u0480\u048A\u048C\u048E\u0490\u0492\u0494\u0496\u0498\u049A\u049C\u049E\u04A0\u04A2\u04A4\u04A6\u04A8\u04AA\u04AC\u04AE\u04B0\u04B2\u04B4\u04B6\u04B8\u04BA\u04BC\u04BE\u04C0-\u04C1\u04C3\u04C5\u04C7\u04C9\u04CB\u04CD\u04D0\u04D2\u04D4\u04D6\u04D8\u04DA\u04DC\u04DE\u04E0\u04E2\u04E4\u04E6\u04E8\u04EA\u04EC\u04EE\u04F0\u04F2\u04F4\u04F6\u04F8\u04FA\u04FC\u04FE\u0500\u0502\u0504\u0506\u0508\u050A\u050C\u050E\u0510\u0512\u0514\u0516\u0518\u051A\u051C\u051E\u0520\u0522\u0524\u0526\u0531-\u0556\u10A0-\u10C5\u10C7\u10CD\u1E00\u1E02\u1E04\u1E06\u1E08\u1E0A\u1E0C\u1E0E\u1E10\u1E12\u1E14\u1E16\u1E18\u1E1A\u1E1C\u1E1E\u1E20\u1E22\u1E24\u1E26\u1E28\u1E2A\u1E2C\u1E2E\u1E30\u1E32\u1E34\u1E36\u1E38\u1E3A\u1E3C\u1E3E\u1E40\u1E42\u1E44\u1E46\u1E48\u1E4A\u1E4C\u1E4E\u1E50\u1E52\u1E54\u1E56\u1E58\u1E5A\u1E5C\u1E5E\u1E60\u1E62\u1E64\u1E66\u1E68\u1E6A\u1E6C\u1E6E\u1E70\u1E72\u1E74\u1E76\u1E78\u1E7A\u1E7C\u1E7E\u1E80\u1E82\u1E84\u1E86\u1E88\u1E8A\u1E8C\u1E8E\u1E90\u1E92\u1E94\u1E9E\u1EA0\u1EA2\u1EA4\u1EA6\u1EA8\u1EAA\u1EAC\u1EAE\u1EB0\u1EB2\u1EB4\u1EB6\u1EB8\u1EBA\u1EBC\u1EBE\u1EC0\u1EC2\u1EC4\u1EC6\u1EC8\u1ECA\u1ECC\u1ECE\u1ED0\u1ED2\u1ED4\u1ED6\u1ED8\u1EDA\u1EDC\u1EDE\u1EE0\u1EE2\u1EE4\u1EE6\u1EE8\u1EEA\u1EEC\u1EEE\u1EF0\u1EF2\u1EF4\u1EF6\u1EF8\u1EFA\u1EFC\u1EFE\u1F08-\u1F0F\u1F18-\u1F1D\u1F28-\u1F2F\u1F38-\u1F3F\u1F48-\u1F4D\u1F59\u1F5B\u1F5D\u1F5F\u1F68-\u1F6F\u1FB8-\u1FBB\u1FC8-\u1FCB\u1FD8-\u1FDB\u1FE8-\u1FEC\u1FF8-\u1FFB\u2102\u2107\u210B-\u210D\u2110-\u2112\u2115\u2119-\u211D\u2124\u2126\u2128\u212A-\u212D\u2130-\u2133\u213E-\u213F\u2145\u2183\u2C00-\u2C2E\u2C60\u2C62-\u2C64\u2C67\u2C69\u2C6B\u2C6D-\u2C70\u2C72\u2C75\u2C7E-\u2C80\u2C82\u2C84\u2C86\u2C88\u2C8A\u2C8C\u2C8E\u2C90\u2C92\u2C94\u2C96\u2C98\u2C9A\u2C9C\u2C9E\u2CA0\u2CA2\u2CA4\u2CA6\u2CA8\u2CAA\u2CAC\u2CAE\u2CB0\u2CB2\u2CB4\u2CB6\u2CB8\u2CBA\u2CBC\u2CBE\u2CC0\u2CC2\u2CC4\u2CC6\u2CC8\u2CCA\u2CCC\u2CCE\u2CD0\u2CD2\u2CD4\u2CD6\u2CD8\u2CDA\u2CDC\u2CDE\u2CE0\u2CE2\u2CEB\u2CED\u2CF2\uA640\uA642\uA644\uA646\uA648\uA64A\uA64C\uA64E\uA650\uA652\uA654\uA656\uA658\uA65A\uA65C\uA65E\uA660\uA662\uA664\uA666\uA668\uA66A\uA66C\uA680\uA682\uA684\uA686\uA688\uA68A\uA68C\uA68E\uA690\uA692\uA694\uA696\uA722\uA724\uA726\uA728\uA72A\uA72C\uA72E\uA732\uA734\uA736\uA738\uA73A\uA73C\uA73E\uA740\uA742\uA744\uA746\uA748\uA74A\uA74C\uA74E\uA750\uA752\uA754\uA756\uA758\uA75A\uA75C\uA75E\uA760\uA762\uA764\uA766\uA768\uA76A\uA76C\uA76E\uA779\uA77B\uA77D-\uA77E\uA780\uA782\uA784\uA786\uA78B\uA78D\uA790\uA792\uA7A0\uA7A2\uA7A4\uA7A6\uA7A8\uA7AA\uFF21-\uFF3A]/,
+          { type: "class", value: "[\\u0041-\\u005A\\u00C0-\\u00D6\\u00D8-\\u00DE\\u0100\\u0102\\u0104\\u0106\\u0108\\u010A\\u010C\\u010E\\u0110\\u0112\\u0114\\u0116\\u0118\\u011A\\u011C\\u011E\\u0120\\u0122\\u0124\\u0126\\u0128\\u012A\\u012C\\u012E\\u0130\\u0132\\u0134\\u0136\\u0139\\u013B\\u013D\\u013F\\u0141\\u0143\\u0145\\u0147\\u014A\\u014C\\u014E\\u0150\\u0152\\u0154\\u0156\\u0158\\u015A\\u015C\\u015E\\u0160\\u0162\\u0164\\u0166\\u0168\\u016A\\u016C\\u016E\\u0170\\u0172\\u0174\\u0176\\u0178-\\u0179\\u017B\\u017D\\u0181-\\u0182\\u0184\\u0186-\\u0187\\u0189-\\u018B\\u018E-\\u0191\\u0193-\\u0194\\u0196-\\u0198\\u019C-\\u019D\\u019F-\\u01A0\\u01A2\\u01A4\\u01A6-\\u01A7\\u01A9\\u01AC\\u01AE-\\u01AF\\u01B1-\\u01B3\\u01B5\\u01B7-\\u01B8\\u01BC\\u01C4\\u01C7\\u01CA\\u01CD\\u01CF\\u01D1\\u01D3\\u01D5\\u01D7\\u01D9\\u01DB\\u01DE\\u01E0\\u01E2\\u01E4\\u01E6\\u01E8\\u01EA\\u01EC\\u01EE\\u01F1\\u01F4\\u01F6-\\u01F8\\u01FA\\u01FC\\u01FE\\u0200\\u0202\\u0204\\u0206\\u0208\\u020A\\u020C\\u020E\\u0210\\u0212\\u0214\\u0216\\u0218\\u021A\\u021C\\u021E\\u0220\\u0222\\u0224\\u0226\\u0228\\u022A\\u022C\\u022E\\u0230\\u0232\\u023A-\\u023B\\u023D-\\u023E\\u0241\\u0243-\\u0246\\u0248\\u024A\\u024C\\u024E\\u0370\\u0372\\u0376\\u0386\\u0388-\\u038A\\u038C\\u038E-\\u038F\\u0391-\\u03A1\\u03A3-\\u03AB\\u03CF\\u03D2-\\u03D4\\u03D8\\u03DA\\u03DC\\u03DE\\u03E0\\u03E2\\u03E4\\u03E6\\u03E8\\u03EA\\u03EC\\u03EE\\u03F4\\u03F7\\u03F9-\\u03FA\\u03FD-\\u042F\\u0460\\u0462\\u0464\\u0466\\u0468\\u046A\\u046C\\u046E\\u0470\\u0472\\u0474\\u0476\\u0478\\u047A\\u047C\\u047E\\u0480\\u048A\\u048C\\u048E\\u0490\\u0492\\u0494\\u0496\\u0498\\u049A\\u049C\\u049E\\u04A0\\u04A2\\u04A4\\u04A6\\u04A8\\u04AA\\u04AC\\u04AE\\u04B0\\u04B2\\u04B4\\u04B6\\u04B8\\u04BA\\u04BC\\u04BE\\u04C0-\\u04C1\\u04C3\\u04C5\\u04C7\\u04C9\\u04CB\\u04CD\\u04D0\\u04D2\\u04D4\\u04D6\\u04D8\\u04DA\\u04DC\\u04DE\\u04E0\\u04E2\\u04E4\\u04E6\\u04E8\\u04EA\\u04EC\\u04EE\\u04F0\\u04F2\\u04F4\\u04F6\\u04F8\\u04FA\\u04FC\\u04FE\\u0500\\u0502\\u0504\\u0506\\u0508\\u050A\\u050C\\u050E\\u0510\\u0512\\u0514\\u0516\\u0518\\u051A\\u051C\\u051E\\u0520\\u0522\\u0524\\u0526\\u0531-\\u0556\\u10A0-\\u10C5\\u10C7\\u10CD\\u1E00\\u1E02\\u1E04\\u1E06\\u1E08\\u1E0A\\u1E0C\\u1E0E\\u1E10\\u1E12\\u1E14\\u1E16\\u1E18\\u1E1A\\u1E1C\\u1E1E\\u1E20\\u1E22\\u1E24\\u1E26\\u1E28\\u1E2A\\u1E2C\\u1E2E\\u1E30\\u1E32\\u1E34\\u1E36\\u1E38\\u1E3A\\u1E3C\\u1E3E\\u1E40\\u1E42\\u1E44\\u1E46\\u1E48\\u1E4A\\u1E4C\\u1E4E\\u1E50\\u1E52\\u1E54\\u1E56\\u1E58\\u1E5A\\u1E5C\\u1E5E\\u1E60\\u1E62\\u1E64\\u1E66\\u1E68\\u1E6A\\u1E6C\\u1E6E\\u1E70\\u1E72\\u1E74\\u1E76\\u1E78\\u1E7A\\u1E7C\\u1E7E\\u1E80\\u1E82\\u1E84\\u1E86\\u1E88\\u1E8A\\u1E8C\\u1E8E\\u1E90\\u1E92\\u1E94\\u1E9E\\u1EA0\\u1EA2\\u1EA4\\u1EA6\\u1EA8\\u1EAA\\u1EAC\\u1EAE\\u1EB0\\u1EB2\\u1EB4\\u1EB6\\u1EB8\\u1EBA\\u1EBC\\u1EBE\\u1EC0\\u1EC2\\u1EC4\\u1EC6\\u1EC8\\u1ECA\\u1ECC\\u1ECE\\u1ED0\\u1ED2\\u1ED4\\u1ED6\\u1ED8\\u1EDA\\u1EDC\\u1EDE\\u1EE0\\u1EE2\\u1EE4\\u1EE6\\u1EE8\\u1EEA\\u1EEC\\u1EEE\\u1EF0\\u1EF2\\u1EF4\\u1EF6\\u1EF8\\u1EFA\\u1EFC\\u1EFE\\u1F08-\\u1F0F\\u1F18-\\u1F1D\\u1F28-\\u1F2F\\u1F38-\\u1F3F\\u1F48-\\u1F4D\\u1F59\\u1F5B\\u1F5D\\u1F5F\\u1F68-\\u1F6F\\u1FB8-\\u1FBB\\u1FC8-\\u1FCB\\u1FD8-\\u1FDB\\u1FE8-\\u1FEC\\u1FF8-\\u1FFB\\u2102\\u2107\\u210B-\\u210D\\u2110-\\u2112\\u2115\\u2119-\\u211D\\u2124\\u2126\\u2128\\u212A-\\u212D\\u2130-\\u2133\\u213E-\\u213F\\u2145\\u2183\\u2C00-\\u2C2E\\u2C60\\u2C62-\\u2C64\\u2C67\\u2C69\\u2C6B\\u2C6D-\\u2C70\\u2C72\\u2C75\\u2C7E-\\u2C80\\u2C82\\u2C84\\u2C86\\u2C88\\u2C8A\\u2C8C\\u2C8E\\u2C90\\u2C92\\u2C94\\u2C96\\u2C98\\u2C9A\\u2C9C\\u2C9E\\u2CA0\\u2CA2\\u2CA4\\u2CA6\\u2CA8\\u2CAA\\u2CAC\\u2CAE\\u2CB0\\u2CB2\\u2CB4\\u2CB6\\u2CB8\\u2CBA\\u2CBC\\u2CBE\\u2CC0\\u2CC2\\u2CC4\\u2CC6\\u2CC8\\u2CCA\\u2CCC\\u2CCE\\u2CD0\\u2CD2\\u2CD4\\u2CD6\\u2CD8\\u2CDA\\u2CDC\\u2CDE\\u2CE0\\u2CE2\\u2CEB\\u2CED\\u2CF2\\uA640\\uA642\\uA644\\uA646\\uA648\\uA64A\\uA64C\\uA64E\\uA650\\uA652\\uA654\\uA656\\uA658\\uA65A\\uA65C\\uA65E\\uA660\\uA662\\uA664\\uA666\\uA668\\uA66A\\uA66C\\uA680\\uA682\\uA684\\uA686\\uA688\\uA68A\\uA68C\\uA68E\\uA690\\uA692\\uA694\\uA696\\uA722\\uA724\\uA726\\uA728\\uA72A\\uA72C\\uA72E\\uA732\\uA734\\uA736\\uA738\\uA73A\\uA73C\\uA73E\\uA740\\uA742\\uA744\\uA746\\uA748\\uA74A\\uA74C\\uA74E\\uA750\\uA752\\uA754\\uA756\\uA758\\uA75A\\uA75C\\uA75E\\uA760\\uA762\\uA764\\uA766\\uA768\\uA76A\\uA76C\\uA76E\\uA779\\uA77B\\uA77D-\\uA77E\\uA780\\uA782\\uA784\\uA786\\uA78B\\uA78D\\uA790\\uA792\\uA7A0\\uA7A2\\uA7A4\\uA7A6\\uA7A8\\uA7AA\\uFF21-\\uFF3A]", description: "[\\u0041-\\u005A\\u00C0-\\u00D6\\u00D8-\\u00DE\\u0100\\u0102\\u0104\\u0106\\u0108\\u010A\\u010C\\u010E\\u0110\\u0112\\u0114\\u0116\\u0118\\u011A\\u011C\\u011E\\u0120\\u0122\\u0124\\u0126\\u0128\\u012A\\u012C\\u012E\\u0130\\u0132\\u0134\\u0136\\u0139\\u013B\\u013D\\u013F\\u0141\\u0143\\u0145\\u0147\\u014A\\u014C\\u014E\\u0150\\u0152\\u0154\\u0156\\u0158\\u015A\\u015C\\u015E\\u0160\\u0162\\u0164\\u0166\\u0168\\u016A\\u016C\\u016E\\u0170\\u0172\\u0174\\u0176\\u0178-\\u0179\\u017B\\u017D\\u0181-\\u0182\\u0184\\u0186-\\u0187\\u0189-\\u018B\\u018E-\\u0191\\u0193-\\u0194\\u0196-\\u0198\\u019C-\\u019D\\u019F-\\u01A0\\u01A2\\u01A4\\u01A6-\\u01A7\\u01A9\\u01AC\\u01AE-\\u01AF\\u01B1-\\u01B3\\u01B5\\u01B7-\\u01B8\\u01BC\\u01C4\\u01C7\\u01CA\\u01CD\\u01CF\\u01D1\\u01D3\\u01D5\\u01D7\\u01D9\\u01DB\\u01DE\\u01E0\\u01E2\\u01E4\\u01E6\\u01E8\\u01EA\\u01EC\\u01EE\\u01F1\\u01F4\\u01F6-\\u01F8\\u01FA\\u01FC\\u01FE\\u0200\\u0202\\u0204\\u0206\\u0208\\u020A\\u020C\\u020E\\u0210\\u0212\\u0214\\u0216\\u0218\\u021A\\u021C\\u021E\\u0220\\u0222\\u0224\\u0226\\u0228\\u022A\\u022C\\u022E\\u0230\\u0232\\u023A-\\u023B\\u023D-\\u023E\\u0241\\u0243-\\u0246\\u0248\\u024A\\u024C\\u024E\\u0370\\u0372\\u0376\\u0386\\u0388-\\u038A\\u038C\\u038E-\\u038F\\u0391-\\u03A1\\u03A3-\\u03AB\\u03CF\\u03D2-\\u03D4\\u03D8\\u03DA\\u03DC\\u03DE\\u03E0\\u03E2\\u03E4\\u03E6\\u03E8\\u03EA\\u03EC\\u03EE\\u03F4\\u03F7\\u03F9-\\u03FA\\u03FD-\\u042F\\u0460\\u0462\\u0464\\u0466\\u0468\\u046A\\u046C\\u046E\\u0470\\u0472\\u0474\\u0476\\u0478\\u047A\\u047C\\u047E\\u0480\\u048A\\u048C\\u048E\\u0490\\u0492\\u0494\\u0496\\u0498\\u049A\\u049C\\u049E\\u04A0\\u04A2\\u04A4\\u04A6\\u04A8\\u04AA\\u04AC\\u04AE\\u04B0\\u04B2\\u04B4\\u04B6\\u04B8\\u04BA\\u04BC\\u04BE\\u04C0-\\u04C1\\u04C3\\u04C5\\u04C7\\u04C9\\u04CB\\u04CD\\u04D0\\u04D2\\u04D4\\u04D6\\u04D8\\u04DA\\u04DC\\u04DE\\u04E0\\u04E2\\u04E4\\u04E6\\u04E8\\u04EA\\u04EC\\u04EE\\u04F0\\u04F2\\u04F4\\u04F6\\u04F8\\u04FA\\u04FC\\u04FE\\u0500\\u0502\\u0504\\u0506\\u0508\\u050A\\u050C\\u050E\\u0510\\u0512\\u0514\\u0516\\u0518\\u051A\\u051C\\u051E\\u0520\\u0522\\u0524\\u0526\\u0531-\\u0556\\u10A0-\\u10C5\\u10C7\\u10CD\\u1E00\\u1E02\\u1E04\\u1E06\\u1E08\\u1E0A\\u1E0C\\u1E0E\\u1E10\\u1E12\\u1E14\\u1E16\\u1E18\\u1E1A\\u1E1C\\u1E1E\\u1E20\\u1E22\\u1E24\\u1E26\\u1E28\\u1E2A\\u1E2C\\u1E2E\\u1E30\\u1E32\\u1E34\\u1E36\\u1E38\\u1E3A\\u1E3C\\u1E3E\\u1E40\\u1E42\\u1E44\\u1E46\\u1E48\\u1E4A\\u1E4C\\u1E4E\\u1E50\\u1E52\\u1E54\\u1E56\\u1E58\\u1E5A\\u1E5C\\u1E5E\\u1E60\\u1E62\\u1E64\\u1E66\\u1E68\\u1E6A\\u1E6C\\u1E6E\\u1E70\\u1E72\\u1E74\\u1E76\\u1E78\\u1E7A\\u1E7C\\u1E7E\\u1E80\\u1E82\\u1E84\\u1E86\\u1E88\\u1E8A\\u1E8C\\u1E8E\\u1E90\\u1E92\\u1E94\\u1E9E\\u1EA0\\u1EA2\\u1EA4\\u1EA6\\u1EA8\\u1EAA\\u1EAC\\u1EAE\\u1EB0\\u1EB2\\u1EB4\\u1EB6\\u1EB8\\u1EBA\\u1EBC\\u1EBE\\u1EC0\\u1EC2\\u1EC4\\u1EC6\\u1EC8\\u1ECA\\u1ECC\\u1ECE\\u1ED0\\u1ED2\\u1ED4\\u1ED6\\u1ED8\\u1EDA\\u1EDC\\u1EDE\\u1EE0\\u1EE2\\u1EE4\\u1EE6\\u1EE8\\u1EEA\\u1EEC\\u1EEE\\u1EF0\\u1EF2\\u1EF4\\u1EF6\\u1EF8\\u1EFA\\u1EFC\\u1EFE\\u1F08-\\u1F0F\\u1F18-\\u1F1D\\u1F28-\\u1F2F\\u1F38-\\u1F3F\\u1F48-\\u1F4D\\u1F59\\u1F5B\\u1F5D\\u1F5F\\u1F68-\\u1F6F\\u1FB8-\\u1FBB\\u1FC8-\\u1FCB\\u1FD8-\\u1FDB\\u1FE8-\\u1FEC\\u1FF8-\\u1FFB\\u2102\\u2107\\u210B-\\u210D\\u2110-\\u2112\\u2115\\u2119-\\u211D\\u2124\\u2126\\u2128\\u212A-\\u212D\\u2130-\\u2133\\u213E-\\u213F\\u2145\\u2183\\u2C00-\\u2C2E\\u2C60\\u2C62-\\u2C64\\u2C67\\u2C69\\u2C6B\\u2C6D-\\u2C70\\u2C72\\u2C75\\u2C7E-\\u2C80\\u2C82\\u2C84\\u2C86\\u2C88\\u2C8A\\u2C8C\\u2C8E\\u2C90\\u2C92\\u2C94\\u2C96\\u2C98\\u2C9A\\u2C9C\\u2C9E\\u2CA0\\u2CA2\\u2CA4\\u2CA6\\u2CA8\\u2CAA\\u2CAC\\u2CAE\\u2CB0\\u2CB2\\u2CB4\\u2CB6\\u2CB8\\u2CBA\\u2CBC\\u2CBE\\u2CC0\\u2CC2\\u2CC4\\u2CC6\\u2CC8\\u2CCA\\u2CCC\\u2CCE\\u2CD0\\u2CD2\\u2CD4\\u2CD6\\u2CD8\\u2CDA\\u2CDC\\u2CDE\\u2CE0\\u2CE2\\u2CEB\\u2CED\\u2CF2\\uA640\\uA642\\uA644\\uA646\\uA648\\uA64A\\uA64C\\uA64E\\uA650\\uA652\\uA654\\uA656\\uA658\\uA65A\\uA65C\\uA65E\\uA660\\uA662\\uA664\\uA666\\uA668\\uA66A\\uA66C\\uA680\\uA682\\uA684\\uA686\\uA688\\uA68A\\uA68C\\uA68E\\uA690\\uA692\\uA694\\uA696\\uA722\\uA724\\uA726\\uA728\\uA72A\\uA72C\\uA72E\\uA732\\uA734\\uA736\\uA738\\uA73A\\uA73C\\uA73E\\uA740\\uA742\\uA744\\uA746\\uA748\\uA74A\\uA74C\\uA74E\\uA750\\uA752\\uA754\\uA756\\uA758\\uA75A\\uA75C\\uA75E\\uA760\\uA762\\uA764\\uA766\\uA768\\uA76A\\uA76C\\uA76E\\uA779\\uA77B\\uA77D-\\uA77E\\uA780\\uA782\\uA784\\uA786\\uA78B\\uA78D\\uA790\\uA792\\uA7A0\\uA7A2\\uA7A4\\uA7A6\\uA7A8\\uA7AA\\uFF21-\\uFF3A]" },
+          /^[\u0903\u093B\u093E-\u0940\u0949-\u094C\u094E-\u094F\u0982-\u0983\u09BE-\u09C0\u09C7-\u09C8\u09CB-\u09CC\u09D7\u0A03\u0A3E-\u0A40\u0A83\u0ABE-\u0AC0\u0AC9\u0ACB-\u0ACC\u0B02-\u0B03\u0B3E\u0B40\u0B47-\u0B48\u0B4B-\u0B4C\u0B57\u0BBE-\u0BBF\u0BC1-\u0BC2\u0BC6-\u0BC8\u0BCA-\u0BCC\u0BD7\u0C01-\u0C03\u0C41-\u0C44\u0C82-\u0C83\u0CBE\u0CC0-\u0CC4\u0CC7-\u0CC8\u0CCA-\u0CCB\u0CD5-\u0CD6\u0D02-\u0D03\u0D3E-\u0D40\u0D46-\u0D48\u0D4A-\u0D4C\u0D57\u0D82-\u0D83\u0DCF-\u0DD1\u0DD8-\u0DDF\u0DF2-\u0DF3\u0F3E-\u0F3F\u0F7F\u102B-\u102C\u1031\u1038\u103B-\u103C\u1056-\u1057\u1062-\u1064\u1067-\u106D\u1083-\u1084\u1087-\u108C\u108F\u109A-\u109C\u17B6\u17BE-\u17C5\u17C7-\u17C8\u1923-\u1926\u1929-\u192B\u1930-\u1931\u1933-\u1938\u19B0-\u19C0\u19C8-\u19C9\u1A19-\u1A1A\u1A55\u1A57\u1A61\u1A63-\u1A64\u1A6D-\u1A72\u1B04\u1B35\u1B3B\u1B3D-\u1B41\u1B43-\u1B44\u1B82\u1BA1\u1BA6-\u1BA7\u1BAA\u1BAC-\u1BAD\u1BE7\u1BEA-\u1BEC\u1BEE\u1BF2-\u1BF3\u1C24-\u1C2B\u1C34-\u1C35\u1CE1\u1CF2-\u1CF3\u302E-\u302F\uA823-\uA824\uA827\uA880-\uA881\uA8B4-\uA8C3\uA952-\uA953\uA983\uA9B4-\uA9B5\uA9BA-\uA9BB\uA9BD-\uA9C0\uAA2F-\uAA30\uAA33-\uAA34\uAA4D\uAA7B\uAAEB\uAAEE-\uAAEF\uAAF5\uABE3-\uABE4\uABE6-\uABE7\uABE9-\uABEA\uABEC]/,
+          { type: "class", value: "[\\u0903\\u093B\\u093E-\\u0940\\u0949-\\u094C\\u094E-\\u094F\\u0982-\\u0983\\u09BE-\\u09C0\\u09C7-\\u09C8\\u09CB-\\u09CC\\u09D7\\u0A03\\u0A3E-\\u0A40\\u0A83\\u0ABE-\\u0AC0\\u0AC9\\u0ACB-\\u0ACC\\u0B02-\\u0B03\\u0B3E\\u0B40\\u0B47-\\u0B48\\u0B4B-\\u0B4C\\u0B57\\u0BBE-\\u0BBF\\u0BC1-\\u0BC2\\u0BC6-\\u0BC8\\u0BCA-\\u0BCC\\u0BD7\\u0C01-\\u0C03\\u0C41-\\u0C44\\u0C82-\\u0C83\\u0CBE\\u0CC0-\\u0CC4\\u0CC7-\\u0CC8\\u0CCA-\\u0CCB\\u0CD5-\\u0CD6\\u0D02-\\u0D03\\u0D3E-\\u0D40\\u0D46-\\u0D48\\u0D4A-\\u0D4C\\u0D57\\u0D82-\\u0D83\\u0DCF-\\u0DD1\\u0DD8-\\u0DDF\\u0DF2-\\u0DF3\\u0F3E-\\u0F3F\\u0F7F\\u102B-\\u102C\\u1031\\u1038\\u103B-\\u103C\\u1056-\\u1057\\u1062-\\u1064\\u1067-\\u106D\\u1083-\\u1084\\u1087-\\u108C\\u108F\\u109A-\\u109C\\u17B6\\u17BE-\\u17C5\\u17C7-\\u17C8\\u1923-\\u1926\\u1929-\\u192B\\u1930-\\u1931\\u1933-\\u1938\\u19B0-\\u19C0\\u19C8-\\u19C9\\u1A19-\\u1A1A\\u1A55\\u1A57\\u1A61\\u1A63-\\u1A64\\u1A6D-\\u1A72\\u1B04\\u1B35\\u1B3B\\u1B3D-\\u1B41\\u1B43-\\u1B44\\u1B82\\u1BA1\\u1BA6-\\u1BA7\\u1BAA\\u1BAC-\\u1BAD\\u1BE7\\u1BEA-\\u1BEC\\u1BEE\\u1BF2-\\u1BF3\\u1C24-\\u1C2B\\u1C34-\\u1C35\\u1CE1\\u1CF2-\\u1CF3\\u302E-\\u302F\\uA823-\\uA824\\uA827\\uA880-\\uA881\\uA8B4-\\uA8C3\\uA952-\\uA953\\uA983\\uA9B4-\\uA9B5\\uA9BA-\\uA9BB\\uA9BD-\\uA9C0\\uAA2F-\\uAA30\\uAA33-\\uAA34\\uAA4D\\uAA7B\\uAAEB\\uAAEE-\\uAAEF\\uAAF5\\uABE3-\\uABE4\\uABE6-\\uABE7\\uABE9-\\uABEA\\uABEC]", description: "[\\u0903\\u093B\\u093E-\\u0940\\u0949-\\u094C\\u094E-\\u094F\\u0982-\\u0983\\u09BE-\\u09C0\\u09C7-\\u09C8\\u09CB-\\u09CC\\u09D7\\u0A03\\u0A3E-\\u0A40\\u0A83\\u0ABE-\\u0AC0\\u0AC9\\u0ACB-\\u0ACC\\u0B02-\\u0B03\\u0B3E\\u0B40\\u0B47-\\u0B48\\u0B4B-\\u0B4C\\u0B57\\u0BBE-\\u0BBF\\u0BC1-\\u0BC2\\u0BC6-\\u0BC8\\u0BCA-\\u0BCC\\u0BD7\\u0C01-\\u0C03\\u0C41-\\u0C44\\u0C82-\\u0C83\\u0CBE\\u0CC0-\\u0CC4\\u0CC7-\\u0CC8\\u0CCA-\\u0CCB\\u0CD5-\\u0CD6\\u0D02-\\u0D03\\u0D3E-\\u0D40\\u0D46-\\u0D48\\u0D4A-\\u0D4C\\u0D57\\u0D82-\\u0D83\\u0DCF-\\u0DD1\\u0DD8-\\u0DDF\\u0DF2-\\u0DF3\\u0F3E-\\u0F3F\\u0F7F\\u102B-\\u102C\\u1031\\u1038\\u103B-\\u103C\\u1056-\\u1057\\u1062-\\u1064\\u1067-\\u106D\\u1083-\\u1084\\u1087-\\u108C\\u108F\\u109A-\\u109C\\u17B6\\u17BE-\\u17C5\\u17C7-\\u17C8\\u1923-\\u1926\\u1929-\\u192B\\u1930-\\u1931\\u1933-\\u1938\\u19B0-\\u19C0\\u19C8-\\u19C9\\u1A19-\\u1A1A\\u1A55\\u1A57\\u1A61\\u1A63-\\u1A64\\u1A6D-\\u1A72\\u1B04\\u1B35\\u1B3B\\u1B3D-\\u1B41\\u1B43-\\u1B44\\u1B82\\u1BA1\\u1BA6-\\u1BA7\\u1BAA\\u1BAC-\\u1BAD\\u1BE7\\u1BEA-\\u1BEC\\u1BEE\\u1BF2-\\u1BF3\\u1C24-\\u1C2B\\u1C34-\\u1C35\\u1CE1\\u1CF2-\\u1CF3\\u302E-\\u302F\\uA823-\\uA824\\uA827\\uA880-\\uA881\\uA8B4-\\uA8C3\\uA952-\\uA953\\uA983\\uA9B4-\\uA9B5\\uA9BA-\\uA9BB\\uA9BD-\\uA9C0\\uAA2F-\\uAA30\\uAA33-\\uAA34\\uAA4D\\uAA7B\\uAAEB\\uAAEE-\\uAAEF\\uAAF5\\uABE3-\\uABE4\\uABE6-\\uABE7\\uABE9-\\uABEA\\uABEC]" },
+          /^[\u0300-\u036F\u0483-\u0487\u0591-\u05BD\u05BF\u05C1-\u05C2\u05C4-\u05C5\u05C7\u0610-\u061A\u064B-\u065F\u0670\u06D6-\u06DC\u06DF-\u06E4\u06E7-\u06E8\u06EA-\u06ED\u0711\u0730-\u074A\u07A6-\u07B0\u07EB-\u07F3\u0816-\u0819\u081B-\u0823\u0825-\u0827\u0829-\u082D\u0859-\u085B\u08E4-\u08FE\u0900-\u0902\u093A\u093C\u0941-\u0948\u094D\u0951-\u0957\u0962-\u0963\u0981\u09BC\u09C1-\u09C4\u09CD\u09E2-\u09E3\u0A01-\u0A02\u0A3C\u0A41-\u0A42\u0A47-\u0A48\u0A4B-\u0A4D\u0A51\u0A70-\u0A71\u0A75\u0A81-\u0A82\u0ABC\u0AC1-\u0AC5\u0AC7-\u0AC8\u0ACD\u0AE2-\u0AE3\u0B01\u0B3C\u0B3F\u0B41-\u0B44\u0B4D\u0B56\u0B62-\u0B63\u0B82\u0BC0\u0BCD\u0C3E-\u0C40\u0C46-\u0C48\u0C4A-\u0C4D\u0C55-\u0C56\u0C62-\u0C63\u0CBC\u0CBF\u0CC6\u0CCC-\u0CCD\u0CE2-\u0CE3\u0D41-\u0D44\u0D4D\u0D62-\u0D63\u0DCA\u0DD2-\u0DD4\u0DD6\u0E31\u0E34-\u0E3A\u0E47-\u0E4E\u0EB1\u0EB4-\u0EB9\u0EBB-\u0EBC\u0EC8-\u0ECD\u0F18-\u0F19\u0F35\u0F37\u0F39\u0F71-\u0F7E\u0F80-\u0F84\u0F86-\u0F87\u0F8D-\u0F97\u0F99-\u0FBC\u0FC6\u102D-\u1030\u1032-\u1037\u1039-\u103A\u103D-\u103E\u1058-\u1059\u105E-\u1060\u1071-\u1074\u1082\u1085-\u1086\u108D\u109D\u135D-\u135F\u1712-\u1714\u1732-\u1734\u1752-\u1753\u1772-\u1773\u17B4-\u17B5\u17B7-\u17BD\u17C6\u17C9-\u17D3\u17DD\u180B-\u180D\u18A9\u1920-\u1922\u1927-\u1928\u1932\u1939-\u193B\u1A17-\u1A18\u1A1B\u1A56\u1A58-\u1A5E\u1A60\u1A62\u1A65-\u1A6C\u1A73-\u1A7C\u1A7F\u1B00-\u1B03\u1B34\u1B36-\u1B3A\u1B3C\u1B42\u1B6B-\u1B73\u1B80-\u1B81\u1BA2-\u1BA5\u1BA8-\u1BA9\u1BAB\u1BE6\u1BE8-\u1BE9\u1BED\u1BEF-\u1BF1\u1C2C-\u1C33\u1C36-\u1C37\u1CD0-\u1CD2\u1CD4-\u1CE0\u1CE2-\u1CE8\u1CED\u1CF4\u1DC0-\u1DE6\u1DFC-\u1DFF\u20D0-\u20DC\u20E1\u20E5-\u20F0\u2CEF-\u2CF1\u2D7F\u2DE0-\u2DFF\u302A-\u302D\u3099-\u309A\uA66F\uA674-\uA67D\uA69F\uA6F0-\uA6F1\uA802\uA806\uA80B\uA825-\uA826\uA8C4\uA8E0-\uA8F1\uA926-\uA92D\uA947-\uA951\uA980-\uA982\uA9B3\uA9B6-\uA9B9\uA9BC\uAA29-\uAA2E\uAA31-\uAA32\uAA35-\uAA36\uAA43\uAA4C\uAAB0\uAAB2-\uAAB4\uAAB7-\uAAB8\uAABE-\uAABF\uAAC1\uAAEC-\uAAED\uAAF6\uABE5\uABE8\uABED\uFB1E\uFE00-\uFE0F\uFE20-\uFE26]/,
+          { type: "class", value: "[\\u0300-\\u036F\\u0483-\\u0487\\u0591-\\u05BD\\u05BF\\u05C1-\\u05C2\\u05C4-\\u05C5\\u05C7\\u0610-\\u061A\\u064B-\\u065F\\u0670\\u06D6-\\u06DC\\u06DF-\\u06E4\\u06E7-\\u06E8\\u06EA-\\u06ED\\u0711\\u0730-\\u074A\\u07A6-\\u07B0\\u07EB-\\u07F3\\u0816-\\u0819\\u081B-\\u0823\\u0825-\\u0827\\u0829-\\u082D\\u0859-\\u085B\\u08E4-\\u08FE\\u0900-\\u0902\\u093A\\u093C\\u0941-\\u0948\\u094D\\u0951-\\u0957\\u0962-\\u0963\\u0981\\u09BC\\u09C1-\\u09C4\\u09CD\\u09E2-\\u09E3\\u0A01-\\u0A02\\u0A3C\\u0A41-\\u0A42\\u0A47-\\u0A48\\u0A4B-\\u0A4D\\u0A51\\u0A70-\\u0A71\\u0A75\\u0A81-\\u0A82\\u0ABC\\u0AC1-\\u0AC5\\u0AC7-\\u0AC8\\u0ACD\\u0AE2-\\u0AE3\\u0B01\\u0B3C\\u0B3F\\u0B41-\\u0B44\\u0B4D\\u0B56\\u0B62-\\u0B63\\u0B82\\u0BC0\\u0BCD\\u0C3E-\\u0C40\\u0C46-\\u0C48\\u0C4A-\\u0C4D\\u0C55-\\u0C56\\u0C62-\\u0C63\\u0CBC\\u0CBF\\u0CC6\\u0CCC-\\u0CCD\\u0CE2-\\u0CE3\\u0D41-\\u0D44\\u0D4D\\u0D62-\\u0D63\\u0DCA\\u0DD2-\\u0DD4\\u0DD6\\u0E31\\u0E34-\\u0E3A\\u0E47-\\u0E4E\\u0EB1\\u0EB4-\\u0EB9\\u0EBB-\\u0EBC\\u0EC8-\\u0ECD\\u0F18-\\u0F19\\u0F35\\u0F37\\u0F39\\u0F71-\\u0F7E\\u0F80-\\u0F84\\u0F86-\\u0F87\\u0F8D-\\u0F97\\u0F99-\\u0FBC\\u0FC6\\u102D-\\u1030\\u1032-\\u1037\\u1039-\\u103A\\u103D-\\u103E\\u1058-\\u1059\\u105E-\\u1060\\u1071-\\u1074\\u1082\\u1085-\\u1086\\u108D\\u109D\\u135D-\\u135F\\u1712-\\u1714\\u1732-\\u1734\\u1752-\\u1753\\u1772-\\u1773\\u17B4-\\u17B5\\u17B7-\\u17BD\\u17C6\\u17C9-\\u17D3\\u17DD\\u180B-\\u180D\\u18A9\\u1920-\\u1922\\u1927-\\u1928\\u1932\\u1939-\\u193B\\u1A17-\\u1A18\\u1A1B\\u1A56\\u1A58-\\u1A5E\\u1A60\\u1A62\\u1A65-\\u1A6C\\u1A73-\\u1A7C\\u1A7F\\u1B00-\\u1B03\\u1B34\\u1B36-\\u1B3A\\u1B3C\\u1B42\\u1B6B-\\u1B73\\u1B80-\\u1B81\\u1BA2-\\u1BA5\\u1BA8-\\u1BA9\\u1BAB\\u1BE6\\u1BE8-\\u1BE9\\u1BED\\u1BEF-\\u1BF1\\u1C2C-\\u1C33\\u1C36-\\u1C37\\u1CD0-\\u1CD2\\u1CD4-\\u1CE0\\u1CE2-\\u1CE8\\u1CED\\u1CF4\\u1DC0-\\u1DE6\\u1DFC-\\u1DFF\\u20D0-\\u20DC\\u20E1\\u20E5-\\u20F0\\u2CEF-\\u2CF1\\u2D7F\\u2DE0-\\u2DFF\\u302A-\\u302D\\u3099-\\u309A\\uA66F\\uA674-\\uA67D\\uA69F\\uA6F0-\\uA6F1\\uA802\\uA806\\uA80B\\uA825-\\uA826\\uA8C4\\uA8E0-\\uA8F1\\uA926-\\uA92D\\uA947-\\uA951\\uA980-\\uA982\\uA9B3\\uA9B6-\\uA9B9\\uA9BC\\uAA29-\\uAA2E\\uAA31-\\uAA32\\uAA35-\\uAA36\\uAA43\\uAA4C\\uAAB0\\uAAB2-\\uAAB4\\uAAB7-\\uAAB8\\uAABE-\\uAABF\\uAAC1\\uAAEC-\\uAAED\\uAAF6\\uABE5\\uABE8\\uABED\\uFB1E\\uFE00-\\uFE0F\\uFE20-\\uFE26]", description: "[\\u0300-\\u036F\\u0483-\\u0487\\u0591-\\u05BD\\u05BF\\u05C1-\\u05C2\\u05C4-\\u05C5\\u05C7\\u0610-\\u061A\\u064B-\\u065F\\u0670\\u06D6-\\u06DC\\u06DF-\\u06E4\\u06E7-\\u06E8\\u06EA-\\u06ED\\u0711\\u0730-\\u074A\\u07A6-\\u07B0\\u07EB-\\u07F3\\u0816-\\u0819\\u081B-\\u0823\\u0825-\\u0827\\u0829-\\u082D\\u0859-\\u085B\\u08E4-\\u08FE\\u0900-\\u0902\\u093A\\u093C\\u0941-\\u0948\\u094D\\u0951-\\u0957\\u0962-\\u0963\\u0981\\u09BC\\u09C1-\\u09C4\\u09CD\\u09E2-\\u09E3\\u0A01-\\u0A02\\u0A3C\\u0A41-\\u0A42\\u0A47-\\u0A48\\u0A4B-\\u0A4D\\u0A51\\u0A70-\\u0A71\\u0A75\\u0A81-\\u0A82\\u0ABC\\u0AC1-\\u0AC5\\u0AC7-\\u0AC8\\u0ACD\\u0AE2-\\u0AE3\\u0B01\\u0B3C\\u0B3F\\u0B41-\\u0B44\\u0B4D\\u0B56\\u0B62-\\u0B63\\u0B82\\u0BC0\\u0BCD\\u0C3E-\\u0C40\\u0C46-\\u0C48\\u0C4A-\\u0C4D\\u0C55-\\u0C56\\u0C62-\\u0C63\\u0CBC\\u0CBF\\u0CC6\\u0CCC-\\u0CCD\\u0CE2-\\u0CE3\\u0D41-\\u0D44\\u0D4D\\u0D62-\\u0D63\\u0DCA\\u0DD2-\\u0DD4\\u0DD6\\u0E31\\u0E34-\\u0E3A\\u0E47-\\u0E4E\\u0EB1\\u0EB4-\\u0EB9\\u0EBB-\\u0EBC\\u0EC8-\\u0ECD\\u0F18-\\u0F19\\u0F35\\u0F37\\u0F39\\u0F71-\\u0F7E\\u0F80-\\u0F84\\u0F86-\\u0F87\\u0F8D-\\u0F97\\u0F99-\\u0FBC\\u0FC6\\u102D-\\u1030\\u1032-\\u1037\\u1039-\\u103A\\u103D-\\u103E\\u1058-\\u1059\\u105E-\\u1060\\u1071-\\u1074\\u1082\\u1085-\\u1086\\u108D\\u109D\\u135D-\\u135F\\u1712-\\u1714\\u1732-\\u1734\\u1752-\\u1753\\u1772-\\u1773\\u17B4-\\u17B5\\u17B7-\\u17BD\\u17C6\\u17C9-\\u17D3\\u17DD\\u180B-\\u180D\\u18A9\\u1920-\\u1922\\u1927-\\u1928\\u1932\\u1939-\\u193B\\u1A17-\\u1A18\\u1A1B\\u1A56\\u1A58-\\u1A5E\\u1A60\\u1A62\\u1A65-\\u1A6C\\u1A73-\\u1A7C\\u1A7F\\u1B00-\\u1B03\\u1B34\\u1B36-\\u1B3A\\u1B3C\\u1B42\\u1B6B-\\u1B73\\u1B80-\\u1B81\\u1BA2-\\u1BA5\\u1BA8-\\u1BA9\\u1BAB\\u1BE6\\u1BE8-\\u1BE9\\u1BED\\u1BEF-\\u1BF1\\u1C2C-\\u1C33\\u1C36-\\u1C37\\u1CD0-\\u1CD2\\u1CD4-\\u1CE0\\u1CE2-\\u1CE8\\u1CED\\u1CF4\\u1DC0-\\u1DE6\\u1DFC-\\u1DFF\\u20D0-\\u20DC\\u20E1\\u20E5-\\u20F0\\u2CEF-\\u2CF1\\u2D7F\\u2DE0-\\u2DFF\\u302A-\\u302D\\u3099-\\u309A\\uA66F\\uA674-\\uA67D\\uA69F\\uA6F0-\\uA6F1\\uA802\\uA806\\uA80B\\uA825-\\uA826\\uA8C4\\uA8E0-\\uA8F1\\uA926-\\uA92D\\uA947-\\uA951\\uA980-\\uA982\\uA9B3\\uA9B6-\\uA9B9\\uA9BC\\uAA29-\\uAA2E\\uAA31-\\uAA32\\uAA35-\\uAA36\\uAA43\\uAA4C\\uAAB0\\uAAB2-\\uAAB4\\uAAB7-\\uAAB8\\uAABE-\\uAABF\\uAAC1\\uAAEC-\\uAAED\\uAAF6\\uABE5\\uABE8\\uABED\\uFB1E\\uFE00-\\uFE0F\\uFE20-\\uFE26]" },
+          /^[0-9\u0660-\u0669\u06F0-\u06F9\u07C0-\u07C9\u0966-\u096F\u09E6-\u09EF\u0A66-\u0A6F\u0AE6-\u0AEF\u0B66-\u0B6F\u0BE6-\u0BEF\u0C66-\u0C6F\u0CE6-\u0CEF\u0D66-\u0D6F\u0E50-\u0E59\u0ED0-\u0ED9\u0F20-\u0F29\u1040-\u1049\u1090-\u1099\u17E0-\u17E9\u1810-\u1819\u1946-\u194F\u19D0-\u19D9\u1A80-\u1A89\u1A90-\u1A99\u1B50-\u1B59\u1BB0-\u1BB9\u1C40-\u1C49\u1C50-\u1C59\uA620-\uA629\uA8D0-\uA8D9\uA900-\uA909\uA9D0-\uA9D9\uAA50-\uAA59\uABF0-\uABF9\uFF10-\uFF19]/,
+          { type: "class", value: "[\\u0030-\\u0039\\u0660-\\u0669\\u06F0-\\u06F9\\u07C0-\\u07C9\\u0966-\\u096F\\u09E6-\\u09EF\\u0A66-\\u0A6F\\u0AE6-\\u0AEF\\u0B66-\\u0B6F\\u0BE6-\\u0BEF\\u0C66-\\u0C6F\\u0CE6-\\u0CEF\\u0D66-\\u0D6F\\u0E50-\\u0E59\\u0ED0-\\u0ED9\\u0F20-\\u0F29\\u1040-\\u1049\\u1090-\\u1099\\u17E0-\\u17E9\\u1810-\\u1819\\u1946-\\u194F\\u19D0-\\u19D9\\u1A80-\\u1A89\\u1A90-\\u1A99\\u1B50-\\u1B59\\u1BB0-\\u1BB9\\u1C40-\\u1C49\\u1C50-\\u1C59\\uA620-\\uA629\\uA8D0-\\uA8D9\\uA900-\\uA909\\uA9D0-\\uA9D9\\uAA50-\\uAA59\\uABF0-\\uABF9\\uFF10-\\uFF19]", description: "[\\u0030-\\u0039\\u0660-\\u0669\\u06F0-\\u06F9\\u07C0-\\u07C9\\u0966-\\u096F\\u09E6-\\u09EF\\u0A66-\\u0A6F\\u0AE6-\\u0AEF\\u0B66-\\u0B6F\\u0BE6-\\u0BEF\\u0C66-\\u0C6F\\u0CE6-\\u0CEF\\u0D66-\\u0D6F\\u0E50-\\u0E59\\u0ED0-\\u0ED9\\u0F20-\\u0F29\\u1040-\\u1049\\u1090-\\u1099\\u17E0-\\u17E9\\u1810-\\u1819\\u1946-\\u194F\\u19D0-\\u19D9\\u1A80-\\u1A89\\u1A90-\\u1A99\\u1B50-\\u1B59\\u1BB0-\\u1BB9\\u1C40-\\u1C49\\u1C50-\\u1C59\\uA620-\\uA629\\uA8D0-\\uA8D9\\uA900-\\uA909\\uA9D0-\\uA9D9\\uAA50-\\uAA59\\uABF0-\\uABF9\\uFF10-\\uFF19]" },
+          /^[\u16EE-\u16F0\u2160-\u2182\u2185-\u2188\u3007\u3021-\u3029\u3038-\u303A\uA6E6-\uA6EF]/,
+          { type: "class", value: "[\\u16EE-\\u16F0\\u2160-\\u2182\\u2185-\\u2188\\u3007\\u3021-\\u3029\\u3038-\\u303A\\uA6E6-\\uA6EF]", description: "[\\u16EE-\\u16F0\\u2160-\\u2182\\u2185-\\u2188\\u3007\\u3021-\\u3029\\u3038-\\u303A\\uA6E6-\\uA6EF]" },
+          /^[_\u203F-\u2040\u2054\uFE33-\uFE34\uFE4D-\uFE4F\uFF3F]/,
+          { type: "class", value: "[\\u005F\\u203F-\\u2040\\u2054\\uFE33-\\uFE34\\uFE4D-\\uFE4F\\uFF3F]", description: "[\\u005F\\u203F-\\u2040\\u2054\\uFE33-\\uFE34\\uFE4D-\\uFE4F\\uFF3F]" },
+          /^[ \xA0\u1680\u2000-\u200A\u202F\u205F\u3000]/,
+          { type: "class", value: "[\\u0020\\u00A0\\u1680\\u2000-\\u200A\\u202F\\u205F\\u3000]", description: "[\\u0020\\u00A0\\u1680\\u2000-\\u200A\\u202F\\u205F\\u3000]" },
+          "break",
+          { type: "literal", value: "break", description: "\"break\"" },
+          "case",
+          { type: "literal", value: "case", description: "\"case\"" },
+          "catch",
+          { type: "literal", value: "catch", description: "\"catch\"" },
+          "class",
+          { type: "literal", value: "class", description: "\"class\"" },
+          "const",
+          { type: "literal", value: "const", description: "\"const\"" },
+          "continue",
+          { type: "literal", value: "continue", description: "\"continue\"" },
+          "debugger",
+          { type: "literal", value: "debugger", description: "\"debugger\"" },
+          "default",
+          { type: "literal", value: "default", description: "\"default\"" },
+          "delete",
+          { type: "literal", value: "delete", description: "\"delete\"" },
+          "do",
+          { type: "literal", value: "do", description: "\"do\"" },
+          "else",
+          { type: "literal", value: "else", description: "\"else\"" },
+          "enum",
+          { type: "literal", value: "enum", description: "\"enum\"" },
+          "export",
+          { type: "literal", value: "export", description: "\"export\"" },
+          "extends",
+          { type: "literal", value: "extends", description: "\"extends\"" },
+          "false",
+          { type: "literal", value: "false", description: "\"false\"" },
+          "finally",
+          { type: "literal", value: "finally", description: "\"finally\"" },
+          "for",
+          { type: "literal", value: "for", description: "\"for\"" },
+          "function",
+          { type: "literal", value: "function", description: "\"function\"" },
+          "get",
+          { type: "literal", value: "get", description: "\"get\"" },
+          "if",
+          { type: "literal", value: "if", description: "\"if\"" },
+          "import",
+          { type: "literal", value: "import", description: "\"import\"" },
+          "instanceof",
+          { type: "literal", value: "instanceof", description: "\"instanceof\"" },
+          "in",
+          { type: "literal", value: "in", description: "\"in\"" },
+          "new",
+          { type: "literal", value: "new", description: "\"new\"" },
+          "null",
+          { type: "literal", value: "null", description: "\"null\"" },
+          "return",
+          { type: "literal", value: "return", description: "\"return\"" },
+          "set",
+          { type: "literal", value: "set", description: "\"set\"" },
+          "super",
+          { type: "literal", value: "super", description: "\"super\"" },
+          "switch",
+          { type: "literal", value: "switch", description: "\"switch\"" },
+          "this",
+          { type: "literal", value: "this", description: "\"this\"" },
+          "throw",
+          { type: "literal", value: "throw", description: "\"throw\"" },
+          "true",
+          { type: "literal", value: "true", description: "\"true\"" },
+          "try",
+          { type: "literal", value: "try", description: "\"try\"" },
+          "typeof",
+          { type: "literal", value: "typeof", description: "\"typeof\"" },
+          "var",
+          { type: "literal", value: "var", description: "\"var\"" },
+          "void",
+          { type: "literal", value: "void", description: "\"void\"" },
+          "while",
+          { type: "literal", value: "while", description: "\"while\"" },
+          "with",
+          { type: "literal", value: "with", description: "\"with\"" },
+          ";",
+          { type: "literal", value: ";", description: "\";\"" },
+          function() { return { type: "ThisExpression" }; },
+          function(expression) { return expression; },
+          function(commas) { return filledArray(commas.length + 1, null); },
+          function(key, body) {
+                return {
+                  key:   key,
+                  value: {
+                    type:   "FunctionExpression",
+                    id:     null,
+                    params: [],
+                    body:   body
+                  },
+                  kind:  "get"
+                };
+              },
+          function(key, params, body) {
+                return {
+                  key:   key,
+                  value: {
+                    type:   "FunctionExpression",
+                    id:     null,
+                    params: params,
+                    body:   body
+                  },
+                  kind:  "set"
+                };
+              },
+          function(id) { return [id]; },
+          function(callee, args) {
+                    return { type: "NewExpression", callee: callee, arguments: args };
+                  },
+          function(first, property) {
+                    return { property: property, computed: true };
+                  },
+          function(first, property) {
+                    return { property: property, computed: false };
+                  },
+          function(first, rest) {
+                return buildTree(first, rest, function(result, element) {
+                  return {
+                    type:     "MemberExpression",
+                    object:   result,
+                    property: element.property,
+                    computed: element.computed
+                  };
+                });
+              },
+          function(callee) {
+                return { type: "NewExpression", callee: callee, arguments: [] };
+              },
+          function(callee, args) {
+                  return { type: "CallExpression", callee: callee, arguments: args };
+                },
+          function(first, args) {
+                    return { type: "CallExpression", arguments: args };
+                  },
+          function(first, property) {
+                    return {
+                      type:     "MemberExpression",
+                      property: property,
+                      computed: true
+                    };
+                  },
+          function(first, property) {
+                    return {
+                      type:     "MemberExpression",
+                      property: property,
+                      computed: false
+                    };
+                  },
+          function(first, rest) {
+                return buildTree(first, rest, function(result, element) {
+                  element[TYPES_TO_PROPERTY_NAMES[element.type]] = result;
+
+                  return element;
+                });
+              },
+          function(args) {
+                return optionalList(extractOptional(args, 0));
+              },
+          function(argument, operator) {
+                return {
+                  type:     "UpdateExpression",
+                  operator: operator,
+                  argument: argument,
+                  prefix:   false
+                };
+              },
+          "++",
+          { type: "literal", value: "++", description: "\"++\"" },
+          "--",
+          { type: "literal", value: "--", description: "\"--\"" },
+          function(operator, argument) {
+                var type = (operator === "++" || operator === "--")
+                  ? "UpdateExpression"
+                  : "UnaryExpression";
+
+                return {
+                  type:     type,
+                  operator: operator,
+                  argument: argument,
+                  prefix:   true
+                };
+              },
+          "+",
+          { type: "literal", value: "+", description: "\"+\"" },
+          "-",
+          { type: "literal", value: "-", description: "\"-\"" },
+          "~",
+          { type: "literal", value: "~", description: "\"~\"" },
+          "!",
+          { type: "literal", value: "!", description: "\"!\"" },
+          "*",
+          { type: "literal", value: "*", description: "\"*\"" },
+          "%",
+          { type: "literal", value: "%", description: "\"%\"" },
+          /^[+=]/,
+          { type: "class", value: "[+=]", description: "[+=]" },
+          /^[\-=]/,
+          { type: "class", value: "[-=]", description: "[-=]" },
+          "<<",
+          { type: "literal", value: "<<", description: "\"<<\"" },
+          ">>>",
+          { type: "literal", value: ">>>", description: "\">>>\"" },
+          ">>",
+          { type: "literal", value: ">>", description: "\">>\"" },
+          "<=",
+          { type: "literal", value: "<=", description: "\"<=\"" },
+          ">=",
+          { type: "literal", value: ">=", description: "\">=\"" },
+          "<",
+          { type: "literal", value: "<", description: "\"<\"" },
+          ">",
+          { type: "literal", value: ">", description: "\">\"" },
+          "===",
+          { type: "literal", value: "===", description: "\"===\"" },
+          "!==",
+          { type: "literal", value: "!==", description: "\"!==\"" },
+          "==",
+          { type: "literal", value: "==", description: "\"==\"" },
+          "!=",
+          { type: "literal", value: "!=", description: "\"!=\"" },
+          "&",
+          { type: "literal", value: "&", description: "\"&\"" },
+          /^[&=]/,
+          { type: "class", value: "[&=]", description: "[&=]" },
+          "^",
+          { type: "literal", value: "^", description: "\"^\"" },
+          /^[|=]/,
+          { type: "class", value: "[|=]", description: "[|=]" },
+          "&&",
+          { type: "literal", value: "&&", description: "\"&&\"" },
+          "||",
+          { type: "literal", value: "||", description: "\"||\"" },
+          "*=",
+          { type: "literal", value: "*=", description: "\"*=\"" },
+          "/=",
+          { type: "literal", value: "/=", description: "\"/=\"" },
+          "%=",
+          { type: "literal", value: "%=", description: "\"%=\"" },
+          "+=",
+          { type: "literal", value: "+=", description: "\"+=\"" },
+          "-=",
+          { type: "literal", value: "-=", description: "\"-=\"" },
+          "<<=",
+          { type: "literal", value: "<<=", description: "\"<<=\"" },
+          ">>=",
+          { type: "literal", value: ">>=", description: "\">>=\"" },
+          ">>>=",
+          { type: "literal", value: ">>>=", description: "\">>>=\"" },
+          "&=",
+          { type: "literal", value: "&=", description: "\"&=\"" },
+          "^=",
+          { type: "literal", value: "^=", description: "\"^=\"" },
+          "|=",
+          { type: "literal", value: "|=", description: "\"|=\"" },
+          function(first, rest) {
+                if (rest.length > 0) {
+                  return {
+                    type: "SequenceExpression",
+                    expressions: buildList(first, rest, 3),
+                    original: text()
+                  };
+                }
+
+                var res = first
+                res.original = text()
+                return res
+              },
+          function(body) {
+                return {
+                  type: "BlockStatement",
+                  body: optionalList(extractOptional(body, 0))
+                };
+              },
+          function(first, rest) { return buildList(first, rest, 1); },
+          function(declarations) {
+                return {
+                  type:         "VariableDeclaration",
+                  declarations: declarations
+                };
+              },
+          function(id, init) {
+                return {
+                  type: "VariableDeclarator",
+                  id:   id,
+                  init: extractOptional(init, 1)
+                };
+              },
+          function() { return { type: "EmptyStatement" }; },
+          function(expression) {
+                return {
+                  type:       "ExpressionStatement",
+                  expression: expression
+                };
+              },
+          function(test, consequent, alternate) {
+                return {
+                  type:       "IfStatement",
+                  test:       test,
+                  consequent: consequent,
+                  alternate:  alternate
+                };
+              },
+          function(test, consequent) {
+                return {
+                  type:       "IfStatement",
+                  test:       test,
+                  consequent: consequent,
+                  alternate:  null
+                };
+              },
+          function(body, test) { return { type: "DoWhileStatement", body: body, test: test }; },
+          function(test, body) { return { type: "WhileStatement", test: test, body: body }; },
+          function(init, test, update, body) {
+                return {
+                  type:   "ForStatement",
+                  init:   extractOptional(init, 0),
+                  test:   extractOptional(test, 0),
+                  update: extractOptional(update, 0),
+                  body:   body
+                };
+              },
+          function(declarations, test, update, body) {
+                return {
+                  type:   "ForStatement",
+                  init:   {
+                    type:         "VariableDeclaration",
+                    declarations: declarations
+                  },
+                  test:   extractOptional(test, 0),
+                  update: extractOptional(update, 0),
+                  body:   body
+                };
+              },
+          function(left, right, body) {
+                return {
+                  type:  "ForInStatement",
+                  left:  left,
+                  right: right,
+                  body:  body
+                };
+              },
+          function(declarations, right, body) {
+                return {
+                  type:  "ForInStatement",
+                  left:  {
+                    type:         "VariableDeclaration",
+                    declarations: declarations
+                  },
+                  right: right,
+                  body:  body
+                };
+              },
+          function() {
+                return { type: "ContinueStatement", label: null };
+              },
+          function(label) {
+                return { type: "ContinueStatement", label: label };
+              },
+          function() {
+                return { type: "BreakStatement", label: null };
+              },
+          function(label) {
+                return { type: "BreakStatement", label: label };
+              },
+          function() {
+                return { type: "ReturnStatement", argument: null };
+              },
+          function(argument) {
+                return { type: "ReturnStatement", argument: argument };
+              },
+          function(object, body) { return { type: "WithStatement", object: object, body: body }; },
+          function(discriminant, cases) {
+                return {
+                  type:         "SwitchStatement",
+                  discriminant: discriminant,
+                  cases:        cases
+                };
+              },
+          function(clauses) {
+                return optionalList(extractOptional(clauses, 0));
+              },
+          function(before, default_, after) {
+                return optionalList(extractOptional(before, 0))
+                  .concat(default_)
+                  .concat(optionalList(extractOptional(after, 0)));
+              },
+          function(test, consequent) {
+                return {
+                  type:       "SwitchCase",
+                  test:       test,
+                  consequent: optionalList(extractOptional(consequent, 1))
+                };
+              },
+          function(consequent) {
+                return {
+                  type:       "SwitchCase",
+                  test:       null,
+                  consequent: optionalList(extractOptional(consequent, 1))
+                };
+              },
+          function(label, body) {
+                return { type: "LabeledStatement", label: label, body: body };
+              },
+          function(argument) {
+                return { type: "ThrowStatement", argument: argument };
+              },
+          function(block, handler, finalizer) {
+                return {
+                  type:      "TryStatement",
+                  block:     block,
+                  handler:   handler,
+                  finalizer: finalizer
+                };
+              },
+          function(block, handler) {
+                return {
+                  type:      "TryStatement",
+                  block:     block,
+                  handler:   handler,
+                  finalizer: null
+                };
+              },
+          function(block, finalizer) {
+                return {
+                  type:      "TryStatement",
+                  block:     block,
+                  handler:   null,
+                  finalizer: finalizer
+                };
+              },
+          function(param, body) {
+                return {
+                  type:  "CatchClause",
+                  param: param,
+                  body:  body
+                };
+              },
+          function(block) { return block; },
+          function() { return { type: "DebuggerStatement" }; },
+          function(id, params, body) {
+                return {
+                  type:   "FunctionDeclaration",
+                  id:     id,
+                  params: optionalList(extractOptional(params, 0)),
+                  body:   body
+                };
+              },
+          function(id, params, body) {
+                return {
+                  type:   "FunctionExpression",
+                  id:     extractOptional(id, 0),
+                  params: optionalList(extractOptional(params, 0)),
+                  body:   body,
+                  original: text()
+                };
+              },
+          function(body) {
+                return {
+                  type: "BlockStatement",
+                  body: optionalList(body)
+                };
+              },
+          function(body) {
+                return {
+                  type: "Program",
+                  body: optionalList(body)
+                };
+              },
+          function(first, rest) {
+                return buildList(first, rest, 1);
+              },
+          function(r) {
+                return r;
+              }
+        ],
+
+        peg$bytecode = [
+          peg$decode("%;\xAB/I#;!.\" &\"/;$;\xAB/2$;\u0106/)$8$: $\"\" )($'#(#'#(\"'#&'#"),
+          peg$decode("%;6/L#;\xAB/C$;\"/:$;\xAB/1$;7/($8%:!%!\")(%'#($'#(#'#(\"'#&'#"),
+          peg$decode("%;\u0107/' 8!:\"!! ).. &%;\xAB/& 8!:#! )"),
+          peg$decode("%;(.\" &\"/2#;$/)$8\":$\"\"! )(\"'#&'#"),
+          peg$decode(";%.) &;&.# &;'"),
+          peg$decode("%;./b#;\xAB/Y$2%\"\"6%7&/J$;\xAB/A$;4.\" &\"/3$;;/*$8&:'&#%! )(&'#(%'#($'#(#'#(\"'#&'#"),
+          peg$decode("%;./b#;\xAB/Y$2(\"\"6(7)/J$;\xAB/A$;4.\" &\"/3$;;/*$8&:*&#%! )(&'#(%'#($'#(#'#(\"'#&'#"),
+          peg$decode("%;./\x99#;\xAB/\x90$2+\"\"6+7,.) &2-\"\"6-7./u$;\xAB/l$;./c$;\xAB/Z$2(\"\"6(7)/K$;\xAB/B$;4.\" &\"/4$;;/+$8*:/*$)%! )(*'#()'#(('#(''#(&'#(%'#($'#(#'#(\"'#&'#"),
+          peg$decode("%;)/I#;\xAB/@$20\"\"6071/1$;\xAB/($8$:2$!#)($'#(#'#(\"'#&'#"),
+          peg$decode("%$%%%<20\"\"6071=.##&&!&'#/;#43\"\"5!74/,$;g/#$+#)(#'#(\"'#&'#/\"!&,)/a#0^*%%%<20\"\"6071=.##&&!&'#/;#43\"\"5!74/,$;g/#$+#)(#'#(\"'#&'#/\"!&,)&&&#/' 8!:5!! )"),
+          peg$decode("%;\xAB/\xC8#;+/\xBF$$%;\xAB/I#26\"\"6677.\" &\"/5$;\xAB/,$;+/#$+$)($'#(#'#(\"'#&'#0S*%;\xAB/I#26\"\"6677.\" &\"/5$;\xAB/,$;+/#$+$)($'#(#'#(\"'#&'#&/O$;\xAB/F$26\"\"6677.\" &\"/2$;\xAB/)$8&:8&\"$#)(&'#(%'#($'#(#'#(\"'#&'#"),
+          peg$decode("%;1/q#%29\"\"697:/M#;\xAB/D$;,/;$;\xAB/2$2;\"\"6;7</#$+%)(%'#($'#(#'#(\"'#&'#.\" &\"/)$8\":=\"\"! )(\"'#&'#"),
+          peg$decode("%;-/\x8F#$%;\xAB/D#26\"\"6677/5$;\xAB/,$;-/#$+$)($'#(#'#(\"'#&'#0N*%;\xAB/D#26\"\"6677/5$;\xAB/,$;-/#$+$)($'#(#'#(\"'#&'#&/)$8\":8\"\"! )(\"'#&'#"),
+          peg$decode("%;\xE3/' 8!:>!! )"),
+          peg$decode("%;//\x8F#$%;\xAB/D#26\"\"6677/5$;\xAB/,$;//#$+$)($'#(#'#(\"'#&'#0N*%;\xAB/D#26\"\"6677/5$;\xAB/,$;//#$+$)($'#(#'#(\"'#&'#&/)$8\":8\"\"! )(\"'#&'#"),
+          peg$decode("%;1/q#%29\"\"697:/M#;\xAB/D$;2/;$;\xAB/2$2;\"\"6;7</#$+%)(%'#($'#(#'#(\"'#&'#.\" &\"/)$8\":?\"\"! )(\"'#&'#"),
+          peg$decode("%;1/q#%29\"\"697:/M#;\xAB/D$;9/;$;\xAB/2$2;\"\"6;7</#$+%)(%'#($'#(#'#(\"'#&'#.\" &\"/)$8\":@\"\"! )(\"'#&'#"),
+          peg$decode("%4A\"\"5!7B/E#$4C\"\"5!7D0)*4C\"\"5!7D&/)$8\":E\"\"! )(\"'#&'#"),
+          peg$decode("%;3/\x8F#$%;\xAB/D#26\"\"6677/5$;\xAB/,$;3/#$+$)($'#(#'#(\"'#&'#0N*%;\xAB/D#26\"\"6677/5$;\xAB/,$;3/#$+$)($'#(#'#(\"'#&'#&/)$8\":8\"\"! )(\"'#&'#"),
+          peg$decode("%;?/' 8!:>!! )"),
+          peg$decode("%;:/d#;\xAB/[$2F\"\"6F7G/L$%<2F\"\"6F7G=.##&&!&'#/1$;\xAB/($8%:H%!$)(%'#($'#(#'#(\"'#&'#"),
+          peg$decode("%;6/S#;\xAB/J$%;^/\"!&,)/:$;\xAB/1$;7/($8%:I%!\")(%'#($'#(#'#(\"'#&'#.\x96 &%;6/L#;\xAB/C$;\u0103/:$;\xAB/1$;7/($8%:J%!\")(%'#($'#(#'#(\"'#&'#.] &%;6/S#;\xAB/J$%;\xE3/\"!&,)/:$;\xAB/1$;7/($8%:K%!\")(%'#($'#(#'#(\"'#&'#"),
+          peg$decode("2L\"\"6L7M.) &2N\"\"6N7O"),
+          peg$decode("2P\"\"6P7Q"),
+          peg$decode("%29\"\"697:/\x82#;\xAB/y$;\u0104.\" &\"/k$;\xAB/b$2;\"\"6;7</S$;\xAB/J$2R\"\"6R7S/;$;\xAB/2$;\"/)$8):T)\"& )()'#(('#(''#(&'#(%'#($'#(#'#(\"'#&'#"),
+          peg$decode("%;\xE3/' 8!:U!! )"),
+          peg$decode("%;C/' 8!:U!! )"),
+          peg$decode("%;</\x8F#$%;\xAB/D#26\"\"6677/5$;\xAB/,$;</#$+$)($'#(#'#(\"'#&'#0N*%;\xAB/D#26\"\"6677/5$;\xAB/,$;</#$+$)($'#(#'#(\"'#&'#&/)$8\":8\"\"! )(\"'#&'#"),
+          peg$decode(";5.# &;0"),
+          peg$decode("%2V\"\"6V7W/a#;\xAB/X$%;\xB2/,#;\xAB/#$+\")(\"'#&'#.\" &\"/7$2X\"\"6X7Y/($8$:Z$!!)($'#(#'#(\"'#&'#.\xE1 &%2V\"\"6V7W/R#;\xAB/I$;>/@$;\xAB/7$2X\"\"6X7Y/($8%:[%!\")(%'#($'#(#'#(\"'#&'#.\x9C &%2V\"\"6V7W/\x8C#;\xAB/\x83$;>/z$;\xAB/q$26\"\"6677/b$;\xAB/Y$%;\xB2/,#;\xAB/#$+\")(\"'#&'#.\" &\"/8$2X\"\"6X7Y/)$8(:\\(\"%!)(('#(''#(&'#(%'#($'#(#'#(\"'#&'#"),
+          peg$decode("%%%;\xB2/,#;\xAB/#$+\")(\"'#&'#.\" &\"/2#;?/)$8\":]\"\"! )(\"'#&'#/\xDF#$%;\xAB/l#26\"\"6677/]$;\xAB/T$%;\xB2/,#;\xAB/#$+\")(\"'#&'#.\" &\"/3$;?/*$8%:^%#'! )(%'#($'#(#'#(\"'#&'#0v*%;\xAB/l#26\"\"6677/]$;\xAB/T$%;\xB2/,#;\xAB/#$+\")(\"'#&'#.\" &\"/3$;?/*$8%:^%#'! )(%'#($'#(#'#(\"'#&'#&/)$8\":_\"\"! )(\"'#&'#"),
+          peg$decode(";P./ &;Y.) &;=.# &;@"),
+          peg$decode("%2N\"\"6N7O/?#;\xAB/6$2P\"\"6P7Q/'$8#:`# )(#'#(\"'#&'#.\xBF &%2N\"\"6N7O/R#;\xAB/I$;A/@$;\xAB/7$2P\"\"6P7Q/($8%:a%!\")(%'#($'#(#'#(\"'#&'#.z &%2N\"\"6N7O/j#;\xAB/a$;A/X$;\xAB/O$26\"\"6677/@$;\xAB/7$2P\"\"6P7Q/($8':a'!$)(''#(&'#(%'#($'#(#'#(\"'#&'#"),
+          peg$decode("%;B/\x8F#$%;\xAB/D#26\"\"6677/5$;\xAB/,$;B/#$+$)($'#(#'#(\"'#&'#0N*%;\xAB/D#26\"\"6677/5$;\xAB/,$;B/#$+$)($'#(#'#(\"'#&'#&/)$8\":8\"\"! )(\"'#&'#"),
+          peg$decode("%;\xB6/S#;\xAB/J$2b\"\"6b7c/;$;\xAB/2$;\xE0/)$8%:d%\"$ )(%'#($'#(#'#(\"'#&'#"),
+          peg$decode("%;D/\x8F#$%;\xAB/D#26\"\"6677/5$;\xAB/,$;D/#$+$)($'#(#'#(\"'#&'#0N*%;\xAB/D#26\"\"6677/5$;\xAB/,$;D/#$+$)($'#(#'#(\"'#&'#&/)$8\":e\"\"! )(\"'#&'#"),
+          peg$decode(";5.\xB9 &%;\xBD/n#;\xAB/e$2f\"\"6f7g/V$%<2f\"\"6f7g=.##&&!&'#/;$;\xAB/2$;D/)$8&:h&\"% )(&'#(%'#($'#(#'#(\"'#&'#.^ &%;\xBD/N#;\xAB/E$;\xE2/<$;\xAB/3$;D/*$8%:i%#$\" )(%'#($'#(#'#(\"'#&'#.# &;E"),
+          peg$decode("%;F/~#;\xAB/u$2j\"\"6j7k/f$;\xAB/]$;D/T$;\xAB/K$2b\"\"6b7c/<$;\xAB/3$;D/*$8):l)#($ )()'#(('#(''#(&'#(%'#($'#(#'#(\"'#&'#.# &;F"),
+          peg$decode("%;G/\x8F#$%;\xAB/D#2m\"\"6m7n/5$;\xAB/,$;G/#$+$)($'#(#'#(\"'#&'#0N*%;\xAB/D#2m\"\"6m7n/5$;\xAB/,$;G/#$+$)($'#(#'#(\"'#&'#&/)$8\":o\"\"! )(\"'#&'#"),
+          peg$decode("%;\xD2/\x83#$%;\xAB/>#;\xDA/5$;\xAB/,$;\xD2/#$+$)($'#(#'#(\"'#&'#0H*%;\xAB/>#;\xDA/5$;\xAB/,$;\xD2/#$+$)($'#(#'#(\"'#&'#&/)$8\":o\"\"! )(\"'#&'#"),
+          peg$decode("1\"\"5!7p"),
+          peg$decode("<2r\"\"6r7s._ &2t\"\"6t7u.S &2v\"\"6v7w.G &2x\"\"6x7y.; &2z\"\"6z7{./ &2|\"\"6|7}.# &;\x84=.\" 7q"),
+          peg$decode("4~\"\"5!7"),
+          peg$decode("<2\x81\"\"6\x817\x82.M &2\x83\"\"6\x837\x84.A &2\x85\"\"6\x857\x86.5 &2\x87\"\"6\x877\x88.) &2\x89\"\"6\x897\x8A=.\" 7\x80"),
+          peg$decode("<;M.# &;O=.\" 7\x8B"),
+          peg$decode("%2\x8C\"\"6\x8C7\x8D/\x8C#$%%<2\x8E\"\"6\x8E7\x8F=.##&&!&'#/,#;H/#$+\")(\"'#&'#0H*%%<2\x8E\"\"6\x8E7\x8F=.##&&!&'#/,#;H/#$+\")(\"'#&'#&/2$2\x8E\"\"6\x8E7\x8F/#$+#)(#'#(\"'#&'#"),
+          peg$decode("%2\x8C\"\"6\x8C7\x8D/\x98#$%%<2\x8E\"\"6\x8E7\x8F.# &;J=.##&&!&'#/,#;H/#$+\")(\"'#&'#0N*%%<2\x8E\"\"6\x8E7\x8F.# &;J=.##&&!&'#/,#;H/#$+\")(\"'#&'#&/2$2\x8E\"\"6\x8E7\x8F/#$+#)(#'#(\"'#&'#"),
+          peg$decode("%2\x90\"\"6\x907\x91/q#$%%<;J=.##&&!&'#/,#;H/#$+\")(\"'#&'#0B*%%<;J=.##&&!&'#/,#;H/#$+\")(\"'#&'#&/#$+\")(\"'#&'#"),
+          peg$decode("%%<;V=.##&&!&'#/1#;Q/($8\":\x92\"! )(\"'#&'#"),
+          peg$decode("<%;R/9#$;S0#*;S&/)$8\":\x94\"\"! )(\"'#&'#=.\" 7\x93"),
+          peg$decode(";T.Y &2\x95\"\"6\x957\x96.M &2\x97\"\"6\x977\x98.A &%2+\"\"6+7,/1#;p/($8\":\x99\"! )(\"'#&'#"),
+          peg$decode(";R.G &;U.A &;\x81.; &;\x83.5 &2\x9A\"\"6\x9A7\x9B.) &2\x9C\"\"6\x9C7\x9D"),
+          peg$decode(";~.; &;z.5 &;}./ &;{.) &;|.# &;\x82"),
+          peg$decode(";\x80.# &;"),
+          peg$decode(";W./ &;X.) &;Z.# &;["),
+          peg$decode(";\x85.\xB3 &;\x86.\xAD &;\x87.\xA7 &;\x8A.\xA1 &;\x8B.\x9B &;\x8C.\x95 &;\x8D.\x8F &;\x8E.\x89 &;\x8F.\x83 &;\x94.} &;\x95.w &;\x96.q &;\x98.k &;\x9A.e &;\x9B._ &;\x9C.Y &;\x9E.S &;\xA1.M &;\xA2.G &;\xA3.A &;\xA5.; &;\xA6.5 &;\xA7./ &;\xA8.) &;\xA9.# &;\xAA"),
+          peg$decode(";\x88.A &;\x89.; &;\x90.5 &;\x91./ &;\x92.) &;\x99.# &;\xA0"),
+          peg$decode(";Z.5 &;[./ &;\\.) &;f.# &;q"),
+          peg$decode("%;\x9D/& 8!:\x9E! )"),
+          peg$decode("%;\xA4/& 8!:\x9F! ).. &%;\x93/& 8!:\xA0! )"),
+          peg$decode("<%;d/C#%<;R.# &;_=.##&&!&'#/($8\":\xA2\"!!)(\"'#&'#.M &%;]/C#%<;R.# &;_=.##&&!&'#/($8\":\xA2\"!!)(\"'#&'#=.\" 7\xA1"),
+          peg$decode("%;^/T#2\xA3\"\"6\xA37\xA4/E$$;_0#*;_&/5$;a.\" &\"/'$8$:\xA5$ )($'#(#'#(\"'#&'#.} &%2\xA3\"\"6\xA37\xA4/K#$;_/&#0#*;_&&&#/5$;a.\" &\"/'$8#:\xA5# )(#'#(\"'#&'#.? &%;^/5#;a.\" &\"/'$8\":\xA5\" )(\"'#&'#"),
+          peg$decode("2\xA6\"\"6\xA67\xA7.= &%;`/3#$;_0#*;_&/#$+\")(\"'#&'#"),
+          peg$decode("4\xA8\"\"5!7\xA9"),
+          peg$decode("4\xAA\"\"5!7\xAB"),
+          peg$decode("%;b/,#;c/#$+\")(\"'#&'#"),
+          peg$decode("3\xAC\"\"5!7\xAD"),
+          peg$decode("%4\xAE\"\"5!7\xAF.\" &\"/9#$;_/&#0#*;_&&&#/#$+\")(\"'#&'#"),
+          peg$decode("%3\xB0\"\"5\"7\xB1/E#%$;e/&#0#*;e&&&#/\"!&,)/($8\":\xB2\"! )(\"'#&'#"),
+          peg$decode("4\xB3\"\"5!7\xB4"),
+          peg$decode("<%2\xB6\"\"6\xB67\xB7/G#$;g0#*;g&/7$2\xB6\"\"6\xB67\xB7/($8#:\xB8#!!)(#'#(\"'#&'#.W &%2\xB9\"\"6\xB97\xBA/G#$;h0#*;h&/7$2\xB9\"\"6\xB97\xBA/($8#:\xB8#!!)(#'#(\"'#&'#=.\" 7\xB5"),
+          peg$decode("%%<2\xB6\"\"6\xB67\xB7./ &2+\"\"6+7,.# &;J=.##&&!&'#/0#;H/'$8\":\xBB\" )(\"'#&'#.G &%2+\"\"6+7,/1#;j/($8\":\x99\"! )(\"'#&'#.# &;i"),
+          peg$decode("%%<2\xB9\"\"6\xB97\xBA./ &2+\"\"6+7,.# &;J=.##&&!&'#/0#;H/'$8\":\xBB\" )(\"'#&'#.G &%2+\"\"6+7,/1#;j/($8\":\x99\"! )(\"'#&'#.# &;i"),
+          peg$decode("%2+\"\"6+7,/0#;K/'$8\":\xBC\" )(\"'#&'#"),
+          peg$decode(";k.X &%2\xA6\"\"6\xA67\xA7/<#%<;_=.##&&!&'#/'$8\":\xBD\" )(\"'#&'#.) &;o.# &;p"),
+          peg$decode(";l.# &;m"),
+          peg$decode("2\xB9\"\"6\xB97\xBA.\xBF &2\xB6\"\"6\xB67\xB7.\xB3 &2+\"\"6+7,.\xA7 &%2\xBE\"\"6\xBE7\xBF/& 8!:\xC0! ).\x90 &%2\xC1\"\"6\xC17\xC2/& 8!:\xC3! ).y &%2\xC4\"\"6\xC47\xC5/& 8!:\xC6! ).b &%2\xC7\"\"6\xC77\xC8/& 8!:\xC9! ).K &%2\xCA\"\"6\xCA7\xCB/& 8!:\xCC! ).4 &%2\xCD\"\"6\xCD7\xCE/& 8!:\xCF! )"),
+          peg$decode("%%<;n.# &;J=.##&&!&'#/0#;H/'$8\":\xBB\" )(\"'#&'#"),
+          peg$decode(";l.; &;_.5 &2\xD0\"\"6\xD07\xD1.) &2\xD2\"\"6\xD27\xD3"),
+          peg$decode("%2\xD0\"\"6\xD07\xD1/K#%%;e/,#;e/#$+\")(\"'#&'#/\"!&,)/($8\":\xD4\"! )(\"'#&'#"),
+          peg$decode("%2\xD2\"\"6\xD27\xD3/]#%%;e/>#;e/5$;e/,$;e/#$+$)($'#(#'#(\"'#&'#/\"!&,)/($8\":\xD4\"! )(\"'#&'#"),
+          peg$decode("<%2-\"\"6-7./X#%;r/\"!&,)/H$2-\"\"6-7./9$%;y/\"!&,)/)$8$:\xD6$\"\" )($'#(#'#(\"'#&'#=.\" 7\xD5"),
+          peg$decode("%;s/3#$;t0#*;t&/#$+\")(\"'#&'#"),
+          peg$decode("%%<4\xD7\"\"5!7\xD8=.##&&!&'#/,#;v/#$+\")(\"'#&'#.) &;u.# &;w"),
+          peg$decode("%%<4\xD9\"\"5!7\xDA=.##&&!&'#/,#;v/#$+\")(\"'#&'#.) &;u.# &;w"),
+          peg$decode("%2+\"\"6+7,/,#;v/#$+\")(\"'#&'#"),
+          peg$decode("%%<;J=.##&&!&'#/,#;H/#$+\")(\"'#&'#"),
+          peg$decode("%2V\"\"6V7W/B#$;x0#*;x&/2$2X\"\"6X7Y/#$+#)(#'#(\"'#&'#"),
+          peg$decode("%%<4\xDB\"\"5!7\xDC=.##&&!&'#/,#;v/#$+\")(\"'#&'#.# &;u"),
+          peg$decode("$;S0#*;S&"),
+          peg$decode("4\xDD\"\"5!7\xDE"),
+          peg$decode("4\xDF\"\"5!7\xE0"),
+          peg$decode("4\xE1\"\"5!7\xE2"),
+          peg$decode("4\xE3\"\"5!7\xE4"),
+          peg$decode("4\xE5\"\"5!7\xE6"),
+          peg$decode("4\xE7\"\"5!7\xE8"),
+          peg$decode("4\xE9\"\"5!7\xEA"),
+          peg$decode("4\xEB\"\"5!7\xEC"),
+          peg$decode("4\xED\"\"5!7\xEE"),
+          peg$decode("4\xEF\"\"5!7\xF0"),
+          peg$decode("4\xF1\"\"5!7\xF2"),
+          peg$decode("%2\xF3\"\"6\xF37\xF4/8#%<;S=.##&&!&'#/#$+\")(\"'#&'#"),
+          peg$decode("%2\xF5\"\"6\xF57\xF6/8#%<;S=.##&&!&'#/#$+\")(\"'#&'#"),
+          peg$decode("%2\xF7\"\"6\xF77\xF8/8#%<;S=.##&&!&'#/#$+\")(\"'#&'#"),
+          peg$decode("%2\xF9\"\"6\xF97\xFA/8#%<;S=.##&&!&'#/#$+\")(\"'#&'#"),
+          peg$decode("%2\xFB\"\"6\xFB7\xFC/8#%<;S=.##&&!&'#/#$+\")(\"'#&'#"),
+          peg$decode("%2\xFD\"\"6\xFD7\xFE/8#%<;S=.##&&!&'#/#$+\")(\"'#&'#"),
+          peg$decode("%2\xFF\"\"6\xFF7\u0100/8#%<;S=.##&&!&'#/#$+\")(\"'#&'#"),
+          peg$decode("%2\u0101\"\"6\u01017\u0102/8#%<;S=.##&&!&'#/#$+\")(\"'#&'#"),
+          peg$decode("%2\u0103\"\"6\u01037\u0104/8#%<;S=.##&&!&'#/#$+\")(\"'#&'#"),
+          peg$decode("%2\u0105\"\"6\u01057\u0106/8#%<;S=.##&&!&'#/#$+\")(\"'#&'#"),
+          peg$decode("%2\u0107\"\"6\u01077\u0108/8#%<;S=.##&&!&'#/#$+\")(\"'#&'#"),
+          peg$decode("%2\u0109\"\"6\u01097\u010A/8#%<;S=.##&&!&'#/#$+\")(\"'#&'#"),
+          peg$decode("%2\u010B\"\"6\u010B7\u010C/8#%<;S=.##&&!&'#/#$+\")(\"'#&'#"),
+          peg$decode("%2\u010D\"\"6\u010D7\u010E/8#%<;S=.##&&!&'#/#$+\")(\"'#&'#"),
+          peg$decode("%2\u010F\"\"6\u010F7\u0110/8#%<;S=.##&&!&'#/#$+\")(\"'#&'#"),
+          peg$decode("%2\u0111\"\"6\u01117\u0112/8#%<;S=.##&&!&'#/#$+\")(\"'#&'#"),
+          peg$decode("%2\u0113\"\"6\u01137\u0114/8#%<;S=.##&&!&'#/#$+\")(\"'#&'#"),
+          peg$decode("%2\u0115\"\"6\u01157\u0116/8#%<;S=.##&&!&'#/#$+\")(\"'#&'#"),
+          peg$decode("%2\u0117\"\"6\u01177\u0118/8#%<;S=.##&&!&'#/#$+\")(\"'#&'#"),
+          peg$decode("%2\u0119\"\"6\u01197\u011A/8#%<;S=.##&&!&'#/#$+\")(\"'#&'#"),
+          peg$decode("%2\u011B\"\"6\u011B7\u011C/8#%<;S=.##&&!&'#/#$+\")(\"'#&'#"),
+          peg$decode("%2\u011D\"\"6\u011D7\u011E/8#%<;S=.##&&!&'#/#$+\")(\"'#&'#"),
+          peg$decode("%2\u011F\"\"6\u011F7\u0120/8#%<;S=.##&&!&'#/#$+\")(\"'#&'#"),
+          peg$decode("%2\u0121\"\"6\u01217\u0122/8#%<;S=.##&&!&'#/#$+\")(\"'#&'#"),
+          peg$decode("%2\u0123\"\"6\u01237\u0124/8#%<;S=.##&&!&'#/#$+\")(\"'#&'#"),
+          peg$decode("%2\u0125\"\"6\u01257\u0126/8#%<;S=.##&&!&'#/#$+\")(\"'#&'#"),
+          peg$decode("%2\u0127\"\"6\u01277\u0128/8#%<;S=.##&&!&'#/#$+\")(\"'#&'#"),
+          peg$decode("%2\u0129\"\"6\u01297\u012A/8#%<;S=.##&&!&'#/#$+\")(\"'#&'#"),
+          peg$decode("%2\u012B\"\"6\u012B7\u012C/8#%<;S=.##&&!&'#/#$+\")(\"'#&'#"),
+          peg$decode("%2\u012D\"\"6\u012D7\u012E/8#%<;S=.##&&!&'#/#$+\")(\"'#&'#"),
+          peg$decode("%2\u012F\"\"6\u012F7\u0130/8#%<;S=.##&&!&'#/#$+\")(\"'#&'#"),
+          peg$decode("%2\u0131\"\"6\u01317\u0132/8#%<;S=.##&&!&'#/#$+\")(\"'#&'#"),
+          peg$decode("%2\u0133\"\"6\u01337\u0134/8#%<;S=.##&&!&'#/#$+\")(\"'#&'#"),
+          peg$decode("%2\u0135\"\"6\u01357\u0136/8#%<;S=.##&&!&'#/#$+\")(\"'#&'#"),
+          peg$decode("%2\u0137\"\"6\u01377\u0138/8#%<;S=.##&&!&'#/#$+\")(\"'#&'#"),
+          peg$decode("%2\u0139\"\"6\u01397\u013A/8#%<;S=.##&&!&'#/#$+\")(\"'#&'#"),
+          peg$decode("%2\u013B\"\"6\u013B7\u013C/8#%<;S=.##&&!&'#/#$+\")(\"'#&'#"),
+          peg$decode("%2\u013D\"\"6\u013D7\u013E/8#%<;S=.##&&!&'#/#$+\")(\"'#&'#"),
+          peg$decode("$;I.) &;K.# &;L0/*;I.) &;K.# &;L&"),
+          peg$decode("$;I.# &;N0)*;I.# &;N&"),
+          peg$decode("%;\xAB/2#2\u013F\"\"6\u013F7\u0140/#$+\")(\"'#&'#.\x88 &%;\xAC/:#;O.\" &\"/,$;K/#$+#)(#'#(\"'#&'#.a &%;\xAC/>#%<2P\"\"6P7Q=/##&'!&&#/#$+\")(\"'#&'#.6 &%;\xAB/,#;\xAE/#$+\")(\"'#&'#"),
+          peg$decode("%<1\"\"5!7p=.##&&!&'#"),
+          peg$decode("%;\xA2/& 8!:\u0141! ).z &;P.t &;Y.n &;\xB0.h &;\xB3.b &%29\"\"697:/R#;\xAB/I$;\xE3/@$;\xAB/7$2;\"\"6;7</($8%:\u0142%!\")(%'#($'#(#'#(\"'#&'#"),
+          peg$decode("%2V\"\"6V7W/a#;\xAB/X$%;\xB2/,#;\xAB/#$+\")(\"'#&'#.\" &\"/7$2X\"\"6X7Y/($8$:Z$!!)($'#(#'#(\"'#&'#.\xE1 &%2V\"\"6V7W/R#;\xAB/I$;\xB1/@$;\xAB/7$2X\"\"6X7Y/($8%:[%!\")(%'#($'#(#'#(\"'#&'#.\x9C &%2V\"\"6V7W/\x8C#;\xAB/\x83$;\xB1/z$;\xAB/q$26\"\"6677/b$;\xAB/Y$%;\xB2/,#;\xAB/#$+\")(\"'#&'#.\" &\"/8$2X\"\"6X7Y/)$8(:\\(\"%!)(('#(''#(&'#(%'#($'#(#'#(\"'#&'#"),
+          peg$decode("%%%;\xB2/,#;\xAB/#$+\")(\"'#&'#.\" &\"/2#;\xE0/)$8\":]\"\"! )(\"'#&'#/\xDF#$%;\xAB/l#26\"\"6677/]$;\xAB/T$%;\xB2/,#;\xAB/#$+\")(\"'#&'#.\" &\"/3$;\xE0/*$8%:^%#'! )(%'#($'#(#'#(\"'#&'#0v*%;\xAB/l#26\"\"6677/]$;\xAB/T$%;\xB2/,#;\xAB/#$+\")(\"'#&'#.\" &\"/3$;\xE0/*$8%:^%#'! )(%'#($'#(#'#(\"'#&'#&/)$8\":_\"\"! )(\"'#&'#"),
+          peg$decode("%26\"\"6677/j#$%;\xAB/2#26\"\"6677/#$+\")(\"'#&'#0<*%;\xAB/2#26\"\"6677/#$+\")(\"'#&'#&/($8\":\u0143\"! )(\"'#&'#"),
+          peg$decode("%2N\"\"6N7O/?#;\xAB/6$2P\"\"6P7Q/'$8#:`# )(#'#(\"'#&'#.\xBF &%2N\"\"6N7O/R#;\xAB/I$;\xB4/@$;\xAB/7$2P\"\"6P7Q/($8%:a%!\")(%'#($'#(#'#(\"'#&'#.z &%2N\"\"6N7O/j#;\xAB/a$;\xB4/X$;\xAB/O$26\"\"6677/@$;\xAB/7$2P\"\"6P7Q/($8':a'!$)(''#(&'#(%'#($'#(#'#(\"'#&'#"),
+          peg$decode("%;\xB5/\x8F#$%;\xAB/D#26\"\"6677/5$;\xAB/,$;\xB5/#$+$)($'#(#'#(\"'#&'#0N*%;\xAB/D#26\"\"6677/5$;\xAB/,$;\xB5/#$+$)($'#(#'#(\"'#&'#&/)$8\":8\"\"! )(\"'#&'#"),
+          peg$decode("%;\xB6/S#;\xAB/J$2b\"\"6b7c/;$;\xAB/2$;\xE0/)$8%:d%\"$ )(%'#($'#(#'#(\"'#&'#.\u0164 &%;\x97/\xAD#;\xAB/\xA4$;\xB6/\x9B$;\xAB/\x92$29\"\"697:/\x83$;\xAB/z$2;\"\"6;7</k$;\xAB/b$2N\"\"6N7O/S$;\xAB/J$;\u0105/A$;\xAB/8$2P\"\"6P7Q/)$8-:\u0144-\"*\")(-'#(,'#(+'#(*'#()'#(('#(''#(&'#(%'#($'#(#'#(\"'#&'#.\xCA &%;\x9F/\xC0#;\xAB/\xB7$;\xB6/\xAE$;\xAB/\xA5$29\"\"697:/\x96$;\xAB/\x8D$;\xB7/\x84$;\xAB/{$2;\"\"6;7</l$;\xAB/c$2N\"\"6N7O/T$;\xAB/K$;\u0105/B$;\xAB/9$2P\"\"6P7Q/*$8/:\u0145/#,(\")(/'#(.'#(-'#(,'#(+'#(*'#()'#(('#(''#(&'#(%'#($'#(#'#(\"'#&'#"),
+          peg$decode(";Q.) &;f.# &;\\"),
+          peg$decode("%;P/' 8!:\u0146!! )"),
+          peg$decode("%;\xAF.] &;\u0103.W &%;\x9C/M#;\xAB/D$;\xB8/;$;\xAB/2$;\xBB/)$8%:\u0147%\"\" )(%'#($'#(#'#(\"'#&'#/\u0139#$%;\xAB/b#2V\"\"6V7W/S$;\xAB/J$;\xE3/A$;\xAB/8$2X\"\"6X7Y/)$8&:\u0148&\"(\")(&'#(%'#($'#(#'#(\"'#&'#.T &%;\xAB/J#2\xA3\"\"6\xA37\xA4/;$;\xAB/2$;Q/)$8$:\u0149$\"& )($'#(#'#(\"'#&'#0\xA3*%;\xAB/b#2V\"\"6V7W/S$;\xAB/J$;\xE3/A$;\xAB/8$2X\"\"6X7Y/)$8&:\u0148&\"(\")(&'#(%'#($'#(#'#(\"'#&'#.T &%;\xAB/J#2\xA3\"\"6\xA37\xA4/;$;\xAB/2$;Q/)$8$:\u0149$\"& )($'#(#'#(\"'#&'#&/)$8\":\u014A\"\"! )(\"'#&'#"),
+          peg$decode(";\xB8.D &%;\x9C/:#;\xAB/1$;\xB9/($8#:\u014B#! )(#'#(\"'#&'#"),
+          peg$decode("%%;\xB8/;#;\xAB/2$;\xBB/)$8#:\u014C#\"\" )(#'#(\"'#&'#/\u0177#$%;\xAB/2#;\xBB/)$8\":\u014D\"\"$ )(\"'#&'#.\xA3 &%;\xAB/b#2V\"\"6V7W/S$;\xAB/J$;\xE3/A$;\xAB/8$2X\"\"6X7Y/)$8&:\u014E&\"(\")(&'#(%'#($'#(#'#(\"'#&'#.T &%;\xAB/J#2\xA3\"\"6\xA37\xA4/;$;\xAB/2$;Q/)$8$:\u014F$\"& )($'#(#'#(\"'#&'#0\xC2*%;\xAB/2#;\xBB/)$8\":\u014D\"\"$ )(\"'#&'#.\xA3 &%;\xAB/b#2V\"\"6V7W/S$;\xAB/J$;\xE3/A$;\xAB/8$2X\"\"6X7Y/)$8&:\u014E&\"(\")(&'#(%'#($'#(#'#(\"'#&'#.T &%;\xAB/J#2\xA3\"\"6\xA37\xA4/;$;\xAB/2$;Q/)$8$:\u014F$\"& )($'#(#'#(\"'#&'#&/)$8\":\u0150\"\"! )(\"'#&'#"),
+          peg$decode("%29\"\"697:/a#;\xAB/X$%;\xBC/,#;\xAB/#$+\")(\"'#&'#.\" &\"/7$2;\"\"6;7</($8$:\u0151$!!)($'#(#'#(\"'#&'#"),
+          peg$decode("%;\xE0/\x8F#$%;\xAB/D#26\"\"6677/5$;\xAB/,$;\xE0/#$+$)($'#(#'#(\"'#&'#0N*%;\xAB/D#26\"\"6677/5$;\xAB/,$;\xE0/#$+$)($'#(#'#(\"'#&'#&/)$8\":8\"\"! )(\"'#&'#"),
+          peg$decode(";\xBA.# &;\xB9"),
+          peg$decode("%;\xBD/;#;\xAC/2$;\xBF/)$8#:\u0152#\"\" )(#'#(\"'#&'#.# &;\xBD"),
+          peg$decode("2\u0153\"\"6\u01537\u0154.) &2\u0155\"\"6\u01557\u0156"),
+          peg$decode(";\xBE.E &%;\xC1/;#;\xAB/2$;\xC0/)$8#:\u0157#\"\" )(#'#(\"'#&'#"),
+          peg$decode("%;\x8D/\"!&,).\xD7 &%;\xA8/\"!&,).\xCA &%;\xA6/\"!&,).\xBD &2\u0153\"\"6\u01537\u0154.\xB1 &2\u0155\"\"6\u01557\u0156.\xA5 &%%2\u0158\"\"6\u01587\u0159/>#%<2f\"\"6f7g=.##&&!&'#/#$+\")(\"'#&'#/\"!&,).m &%%2\u015A\"\"6\u015A7\u015B/>#%<2f\"\"6f7g=.##&&!&'#/#$+\")(\"'#&'#/\"!&,).5 &2\u015C\"\"6\u015C7\u015D.) &2\u015E\"\"6\u015E7\u015F"),
+          peg$decode("%;\xC0/\x83#$%;\xAB/>#;\xC3/5$;\xAB/,$;\xC0/#$+$)($'#(#'#(\"'#&'#0H*%;\xAB/>#;\xC3/5$;\xAB/,$;\xC0/#$+$)($'#(#'#(\"'#&'#&/)$8\":o\"\"! )(\"'#&'#"),
+          peg$decode("%%2\u0160\"\"6\u01607\u0161/>#%<2f\"\"6f7g=.##&&!&'#/#$+\")(\"'#&'#/\"!&,).\x8D &%%2-\"\"6-7./>#%<2f\"\"6f7g=.##&&!&'#/#$+\")(\"'#&'#/\"!&,).U &%%2\u0162\"\"6\u01627\u0163/>#%<2f\"\"6f7g=.##&&!&'#/#$+\")(\"'#&'#/\"!&,)"),
+          peg$decode("%;\xC2/\x83#$%;\xAB/>#;\xC5/5$;\xAB/,$;\xC2/#$+$)($'#(#'#(\"'#&'#0H*%;\xAB/>#;\xC5/5$;\xAB/,$;\xC2/#$+$)($'#(#'#(\"'#&'#&/)$8\":o\"\"! )(\"'#&'#"),
+          peg$decode("%%2\u0158\"\"6\u01587\u0159/>#%<4\u0164\"\"5!7\u0165=.##&&!&'#/#$+\")(\"'#&'#/\"!&,).U &%%2\u015A\"\"6\u015A7\u015B/>#%<4\u0166\"\"5!7\u0167=.##&&!&'#/#$+\")(\"'#&'#/\"!&,)"),
+          peg$decode("%;\xC4/\x83#$%;\xAB/>#;\xC7/5$;\xAB/,$;\xC4/#$+$)($'#(#'#(\"'#&'#0H*%;\xAB/>#;\xC7/5$;\xAB/,$;\xC4/#$+$)($'#(#'#(\"'#&'#&/)$8\":o\"\"! )(\"'#&'#"),
+          peg$decode("%%2\u0168\"\"6\u01687\u0169/>#%<2f\"\"6f7g=.##&&!&'#/#$+\")(\"'#&'#/\"!&,).\x8D &%%2\u016A\"\"6\u016A7\u016B/>#%<2f\"\"6f7g=.##&&!&'#/#$+\")(\"'#&'#/\"!&,).U &%%2\u016C\"\"6\u016C7\u016D/>#%<2f\"\"6f7g=.##&&!&'#/#$+\")(\"'#&'#/\"!&,)"),
+          peg$decode("%;\xC6/\x83#$%;\xAB/>#;\xC9/5$;\xAB/,$;\xC6/#$+$)($'#(#'#(\"'#&'#0H*%;\xAB/>#;\xC9/5$;\xAB/,$;\xC6/#$+$)($'#(#'#(\"'#&'#&/)$8\":o\"\"! )(\"'#&'#"),
+          peg$decode("2\u016E\"\"6\u016E7\u016F.\xB3 &2\u0170\"\"6\u01707\u0171.\xA7 &%%2\u0172\"\"6\u01727\u0173/>#%<2\u0172\"\"6\u01727\u0173=.##&&!&'#/#$+\")(\"'#&'#/\"!&,).o &%%2\u0174\"\"6\u01747\u0175/>#%<2\u0174\"\"6\u01747\u0175=.##&&!&'#/#$+\")(\"'#&'#/\"!&,).7 &%;\x9A/\"!&,).* &%;\x9B/\"!&,)"),
+          peg$decode("%;\xC6/\x83#$%;\xAB/>#;\xCB/5$;\xAB/,$;\xC6/#$+$)($'#(#'#(\"'#&'#0H*%;\xAB/>#;\xCB/5$;\xAB/,$;\xC6/#$+$)($'#(#'#(\"'#&'#&/)$8\":o\"\"! )(\"'#&'#"),
+          peg$decode("2\u016E\"\"6\u016E7\u016F.\xA6 &2\u0170\"\"6\u01707\u0171.\x9A &%%2\u0172\"\"6\u01727\u0173/>#%<2\u0172\"\"6\u01727\u0173=.##&&!&'#/#$+\")(\"'#&'#/\"!&,).b &%%2\u0174\"\"6\u01747\u0175/>#%<2\u0174\"\"6\u01747\u0175=.##&&!&'#/#$+\")(\"'#&'#/\"!&,).* &%;\x9A/\"!&,)"),
+          peg$decode("%;\xC8/\x83#$%;\xAB/>#;\xCE/5$;\xAB/,$;\xC8/#$+$)($'#(#'#(\"'#&'#0H*%;\xAB/>#;\xCE/5$;\xAB/,$;\xC8/#$+$)($'#(#'#(\"'#&'#&/)$8\":o\"\"! )(\"'#&'#"),
+          peg$decode("%;\xCA/\x83#$%;\xAB/>#;\xCE/5$;\xAB/,$;\xCA/#$+$)($'#(#'#(\"'#&'#0H*%;\xAB/>#;\xCE/5$;\xAB/,$;\xCA/#$+$)($'#(#'#(\"'#&'#&/)$8\":o\"\"! )(\"'#&'#"),
+          peg$decode("2\u0176\"\"6\u01767\u0177.A &2\u0178\"\"6\u01787\u0179.5 &2\u017A\"\"6\u017A7\u017B.) &2\u017C\"\"6\u017C7\u017D"),
+          peg$decode("%;\xCC/\x83#$%;\xAB/>#;\xD1/5$;\xAB/,$;\xCC/#$+$)($'#(#'#(\"'#&'#0H*%;\xAB/>#;\xD1/5$;\xAB/,$;\xCC/#$+$)($'#(#'#(\"'#&'#&/)$8\":o\"\"! )(\"'#&'#"),
+          peg$decode("%;\xCD/\x83#$%;\xAB/>#;\xD1/5$;\xAB/,$;\xCD/#$+$)($'#(#'#(\"'#&'#0H*%;\xAB/>#;\xD1/5$;\xAB/,$;\xCD/#$+$)($'#(#'#(\"'#&'#&/)$8\":o\"\"! )(\"'#&'#"),
+          peg$decode("%%2\u017E\"\"6\u017E7\u017F/>#%<4\u0180\"\"5!7\u0181=.##&&!&'#/#$+\")(\"'#&'#/\"!&,)"),
+          peg$decode("%;\xCF/\x83#$%;\xAB/>#;\xD4/5$;\xAB/,$;\xCF/#$+$)($'#(#'#(\"'#&'#0H*%;\xAB/>#;\xD4/5$;\xAB/,$;\xCF/#$+$)($'#(#'#(\"'#&'#&/)$8\":o\"\"! )(\"'#&'#"),
+          peg$decode("%;\xD0/\x83#$%;\xAB/>#;\xD4/5$;\xAB/,$;\xD0/#$+$)($'#(#'#(\"'#&'#0H*%;\xAB/>#;\xD4/5$;\xAB/,$;\xD0/#$+$)($'#(#'#(\"'#&'#&/)$8\":o\"\"! )(\"'#&'#"),
+          peg$decode("%%2\u0182\"\"6\u01827\u0183/>#%<2f\"\"6f7g=.##&&!&'#/#$+\")(\"'#&'#/\"!&,)"),
+          peg$decode("%;\xD2/\x83#$%;\xAB/>#;\xD7/5$;\xAB/,$;\xD2/#$+$)($'#(#'#(\"'#&'#0H*%;\xAB/>#;\xD7/5$;\xAB/,$;\xD2/#$+$)($'#(#'#(\"'#&'#&/)$8\":o\"\"! )(\"'#&'#"),
+          peg$decode("%;\xD3/\x83#$%;\xAB/>#;\xD7/5$;\xAB/,$;\xD3/#$+$)($'#(#'#(\"'#&'#0H*%;\xAB/>#;\xD7/5$;\xAB/,$;\xD3/#$+$)($'#(#'#(\"'#&'#&/)$8\":o\"\"! )(\"'#&'#"),
+          peg$decode("%%2F\"\"6F7G/>#%<4\u0184\"\"5!7\u0185=.##&&!&'#/#$+\")(\"'#&'#/\"!&,)"),
+          peg$decode("%;\xD5/\x83#$%;\xAB/>#;\xDA/5$;\xAB/,$;\xD5/#$+$)($'#(#'#(\"'#&'#0H*%;\xAB/>#;\xDA/5$;\xAB/,$;\xD5/#$+$)($'#(#'#(\"'#&'#&/)$8\":o\"\"! )(\"'#&'#"),
+          peg$decode("%;\xD6/\x83#$%;\xAB/>#;\xDA/5$;\xAB/,$;\xD6/#$+$)($'#(#'#(\"'#&'#0H*%;\xAB/>#;\xDA/5$;\xAB/,$;\xD6/#$+$)($'#(#'#(\"'#&'#&/)$8\":o\"\"! )(\"'#&'#"),
+          peg$decode("2\u0186\"\"6\u01867\u0187"),
+          peg$decode("%;\xD8/\x83#$%;\xAB/>#;\xDD/5$;\xAB/,$;\xD8/#$+$)($'#(#'#(\"'#&'#0H*%;\xAB/>#;\xDD/5$;\xAB/,$;\xD8/#$+$)($'#(#'#(\"'#&'#&/)$8\":o\"\"! )(\"'#&'#"),
+          peg$decode("%;\xD9/\x83#$%;\xAB/>#;\xDD/5$;\xAB/,$;\xD9/#$+$)($'#(#'#(\"'#&'#0H*%;\xAB/>#;\xDD/5$;\xAB/,$;\xD9/#$+$)($'#(#'#(\"'#&'#&/)$8\":o\"\"! )(\"'#&'#"),
+          peg$decode("2\u0188\"\"6\u01887\u0189"),
+          peg$decode("%;\xDB/~#;\xAB/u$2j\"\"6j7k/f$;\xAB/]$;\xE0/T$;\xAB/K$2b\"\"6b7c/<$;\xAB/3$;\xE0/*$8):l)#($ )()'#(('#(''#(&'#(%'#($'#(#'#(\"'#&'#.# &;\xDB"),
+          peg$decode("%;\xDC/~#;\xAB/u$2j\"\"6j7k/f$;\xAB/]$;\xE0/T$;\xAB/K$2b\"\"6b7c/<$;\xAB/3$;\xE1/*$8):l)#($ )()'#(('#(''#(&'#(%'#($'#(#'#(\"'#&'#.# &;\xDC"),
+          peg$decode("%;\xBD/n#;\xAB/e$2f\"\"6f7g/V$%<2f\"\"6f7g=.##&&!&'#/;$;\xAB/2$;\xE0/)$8&:h&\"% )(&'#(%'#($'#(#'#(\"'#&'#.^ &%;\xBD/N#;\xAB/E$;\xE2/<$;\xAB/3$;\xE0/*$8%:i%#$\" )(%'#($'#(#'#(\"'#&'#.# &;\xDE"),
+          peg$decode("%;\xBD/n#;\xAB/e$2f\"\"6f7g/V$%<2f\"\"6f7g=.##&&!&'#/;$;\xAB/2$;\xE1/)$8&:h&\"% )(&'#(%'#($'#(#'#(\"'#&'#.^ &%;\xBD/N#;\xAB/E$;\xE2/<$;\xAB/3$;\xE1/*$8%:i%#$\" )(%'#($'#(#'#(\"'#&'#.# &;\xDF"),
+          peg$decode("2\u018A\"\"6\u018A7\u018B.\x95 &2\u018C\"\"6\u018C7\u018D.\x89 &2\u018E\"\"6\u018E7\u018F.} &2\u0190\"\"6\u01907\u0191.q &2\u0192\"\"6\u01927\u0193.e &2\u0194\"\"6\u01947\u0195.Y &2\u0196\"\"6\u01967\u0197.M &2\u0198\"\"6\u01987\u0199.A &2\u019A\"\"6\u019A7\u019B.5 &2\u019C\"\"6\u019C7\u019D.) &2\u019E\"\"6\u019E7\u019F"),
+          peg$decode("%;\xE0/\x8F#$%;\xAB/D#26\"\"6677/5$;\xAB/,$;\xE0/#$+$)($'#(#'#(\"'#&'#0N*%;\xAB/D#26\"\"6677/5$;\xAB/,$;\xE0/#$+$)($'#(#'#(\"'#&'#&/)$8\":\u01A0\"\"! )(\"'#&'#"),
+          peg$decode("%;\xE1/\x8F#$%;\xAB/D#26\"\"6677/5$;\xAB/,$;\xE1/#$+$)($'#(#'#(\"'#&'#0N*%;\xAB/D#26\"\"6677/5$;\xAB/,$;\xE1/#$+$)($'#(#'#(\"'#&'#&/)$8\":e\"\"! )(\"'#&'#"),
+          peg$decode(";\xE6.q &;\xE8.k &;\xEF.e &;\xF0._ &;\xF1.Y &;\xF2.S &;\xF3.M &;\xF4.G &;\xF5.A &;\xF6.; &;\xFC.5 &;\xF7./ &;\xFD.) &;\xFE.# &;\u0101"),
+          peg$decode("%2N\"\"6N7O/a#;\xAB/X$%;\xE7/,#;\xAB/#$+\")(\"'#&'#.\" &\"/7$2P\"\"6P7Q/($8$:\u01A1$!!)($'#(#'#(\"'#&'#"),
+          peg$decode("%;\xE5/_#$%;\xAB/,#;\xE5/#$+\")(\"'#&'#06*%;\xAB/,#;\xE5/#$+\")(\"'#&'#&/)$8\":\u01A2\"\"! )(\"'#&'#"),
+          peg$decode("%;\xA7/C#;\xAB/:$;\xE9/1$;\xAD/($8$:\u01A3$!!)($'#(#'#(\"'#&'#"),
+          peg$decode("%;\xEB/\x8F#$%;\xAB/D#26\"\"6677/5$;\xAB/,$;\xEB/#$+$)($'#(#'#(\"'#&'#0N*%;\xAB/D#26\"\"6677/5$;\xAB/,$;\xEB/#$+$)($'#(#'#(\"'#&'#&/)$8\":8\"\"! )(\"'#&'#"),
+          peg$decode("%;\xEC/\x8F#$%;\xAB/D#26\"\"6677/5$;\xAB/,$;\xEC/#$+$)($'#(#'#(\"'#&'#0N*%;\xAB/D#26\"\"6677/5$;\xAB/,$;\xEC/#$+$)($'#(#'#(\"'#&'#&/)$8\":8\"\"! )(\"'#&'#"),
+          peg$decode("%;P/J#%;\xAB/,#;\xED/#$+\")(\"'#&'#.\" &\"/)$8\":\u01A4\"\"! )(\"'#&'#"),
+          peg$decode("%;P/J#%;\xAB/,#;\xEE/#$+\")(\"'#&'#.\" &\"/)$8\":\u01A4\"\"! )(\"'#&'#"),
+          peg$decode("%2f\"\"6f7g/U#%<2f\"\"6f7g=.##&&!&'#/:$;\xAB/1$;\xE0/($8$:\u0142$! )($'#(#'#(\"'#&'#"),
+          peg$decode("%2f\"\"6f7g/U#%<2f\"\"6f7g=.##&&!&'#/:$;\xAB/1$;\xE1/($8$:\u0142$! )($'#(#'#(\"'#&'#"),
+          peg$decode("%2\u013F\"\"6\u013F7\u0140/& 8!:\u01A5! )"),
+          peg$decode("%%<2N\"\"6N7O.# &;\x96=.##&&!&'#/:#;\xE3/1$;\xAD/($8#:\u01A6#!!)(#'#(\"'#&'#"),
+          peg$decode("%;\x98/\xA2#;\xAB/\x99$29\"\"697:/\x8A$;\xAB/\x81$;\xE3/x$;\xAB/o$2;\"\"6;7</`$;\xAB/W$;\xE5/N$;\xAB/E$;\x8F/<$;\xAB/3$;\xE5/*$8-:\u01A7-#($ )(-'#(,'#(+'#(*'#()'#(('#(''#(&'#(%'#($'#(#'#(\"'#&'#.\x87 &%;\x98/}#;\xAB/t$29\"\"697:/e$;\xAB/\\$;\xE3/S$;\xAB/J$2;\"\"6;7</;$;\xAB/2$;\xE5/)$8):\u01A8)\"$ )()'#(('#(''#(&'#(%'#($'#(#'#(\"'#&'#"),
+          peg$decode("%;\x8E/\x98#;\xAB/\x8F$;\xE5/\x86$;\xAB/}$;\xA9/t$;\xAB/k$29\"\"697:/\\$;\xAB/S$;\xE3/J$;\xAB/A$2;\"\"6;7</2$;\xAD/)$8,:\u01A9,\")#)(,'#(+'#(*'#()'#(('#(''#(&'#(%'#($'#(#'#(\"'#&'#.\u0394 &%;\xA9/}#;\xAB/t$29\"\"697:/e$;\xAB/\\$;\xE3/S$;\xAB/J$2;\"\"6;7</;$;\xAB/2$;\xE5/)$8):\u01AA)\"$ )()'#(('#(''#(&'#(%'#($'#(#'#(\"'#&'#.\u032A &%;\x95/\u0100#;\xAB/\xF7$29\"\"697:/\xE8$;\xAB/\xDF$%;\xE4/,#;\xAB/#$+\")(\"'#&'#.\" &\"/\xBE$2\u013F\"\"6\u013F7\u0140/\xAF$;\xAB/\xA6$%;\xE3/,#;\xAB/#$+\")(\"'#&'#.\" &\"/\x85$2\u013F\"\"6\u013F7\u0140/v$;\xAB/m$%;\xE3/,#;\xAB/#$+\")(\"'#&'#.\" &\"/L$2;\"\"6;7</=$;\xAB/4$;\xE5/+$8.:\u01AB.$)&# )(.'#(-'#(,'#(+'#(*'#()'#(('#(''#(&'#(%'#($'#(#'#(\"'#&'#.\u023D &%;\x95/\u0103#;\xAB/\xFA$29\"\"697:/\xEB$;\xAB/\xE2$;\xA7/\xD9$;\xAB/\xD0$;\xEA/\xC7$;\xAB/\xBE$2\u013F\"\"6\u013F7\u0140/\xAF$;\xAB/\xA6$%;\xE3/,#;\xAB/#$+\")(\"'#&'#.\" &\"/\x85$2\u013F\"\"6\u013F7\u0140/v$;\xAB/m$%;\xE3/,#;\xAB/#$+\")(\"'#&'#.\" &\"/L$2;\"\"6;7</=$;\xAB/4$;\xE5/+$81:\u01AC1$*&# )(1'#(0'#(/'#(.'#(-'#(,'#(+'#(*'#()'#(('#(''#(&'#(%'#($'#(#'#(\"'#&'#.\u014D &%;\x95/\xA2#;\xAB/\x99$29\"\"697:/\x8A$;\xAB/\x81$;\xBD/x$;\xAB/o$;\x9B/f$;\xAB/]$;\xE3/T$;\xAB/K$2;\"\"6;7</<$;\xAB/3$;\xE5/*$8-:\u01AD-#($ )(-'#(,'#(+'#(*'#()'#(('#(''#(&'#(%'#($'#(#'#(\"'#&'#.\xBE &%;\x95/\xB4#;\xAB/\xAB$29\"\"697:/\x9C$;\xAB/\x93$;\xA7/\x8A$;\xAB/\x81$;\xEA/x$;\xAB/o$;\x9B/f$;\xAB/]$;\xE3/T$;\xAB/K$2;\"\"6;7</<$;\xAB/3$;\xE5/*$8/:\u01AE/#($ )(/'#(.'#(-'#(,'#(+'#(*'#()'#(('#(''#(&'#(%'#($'#(#'#(\"'#&'#"),
+          peg$decode("%;\x8A/0#;\xAD/'$8\":\u01AF\" )(\"'#&'#.M &%;\x8A/C#;\xAC/:$;P/1$;\xAD/($8$:\u01B0$!!)($'#(#'#(\"'#&'#"),
+          peg$decode("%;\x85/0#;\xAD/'$8\":\u01B1\" )(\"'#&'#.M &%;\x85/C#;\xAC/:$;P/1$;\xAD/($8$:\u01B2$!!)($'#(#'#(\"'#&'#"),
+          peg$decode("%;\x9E/0#;\xAD/'$8\":\u01B3\" )(\"'#&'#.M &%;\x9E/C#;\xAC/:$;\xE3/1$;\xAD/($8$:\u01B4$!!)($'#(#'#(\"'#&'#"),
+          peg$decode("%;\xAA/}#;\xAB/t$29\"\"697:/e$;\xAB/\\$;\xE3/S$;\xAB/J$2;\"\"6;7</;$;\xAB/2$;\xE5/)$8):\u01B5)\"$ )()'#(('#(''#(&'#(%'#($'#(#'#(\"'#&'#"),
+          peg$decode("%;\xA1/}#;\xAB/t$29\"\"697:/e$;\xAB/\\$;\xE3/S$;\xAB/J$2;\"\"6;7</;$;\xAB/2$;\xF8/)$8):\u01B6)\"$ )()'#(('#(''#(&'#(%'#($'#(#'#(\"'#&'#"),
+          peg$decode("%2N\"\"6N7O/a#;\xAB/X$%;\xF9/,#;\xAB/#$+\")(\"'#&'#.\" &\"/7$2P\"\"6P7Q/($8$:\u01B7$!!)($'#(#'#(\"'#&'#.\xA6 &%2N\"\"6N7O/\x96#;\xAB/\x8D$%;\xF9/,#;\xAB/#$+\")(\"'#&'#.\" &\"/l$;\xFB/c$;\xAB/Z$%;\xF9/,#;\xAB/#$+\")(\"'#&'#.\" &\"/9$2P\"\"6P7Q/*$8':\u01B8'#$#!)(''#(&'#(%'#($'#(#'#(\"'#&'#"),
+          peg$decode("%;\xFA/_#$%;\xAB/,#;\xFA/#$+\")(\"'#&'#06*%;\xAB/,#;\xFA/#$+\")(\"'#&'#&/)$8\":\u01A2\"\"! )(\"'#&'#"),
+          peg$decode("%;\x86/t#;\xAB/k$;\xE3/b$;\xAB/Y$2b\"\"6b7c/J$%;\xAB/,#;\xE7/#$+\")(\"'#&'#.\" &\"/)$8&:\u01B9&\"# )(&'#(%'#($'#(#'#(\"'#&'#"),
+          peg$decode("%;\x8C/a#;\xAB/X$2b\"\"6b7c/I$%;\xAB/,#;\xE7/#$+\")(\"'#&'#.\" &\"/($8$:\u01BA$! )($'#(#'#(\"'#&'#"),
+          peg$decode("%;P/S#;\xAB/J$2b\"\"6b7c/;$;\xAB/2$;\xE5/)$8%:\u01BB%\"$ )(%'#($'#(#'#(\"'#&'#"),
+          peg$decode("%;\xA3/C#;\xAC/:$;\xE3/1$;\xAD/($8$:\u01BC$!!)($'#(#'#(\"'#&'#"),
+          peg$decode("%;\xA5/`#;\xAB/W$;\xE6/N$;\xAB/E$;\xFF/<$;\xAB/3$;\u0100/*$8':\u01BD'#$\" )(''#(&'#(%'#($'#(#'#(\"'#&'#.\x91 &%;\xA5/M#;\xAB/D$;\xE6/;$;\xAB/2$;\xFF/)$8%:\u01BE%\"\" )(%'#($'#(#'#(\"'#&'#.W &%;\xA5/M#;\xAB/D$;\xE6/;$;\xAB/2$;\u0100/)$8%:\u01BF%\"\" )(%'#($'#(#'#(\"'#&'#"),
+          peg$decode("%;\x87/}#;\xAB/t$29\"\"697:/e$;\xAB/\\$;P/S$;\xAB/J$2;\"\"6;7</;$;\xAB/2$;\xE6/)$8):\u01C0)\"$ )()'#(('#(''#(&'#(%'#($'#(#'#(\"'#&'#"),
+          peg$decode("%;\x94/:#;\xAB/1$;\xE6/($8#:\u01C1#! )(#'#(\"'#&'#"),
+          peg$decode("%;\x8B/0#;\xAD/'$8\":\u01C2\" )(\"'#&'#"),
+          peg$decode("%;\x96/\xCF#;\xAB/\xC6$;P/\xBD$;\xAB/\xB4$29\"\"697:/\xA5$;\xAB/\x9C$%;\u0104/,#;\xAB/#$+\")(\"'#&'#.\" &\"/{$2;\"\"6;7</l$;\xAB/c$2N\"\"6N7O/T$;\xAB/K$;\u0105/B$;\xAB/9$2P\"\"6P7Q/*$8.:\u01C3.#+'\")(.'#(-'#(,'#(+'#(*'#()'#(('#(''#(&'#(%'#($'#(#'#(\"'#&'#"),
+          peg$decode("%;\x96/\xDE#;\xAB/\xD5$%;P/,#;\xAB/#$+\")(\"'#&'#.\" &\"/\xB4$29\"\"697:/\xA5$;\xAB/\x9C$%;\u0104/,#;\xAB/#$+\")(\"'#&'#.\" &\"/{$2;\"\"6;7</l$;\xAB/c$2N\"\"6N7O/T$;\xAB/K$;\u0105/B$;\xAB/9$2P\"\"6P7Q/*$8-:\u01C4-#*'\")(-'#(,'#(+'#(*'#()'#(('#(''#(&'#(%'#($'#(#'#(\"'#&'#"),
+          peg$decode("%;P/\x8F#$%;\xAB/D#26\"\"6677/5$;\xAB/,$;P/#$+$)($'#(#'#(\"'#&'#0N*%;\xAB/D#26\"\"6677/5$;\xAB/,$;P/#$+$)($'#(#'#(\"'#&'#&/)$8\":8\"\"! )(\"'#&'#"),
+          peg$decode("%;\u0107.\" &\"/' 8!:\u01C5!! )"),
+          peg$decode("%;\xAB/?#;\u0109.\" &\"/1$;\xAB/($8#:\u01C6#!!)(#'#(\"'#&'#"),
+          peg$decode("%;\u0108/_#$%;\xAB/,#;\u0108/#$+\")(\"'#&'#06*%;\xAB/,#;\u0108/#$+\")(\"'#&'#&/)$8\":\u01C7\"\"! )(\"'#&'#"),
+          peg$decode(";\xE5.# &;\u0102"),
+          peg$decode("%;\u010A/_#$%;\xAB/,#;\u010A/#$+\")(\"'#&'#06*%;\xAB/,#;\u010A/#$+\")(\"'#&'#&/)$8\":\u01C7\"\"! )(\"'#&'#"),
+          peg$decode("%;#/<#2\u013F\"\"6\u013F7\u0140.\" &\"/($8\":\u01C8\"!!)(\"'#&'#")
+        ],
+
+        peg$currPos          = 0,
+        peg$savedPos         = 0,
+        peg$posDetailsCache  = [{ line: 1, column: 1, seenCR: false }],
+        peg$maxFailPos       = 0,
+        peg$maxFailExpected  = [],
+        peg$silentFails      = 0,
+
+        peg$result;
+
+    if ("startRule" in options) {
+      if (!(options.startRule in peg$startRuleIndices)) {
+        throw new Error("Can't start parsing from rule \"" + options.startRule + "\".");
+      }
+
+      peg$startRuleIndex = peg$startRuleIndices[options.startRule];
+    }
+
+    function text() {
+      return input.substring(peg$savedPos, peg$currPos);
+    }
+
+    function location() {
+      return peg$computeLocation(peg$savedPos, peg$currPos);
+    }
+
+    function expected(description) {
+      throw peg$buildException(
+        null,
+        [{ type: "other", description: description }],
+        input.substring(peg$savedPos, peg$currPos),
+        peg$computeLocation(peg$savedPos, peg$currPos)
+      );
+    }
+
+    function error(message) {
+      throw peg$buildException(
+        message,
+        null,
+        input.substring(peg$savedPos, peg$currPos),
+        peg$computeLocation(peg$savedPos, peg$currPos)
+      );
+    }
+
+    function peg$computePosDetails(pos) {
+      var details = peg$posDetailsCache[pos],
+          p, ch;
+
+      if (details) {
+        return details;
+      } else {
+        p = pos - 1;
+        while (!peg$posDetailsCache[p]) {
+          p--;
+        }
+
+        details = peg$posDetailsCache[p];
+        details = {
+          line:   details.line,
+          column: details.column,
+          seenCR: details.seenCR
+        };
+
+        while (p < pos) {
+          ch = input.charAt(p);
+          if (ch === "\n") {
+            if (!details.seenCR) { details.line++; }
+            details.column = 1;
+            details.seenCR = false;
+          } else if (ch === "\r" || ch === "\u2028" || ch === "\u2029") {
+            details.line++;
+            details.column = 1;
+            details.seenCR = true;
+          } else {
+            details.column++;
+            details.seenCR = false;
+          }
+
+          p++;
+        }
+
+        peg$posDetailsCache[pos] = details;
+        return details;
+      }
+    }
+
+    function peg$computeLocation(startPos, endPos) {
+      var startPosDetails = peg$computePosDetails(startPos),
+          endPosDetails   = peg$computePosDetails(endPos);
+
+      return {
+        start: {
+          offset: startPos,
+          line:   startPosDetails.line,
+          column: startPosDetails.column
+        },
+        end: {
+          offset: endPos,
+          line:   endPosDetails.line,
+          column: endPosDetails.column
+        }
+      };
+    }
+
+    function peg$fail(expected) {
+      if (peg$currPos < peg$maxFailPos) { return; }
+
+      if (peg$currPos > peg$maxFailPos) {
+        peg$maxFailPos = peg$currPos;
+        peg$maxFailExpected = [];
+      }
+
+      peg$maxFailExpected.push(expected);
+    }
+
+    function peg$buildException(message, expected, found, location) {
+      function cleanupExpected(expected) {
+        var i = 1;
+
+        expected.sort(function(a, b) {
+          if (a.description < b.description) {
+            return -1;
+          } else if (a.description > b.description) {
+            return 1;
+          } else {
+            return 0;
+          }
+        });
+
+        while (i < expected.length) {
+          if (expected[i - 1] === expected[i]) {
+            expected.splice(i, 1);
+          } else {
+            i++;
+          }
+        }
+      }
+
+      function buildMessage(expected, found) {
+        function stringEscape(s) {
+          function hex(ch) { return ch.charCodeAt(0).toString(16).toUpperCase(); }
+
+          return s
+            .replace(/\\/g,   '\\\\')
+            .replace(/"/g,    '\\"')
+            .replace(/\x08/g, '\\b')
+            .replace(/\t/g,   '\\t')
+            .replace(/\n/g,   '\\n')
+            .replace(/\f/g,   '\\f')
+            .replace(/\r/g,   '\\r')
+            .replace(/[\x00-\x07\x0B\x0E\x0F]/g, function(ch) { return '\\x0' + hex(ch); })
+            .replace(/[\x10-\x1F\x80-\xFF]/g,    function(ch) { return '\\x'  + hex(ch); })
+            .replace(/[\u0100-\u0FFF]/g,         function(ch) { return '\\u0' + hex(ch); })
+            .replace(/[\u1000-\uFFFF]/g,         function(ch) { return '\\u'  + hex(ch); });
+        }
+
+        var expectedDescs = new Array(expected.length),
+            expectedDesc, foundDesc, i;
+
+        for (i = 0; i < expected.length; i++) {
+          expectedDescs[i] = expected[i].description;
+        }
+
+        expectedDesc = expected.length > 1
+          ? expectedDescs.slice(0, -1).join(", ")
+              + " or "
+              + expectedDescs[expected.length - 1]
+          : expectedDescs[0];
+
+        foundDesc = found ? "\"" + stringEscape(found) + "\"" : "end of input";
+
+        return "Expected " + expectedDesc + " but " + foundDesc + " found.";
+      }
+
+      if (expected !== null) {
+        cleanupExpected(expected);
+      }
+
+      return new peg$SyntaxError(
+        message !== null ? message : buildMessage(expected, found),
+        expected,
+        found,
+        location
+      );
+    }
+
+    function peg$decode(s) {
+      var bc = new Array(s.length), i;
+
+      for (i = 0; i < s.length; i++) {
+        bc[i] = s.charCodeAt(i) - 32;
+      }
+
+      return bc;
+    }
+
+    function peg$parseRule(index) {
+      var bc    = peg$bytecode[index],
+          ip    = 0,
+          ips   = [],
+          end   = bc.length,
+          ends  = [],
+          stack = [],
+          params, i;
+
+      while (true) {
+        while (ip < end) {
+          switch (bc[ip]) {
+            case 0:
+              stack.push(peg$consts[bc[ip + 1]]);
+              ip += 2;
+              break;
+
+            case 1:
+              stack.push(void 0);
+              ip++;
+              break;
+
+            case 2:
+              stack.push(null);
+              ip++;
+              break;
+
+            case 3:
+              stack.push(peg$FAILED);
+              ip++;
+              break;
+
+            case 4:
+              stack.push([]);
+              ip++;
+              break;
+
+            case 5:
+              stack.push(peg$currPos);
+              ip++;
+              break;
+
+            case 6:
+              stack.pop();
+              ip++;
+              break;
+
+            case 7:
+              peg$currPos = stack.pop();
+              ip++;
+              break;
+
+            case 8:
+              stack.length -= bc[ip + 1];
+              ip += 2;
+              break;
+
+            case 9:
+              stack.splice(-2, 1);
+              ip++;
+              break;
+
+            case 10:
+              stack[stack.length - 2].push(stack.pop());
+              ip++;
+              break;
+
+            case 11:
+              stack.push(stack.splice(stack.length - bc[ip + 1], bc[ip + 1]));
+              ip += 2;
+              break;
+
+            case 12:
+              stack.push(input.substring(stack.pop(), peg$currPos));
+              ip++;
+              break;
+
+            case 13:
+              ends.push(end);
+              ips.push(ip + 3 + bc[ip + 1] + bc[ip + 2]);
+
+              if (stack[stack.length - 1]) {
+                end = ip + 3 + bc[ip + 1];
+                ip += 3;
+              } else {
+                end = ip + 3 + bc[ip + 1] + bc[ip + 2];
+                ip += 3 + bc[ip + 1];
+              }
+
+              break;
+
+            case 14:
+              ends.push(end);
+              ips.push(ip + 3 + bc[ip + 1] + bc[ip + 2]);
+
+              if (stack[stack.length - 1] === peg$FAILED) {
+                end = ip + 3 + bc[ip + 1];
+                ip += 3;
+              } else {
+                end = ip + 3 + bc[ip + 1] + bc[ip + 2];
+                ip += 3 + bc[ip + 1];
+              }
+
+              break;
+
+            case 15:
+              ends.push(end);
+              ips.push(ip + 3 + bc[ip + 1] + bc[ip + 2]);
+
+              if (stack[stack.length - 1] !== peg$FAILED) {
+                end = ip + 3 + bc[ip + 1];
+                ip += 3;
+              } else {
+                end = ip + 3 + bc[ip + 1] + bc[ip + 2];
+                ip += 3 + bc[ip + 1];
+              }
+
+              break;
+
+            case 16:
+              if (stack[stack.length - 1] !== peg$FAILED) {
+                ends.push(end);
+                ips.push(ip);
+
+                end = ip + 2 + bc[ip + 1];
+                ip += 2;
+              } else {
+                ip += 2 + bc[ip + 1];
+              }
+
+              break;
+
+            case 17:
+              ends.push(end);
+              ips.push(ip + 3 + bc[ip + 1] + bc[ip + 2]);
+
+              if (input.length > peg$currPos) {
+                end = ip + 3 + bc[ip + 1];
+                ip += 3;
+              } else {
+                end = ip + 3 + bc[ip + 1] + bc[ip + 2];
+                ip += 3 + bc[ip + 1];
+              }
+
+              break;
+
+            case 18:
+              ends.push(end);
+              ips.push(ip + 4 + bc[ip + 2] + bc[ip + 3]);
+
+              if (input.substr(peg$currPos, peg$consts[bc[ip + 1]].length) === peg$consts[bc[ip + 1]]) {
+                end = ip + 4 + bc[ip + 2];
+                ip += 4;
+              } else {
+                end = ip + 4 + bc[ip + 2] + bc[ip + 3];
+                ip += 4 + bc[ip + 2];
+              }
+
+              break;
+
+            case 19:
+              ends.push(end);
+              ips.push(ip + 4 + bc[ip + 2] + bc[ip + 3]);
+
+              if (input.substr(peg$currPos, peg$consts[bc[ip + 1]].length).toLowerCase() === peg$consts[bc[ip + 1]]) {
+                end = ip + 4 + bc[ip + 2];
+                ip += 4;
+              } else {
+                end = ip + 4 + bc[ip + 2] + bc[ip + 3];
+                ip += 4 + bc[ip + 2];
+              }
+
+              break;
+
+            case 20:
+              ends.push(end);
+              ips.push(ip + 4 + bc[ip + 2] + bc[ip + 3]);
+
+              if (peg$consts[bc[ip + 1]].test(input.charAt(peg$currPos))) {
+                end = ip + 4 + bc[ip + 2];
+                ip += 4;
+              } else {
+                end = ip + 4 + bc[ip + 2] + bc[ip + 3];
+                ip += 4 + bc[ip + 2];
+              }
+
+              break;
+
+            case 21:
+              stack.push(input.substr(peg$currPos, bc[ip + 1]));
+              peg$currPos += bc[ip + 1];
+              ip += 2;
+              break;
+
+            case 22:
+              stack.push(peg$consts[bc[ip + 1]]);
+              peg$currPos += peg$consts[bc[ip + 1]].length;
+              ip += 2;
+              break;
+
+            case 23:
+              stack.push(peg$FAILED);
+              if (peg$silentFails === 0) {
+                peg$fail(peg$consts[bc[ip + 1]]);
+              }
+              ip += 2;
+              break;
+
+            case 24:
+              peg$savedPos = stack[stack.length - 1 - bc[ip + 1]];
+              ip += 2;
+              break;
+
+            case 25:
+              peg$savedPos = peg$currPos;
+              ip++;
+              break;
+
+            case 26:
+              params = bc.slice(ip + 4, ip + 4 + bc[ip + 3]);
+              for (i = 0; i < bc[ip + 3]; i++) {
+                params[i] = stack[stack.length - 1 - params[i]];
+              }
+
+              stack.splice(
+                stack.length - bc[ip + 2],
+                bc[ip + 2],
+                peg$consts[bc[ip + 1]].apply(null, params)
+              );
+
+              ip += 4 + bc[ip + 3];
+              break;
+
+            case 27:
+              stack.push(peg$parseRule(bc[ip + 1]));
+              ip += 2;
+              break;
+
+            case 28:
+              peg$silentFails++;
+              ip++;
+              break;
+
+            case 29:
+              peg$silentFails--;
+              ip++;
+              break;
+
+            default:
+              throw new Error("Invalid opcode: " + bc[ip] + ".");
+          }
+        }
+
+        if (ends.length > 0) {
+          end = ends.pop();
+          ip = ips.pop();
+        } else {
+          break;
+        }
+      }
+
+      return stack[0];
+    }
+
+
+      function formatRule(desc) {
+        desc.constraints = getConstraints(desc);
+        desc = headNormalForm(desc);
+        desc = addProperties(desc);
+        desc = addReplacements(desc);
+        return desc;
+      }
+
+      function headNormalForm(ruleDescriptor) {
+        var variableNames = {};
+
+        function renameParameters(constraint) {
+          if (constraint.type !== 'Constraint') {
+            return;
+          }
+
+          constraint.parameters.forEach(function(parameter) {
+            if (parameter.type !== 'Identifier') {
+              return;
+            }
+
+            var name = parameter.name;
+            if (!variableNames[name]) {
+              variableNames[name] = true;
+              return;
+            }
+
+            if (variableNames[name]) {
+              // rename
+              var i = 0;
+              var newName = name+'_'+i;
+              while (variableNames[newName]) {
+                i++;
+                var newName = name+'_'+i;
+              }
+              parameter.name = newName
+              variableNames[newName] = true;
+
+              // add equality to guard
+              ruleDescriptor.guard.push({
+                "type": "BinaryExpression",
+                "operator": "===",
+                "left": {
+                   "type": "Identifier",
+                   "name": name
+                },
+                "right": {
+                   "type": "Identifier",
+                   "name": newName
+                }
+             });
+            }
+          });
+        }
+
+        ruleDescriptor.kept.forEach(renameParameters);
+        ruleDescriptor.removed.forEach(renameParameters);
+
+        return ruleDescriptor;
+      }
+
+      function getConstraints(ruleDescriptor) {
+        var constraints = {};
+
+        function extractConstraints(constraint) {
+          if (constraint.type === 'Constraint') {
+            constraints[constraint.name+'/'+constraint.parameters.length] = true;
+          }
+        }
+
+        ruleDescriptor.kept.forEach(extractConstraints);
+        ruleDescriptor.removed.forEach(extractConstraints);
+        ruleDescriptor.body.forEach(extractConstraints);
+
+        return Object.keys(constraints);
+      }
+
+      function addConstraints(program) {
+        var constraints = {};
+
+        program.body.forEach(function (body) {
+          if (body.type === 'PropagationRule' || body.type === 'SimplificationRule' || body.type === 'SimpagationRule') {
+            body.constraints.forEach(function (constraint) {
+              constraints[constraint] = true
+            })
+          }
+        })
+
+        program.constraints = Object.keys(constraints)
+
+        return program
+      }
+
+      function addProperties(ruleDescriptor) {
+        ruleDescriptor.r = ruleDescriptor.kept.length;
+        ruleDescriptor.head = ruleDescriptor.kept.concat(ruleDescriptor.removed);
+
+        return ruleDescriptor;
+      }
+
+      function addReplacements(ruleDescriptor) {
+        ruleDescriptor.replacements = [];
+
+        ['guard', 'body'].forEach(function (location) {
+          ruleDescriptor[location].forEach(function (c) {
+            if (c.type === 'Replacement') {
+              var entry = {
+                loc: location
+              }
+
+              if (c.hasOwnProperty('num')) {
+                entry.num = c.num
+              }
+              else if (c.hasOwnProperty('original')) {
+                entry.original = c.original
+              }
+              else if (c.hasOwnProperty('expr')) {
+                entry.expr = c.expr
+              }
+
+              ruleDescriptor.replacements.push(entry)
+            }
+          })
+        })
+
+        return ruleDescriptor;
+      }
+
+      /**
+       * Rest for JavaScript PEG
+       */
+      
+      var TYPES_TO_PROPERTY_NAMES = {
+        CallExpression:   "callee",
+        MemberExpression: "object",
+      };
+
+      function filledArray(count, value) {
+        var result = new Array(count), i;
+
+        for (i = 0; i < count; i++) {
+          result[i] = value;
+        }
+
+        return result;
+      }
+
+      function extractOptional(optional, index) {
+        return optional ? optional[index] : null;
+      }
+
+      function extractList(list, index) {
+        var result = new Array(list.length), i;
+
+        for (i = 0; i < list.length; i++) {
+          result[i] = list[i][index];
+        }
+
+        return result;
+      }
+
+      function buildList(first, rest, index) {
+        return [first].concat(extractList(rest, index));
+      }
+
+      function buildTree(first, rest, builder) {
+        var result = first, i;
+
+        for (i = 0; i < rest.length; i++) {
+          result = builder(result, rest[i]);
+        }
+
+        return result;
+      }
+
+      function buildBinaryExpression(first, rest) {
+        return buildTree(first, rest, function(result, element) {
+          return {
+            type:     "BinaryExpression",
+            operator: element[1],
+            left:     result,
+            right:    element[3]
+          };
+        });
+      }
+
+      function buildLogicalExpression(first, rest) {
+        return buildTree(first, rest, function(result, element) {
+          return {
+            type:     "LogicalExpression",
+            operator: element[1],
+            left:     result,
+            right:    element[3]
+          };
+        });
+      }
+
+      function optionalList(value) {
+        return value !== null ? value : [];
+      }
+
+
+    peg$result = peg$parseRule(peg$startRuleIndex);
+
+    if (peg$result !== peg$FAILED && peg$currPos === input.length) {
+      return peg$result;
+    } else {
+      if (peg$result !== peg$FAILED && peg$currPos < input.length) {
+        peg$fail({ type: "end", description: "end of input" });
+      }
+
+      throw peg$buildException(
+        null,
+        peg$maxFailExpected,
+        peg$maxFailPos < input.length ? input.charAt(peg$maxFailPos) : null,
+        peg$maxFailPos < input.length
+          ? peg$computeLocation(peg$maxFailPos, peg$maxFailPos + 1)
+          : peg$computeLocation(peg$maxFailPos, peg$maxFailPos)
+      );
+    }
+  }
+
+  return {
+    SyntaxError: peg$SyntaxError,
+    parse:       peg$parse
+  };
+})();
+
+},{}]},{},[1])(1)
+});

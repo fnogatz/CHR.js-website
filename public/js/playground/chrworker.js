@@ -70,6 +70,21 @@ function CHRWorker (parsed, oldChr, opts) {
     })
   }
 
+  chr.Store.on('add', function (data) {
+    application.remote.storeEvent({
+      event: 'store:add',
+      constraint: data,
+      constraintString: data.toString()
+    })
+  })
+  chr.Store.on('remove', function (data) { 
+    application.remote.storeEvent({
+      event: 'store:remove',
+      constraint: data,
+      constraintString: data.toString()
+    })
+  })
+
   function killConstraint (id) {
     chr.Store.kill(id)
   }

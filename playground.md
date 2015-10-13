@@ -81,9 +81,12 @@ jsEnd:
                 <li><a href="#" class="small" data-value="option1" tabIndex="-1"><input type="text" value="2" id="tracer-speed" />seconds pause per step</a></li>
                 <li role="separator" class="divider"></li>
                 <li><p>Use Breakpoints:</p></li>
-                <li><a href="#" class="small" data-value="option1" tabIndex="-1"><input type="checkbox" />Option 1</a></li>
-                <li><a href="#" class="small" data-value="option2" tabIndex="-1"><input type="checkbox" />Option 2</a></li>
-                <li><a href="#" class="small" data-value="option3" tabIndex="-1"><input type="checkbox" />Option 3</a></li>
+                <li><a href="#" class="small" data-value="rule-try" tabIndex="-1"><input data-event="rule:try" type="checkbox" checked="checked" />On Rule Try</a></li>
+                <li><a href="#" class="small" data-value="occurrence-try" tabIndex="-1"><input data-event="rule:try-occurrence" type="checkbox" checked="checked" />On Occurrence Try</a></li>
+                <li role="separator" class="divider"></li>
+                <li><p>Trace Events:</p></li>
+                <li><a href="#" class="small" data-value="store-add" tabIndex="-1"><input data-event="store:add" type="checkbox" checked="checked" />Store: <code>add</code></a></li>
+                <li><a href="#" class="small" data-value="store-remove" tabIndex="-1"><input data-event="store:remove" type="checkbox" checked="checked" />Store: <code>remove</code></a></li>
               </ul>
             </div>
           </div>
