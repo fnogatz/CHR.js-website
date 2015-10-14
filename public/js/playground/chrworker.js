@@ -22,8 +22,10 @@ function CHRWorker (parsed, oldChr, opts) {
 
   // save store if it should remain persistent
   var constructorOptions = {}
+  var newStore = false
   if (opts.persistentStore && oldChr) {
     constructorOptions.store = oldChr.Store
+    newStore = true
   }
 
   // compile given CHR source code
@@ -70,20 +72,24 @@ function CHRWorker (parsed, oldChr, opts) {
     })
   }
 
-  chr.Store.on('add', function (data) {
-    application.remote.storeEvent({
-      event: 'store:add',
-      constraint: data,
-      constraintString: data.toString()
+  if (newStore) {
+    chr.Store.removeAllListeners('add')
+    chr.Store.removeAllListeners('remove')
+    chr.Store.on('add', function (data) {
+      application.remote.storeEvent({
+        event: 'store:add',
+        constraint: data,
+        constraintString: data.toString()
+      })
     })
-  })
-  chr.Store.on('remove', function (data) { 
-    application.remote.storeEvent({
-      event: 'store:remove',
-      constraint: data,
-      constraintString: data.toString()
+    chr.Store.on('remove', function (data) { 
+      application.remote.storeEvent({
+        event: 'store:remove',
+        constraint: data,
+        constraintString: data.toString()
+      })
     })
-  })
+  }
 
   function killConstraint (id) {
     chr.Store.kill(id)
