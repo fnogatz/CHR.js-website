@@ -9,6 +9,9 @@ const CHR_URI = BASE_URI + '/public/js/playground/chr-wop.js'
 function Solver (opts) {
   var self = this
 
+  this._pluginConnected = false
+  this._pluginConnectionTry = 0
+
   this.onStart = function () {}
   this.onError = function () {}
   this.onEnd = function () {}
@@ -32,6 +35,8 @@ function Solver (opts) {
   plugin.whenConnected(function () {
     // load CHR.js into variable `CHR` in plugin context
     plugin.remote.loadCHR(CHR_URI)
+
+    self._pluginConnected = true
   })
 
   this.plugin = plugin
@@ -62,10 +67,33 @@ function Solver (opts) {
   }
 }
 
+/**
+ * Time in milliseonds to try to reconnect the
+ *   plugin if not loaded yet.
+ * @type {Number}
+ */
+Solver.RETRYTIME = 200
+Solver.MAXRETRIES = 5
+
 Solver.prototype.setSource = function (parsed) {
+  var self = this
   var opts = this.getOptions() || {}
 
+  if (!this._pluginConnected) {
+    if (++this._pluginConnectionTry === Solver.MAXRETRIES) {
+      this.onError('Could not connect to remote solver plugin.')
+      return
+    }
+
+    setTimeout(function () {
+      self.setSource(parsed)
+    }, Solver.RETRYTIME)
+
+    return
+  }
+
   this.plugin.remote.setSource(parsed, opts)
+  this._pluginConnectionTry = 0
 }
 
 Solver.prototype.callQuery = function (parsed, opts) {

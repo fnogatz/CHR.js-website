@@ -111,6 +111,7 @@ $(document).ready(function () {
     parsingErrorNotification: $('#notification-parsing-error'),
     queryErrorNotification: $('#notification-query-error'),
     gistErrorNotification: $('#notification-gist-error'),
+    timeoutErrorNotification: $('#notification-timeout-error'),
     queryButton: $('#query button'),
     queryInput: $('#query input'),
     compileButton: $('#compile-button'),
@@ -182,9 +183,14 @@ $(document).ready(function () {
     }
   }
 
+  var solverTimer
   solver.onStart = function () {
     jq.spinner.show()
     util.hide(jq.notifications)
+
+    solverTimer = new ExecutionTimer()
+    solverTimer.onExceed = solverTimerExceeded
+    solverTimer.start()
 
     logEvent('Execution started')
 
@@ -193,10 +199,12 @@ $(document).ready(function () {
     deactivateSource()
   }
   solver.onError = function (error) {
+    solverTimer.stop()
     $('#notification-query-error .mesg').text(error)
     jq.queryErrorNotification.show()
   }
   solver.onEnd = function (data) {
+    solverTimer.stop()
     logEvent('Execution finished')
 
     executionEnd(data)
@@ -273,11 +281,7 @@ $(document).ready(function () {
       // tracing activated
       jq.traceLogPanel.empty()
 
-      $('#tracer-play').show().prop('disabled', false)
-      $('#tracer-pause').hide().prop('disabled', 'disabled')
-      $('#tracer-continue').prop('disabled', false)
-      $('#tracer-end').prop('disabled', false)
-      $('#tracer-abort').prop('disabled', false)
+      enableTracerControl()
 
       parser.parse('query', query, {
         trace: true
@@ -324,6 +328,21 @@ $(document).ready(function () {
     }
   }
 
+  function solverTimerExceeded () {
+    if (jq.switchTracing.bootstrapSwitch('state')) {
+      return
+    }
+
+    jq.timeoutErrorNotification.find('.mesg').text('The solver uses more time to terminate than normal. Do you want to trace the program?')
+    util.show(jq.timeoutErrorNotification)
+
+    jq.spinner.hide()
+    jq.switchTracing.bootstrapSwitch('disabled', false)
+    jq.switchTracing.bootstrapSwitch('state', true)
+    jq.switchTracing.bootstrapSwitch('disabled', true)
+    enableTracerControl()
+  }
+
   function updateStoreView (store) {
     // clear table
     jq.store.empty()
@@ -359,6 +378,14 @@ $(document).ready(function () {
     $('#tracer-continue').prop('disabled', 'disabled')
     $('#tracer-end').prop('disabled', 'disabled')
     $('#tracer-abort').prop('disabled', 'disabled')
+  }
+
+  function enableTracerControl () {
+    $('#tracer-play').show().prop('disabled', false)
+    $('#tracer-pause').hide().prop('disabled', 'disabled')
+    $('#tracer-continue').prop('disabled', false)
+    $('#tracer-end').prop('disabled', false)
+    $('#tracer-abort').prop('disabled', false)
   }
 
   function removeConstraint (id) {
@@ -519,6 +546,7 @@ $(document).ready(function () {
     $('#tracer-abort').click(function () {
       marker.clear()
       logEvent('Execution aborted.')
+      util.hide(jq.notifications)
       executionEnd()
     })
   }
@@ -668,6 +696,49 @@ function getTime () {
   return ('0' + time.getHours()).slice(-2) + ':' + ('0' + time.getMinutes()).slice(-2) + ':' + ('0' + time.getSeconds()).slice(-2)
 }
 
+function ExecutionTimer () {
+  this.startDate = new Date()
+  this.endDate = null
+  this.maxExecutionTime = ExecutionTimer.MAXEXECUTIONTIME
+  this.timer = null
+  this.onExceed = function () {}
+}
+
+/**
+ * Maximum amount of milliseconds to wait before call the
+ *   timeExceeded error.
+ * @type {Number}
+ */
+ExecutionTimer.MAXEXECUTIONTIME = 3000
+
+ExecutionTimer.prototype.start = function startExecutionTimer (startDate) {
+  var self = this
+
+  this.startDate = startDate || new Date()
+  this.timer = setTimeout(function () {
+    self.exceed()
+  }, this.maxExecutionTime)
+}
+
+ExecutionTimer.prototype.stop = function stopExecutionTimer (stopDate) {
+  this.stopDate = stopDate || new Date()
+
+  this.clearTimer()
+}
+
+ExecutionTimer.prototype.clearTimer = function clearExecutionTimer () {
+  if (this.timer) {
+    clearTimeout(this.timer)
+    this.timer = null
+  }
+}
+
+ExecutionTimer.prototype.exceed = function timeExceeded () {
+  this.onExceed()
+
+  this.clearTimer()
+}
+
 },{"./editor":1,"./parser":3,"./solver":4,"./util":5}],3:[function(require,module,exports){
 /* global URI, Worker */
 
@@ -726,6 +797,9 @@ const CHR_URI = BASE_URI + '/public/js/playground/chr-wop.js'
 function Solver (opts) {
   var self = this
 
+  this._pluginConnected = false
+  this._pluginConnectionTry = 0
+
   this.onStart = function () {}
   this.onError = function () {}
   this.onEnd = function () {}
@@ -749,6 +823,8 @@ function Solver (opts) {
   plugin.whenConnected(function () {
     // load CHR.js into variable `CHR` in plugin context
     plugin.remote.loadCHR(CHR_URI)
+
+    self._pluginConnected = true
   })
 
   this.plugin = plugin
@@ -779,10 +855,33 @@ function Solver (opts) {
   }
 }
 
+/**
+ * Time in milliseonds to try to reconnect the
+ *   plugin if not loaded yet.
+ * @type {Number}
+ */
+Solver.RETRYTIME = 200
+Solver.MAXRETRIES = 5
+
 Solver.prototype.setSource = function (parsed) {
+  var self = this
   var opts = this.getOptions() || {}
 
+  if (!this._pluginConnected) {
+    if (++this._pluginConnectionTry === Solver.MAXRETRIES) {
+      this.onError('Could not connect to remote solver plugin.')
+      return
+    }
+
+    setTimeout(function () {
+      self.setSource(parsed)
+    }, Solver.RETRYTIME)
+
+    return
+  }
+
   this.plugin.remote.setSource(parsed, opts)
+  this._pluginConnectionTry = 0
 }
 
 Solver.prototype.callQuery = function (parsed, opts) {
