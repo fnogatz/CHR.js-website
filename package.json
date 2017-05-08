@@ -26,11 +26,11 @@
   },
   "homepage": "https://github.com/fnogatz/CHR.js-website",
   "devDependencies": {
-    "browserify": "^11.0.1",
-    "chr": "^2.0.0",
-    "download": "^4.1.2",
-    "standard": "^5.0.2",
-    "uglify-js": "^2.4.24",
+    "browserify": "^14.3.0",
+    "chr": "^3.0.0",
+    "download": "^6.0.0",
+    "standard": "^10.0.2",
+    "uglify-js": "^3.0.1",
     "uglifyify": "^3.0.1"
   },
   "standard": {
