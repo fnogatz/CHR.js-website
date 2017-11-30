@@ -1,6 +1,6 @@
 {
   "name": "chrjs-website",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "The code that runs http://chrjs.net",
   "scripts": {
     "browserify": "browserify -t uglifyify src/playground/index.js | uglifyjs --compress > ./public/js/playground/index.js",
