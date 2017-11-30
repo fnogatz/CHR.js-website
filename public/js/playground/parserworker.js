@@ -35,8 +35,6 @@ self.addEventListener('message', function (obj) {
     parsed: parsed,
     data: data
   })
-
-  return
 })
 
 self.postMessage('ready')

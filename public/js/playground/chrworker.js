@@ -82,7 +82,7 @@ function CHRWorker (parsed, oldChr, opts) {
         constraintString: data.toString()
       })
     })
-    chr.Store.on('remove', function (data) { 
+    chr.Store.on('remove', function (data) {
       application.remote.storeEvent({
         event: 'store:remove',
         constraint: data,

@@ -83,7 +83,6 @@ $(document).ready(function () {
       }
 
       solver.callQuery(parsed)
-      return
     }
   }
 
@@ -479,7 +478,7 @@ $(document).ready(function () {
 
   function traceEvent (data) {
     if (data.event && (data.event === 'store:add' || data.event === 'store:remove')) {
-      if ($('input[data-event="'+data.event+'"]').is(':checked')) {
+      if ($('input[data-event="' + data.event + '"]').is(':checked')) {
         logEvent(data)
       }
       return
@@ -492,7 +491,7 @@ $(document).ready(function () {
       updateStoreView(data.store)
     }
 
-    if (data && data.event && !$('input[data-event="'+data.event+'"]').is(':checked')) {
+    if (data && data.event && !$('input[data-event="' + data.event + '"]').is(':checked')) {
       marker.clear()
       jq.spinner.show()
       solver.continueBreakpoint()
@@ -523,9 +522,9 @@ $(document).ready(function () {
     } else if (data.event === 'rule:try-occurrence') {
       msg = 'Try occurrence ' + data.occurrence + ' for ' + data.constraint
     } else if (data.event === 'store:add') {
-      msg = 'Added constraint '+data.constraintString + ' to the store'
+      msg = 'Added constraint ' + data.constraintString + ' to the store'
     } else if (data.event === 'store:remove') {
-      msg = 'Removed constraint '+data.constraintString+' from the store'
+      msg = 'Removed constraint ' + data.constraintString + ' from the store'
     }
 
     var el = '<p><code>[' + getTime() + '] ' + msg + '</code></p>'
@@ -589,7 +588,7 @@ function updateQueryString (key, value, url) {
 }
 
 function getParameterByName (name) {
-  name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]')
+  name = name.replace(/[[]/, '\\[').replace(/[\]]/, '\\]')
   var regex = new RegExp('[\\?&]' + name + '=([^&#]*)')
   var results = regex.exec(window.location.search)
   return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '))

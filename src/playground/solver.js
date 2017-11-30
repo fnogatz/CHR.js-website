@@ -55,7 +55,6 @@ function Solver (opts) {
     }
 
     self.onEnd(data)
-    return
   }
 
   function breakpoint (data) {
